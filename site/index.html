@@ -1006,13 +1006,20 @@
         }
 
         @media (max-width: 768px) {
-            .hamburger { display: block; }
+            nav { position: relative; }
+            .hamburger {
+                display: block;
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+            }
             .nav-controls {
                 display: none;
                 position: fixed;
                 top: 0;
                 right: 0;
-                width: 260px;
+                width: 280px;
                 height: 100vh;
                 background: var(--bg-card);
                 backdrop-filter: blur(20px);
@@ -1023,8 +1030,7 @@
                 padding: 5rem 1.5rem 2rem;
                 gap: 0;
                 z-index: 99;
-                box-shadow: var(--shadow-lg);
-                border-left: 1px solid var(--border);
+                box-shadow: -4px 0 24px rgba(0,0,0,0.1);
             }
             .nav-controls.open { display: flex; }
             .nav-links {
