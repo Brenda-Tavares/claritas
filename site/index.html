@@ -383,10 +383,6 @@
             border-radius: 16px;
             padding: 4rem;
             margin-bottom: 5rem;
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 3rem;
-            align-items: start;
         }
 
         .authority-label {
@@ -395,7 +391,14 @@
             text-transform: uppercase;
             letter-spacing: 0.1em;
             color: var(--accent);
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .authority-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: start;
         }
 
         .authority h2 {
@@ -1049,7 +1052,7 @@
             header { padding: 1rem 1.25rem; }
             main { padding: 0 1.25rem; }
             .content-grid { grid-template-columns: 1fr; }
-            .authority { grid-template-columns: 1fr; }
+            .authority-grid { grid-template-columns: 1fr; }
             .sim-grid { grid-template-columns: 1fr; }
             .code-comparison { grid-template-columns: 1fr; }
             .form-row { grid-template-columns: 1fr; }
@@ -1166,13 +1169,13 @@
             </div>
 
             <div class="authority">
-                <div>
-                    <div class="authority-label">Metodologia</div>
+                <div class="authority-label">Metodologia</div>
+                <div class="authority-grid">
                     <h2>Endossado por princípios de Engenharia de Software.</h2>
-                </div>
-                <div class="authority-content">
-                    <p>O Claritas não utiliza "achismos" ou personas mágicas. Todo o conteúdo aqui é fundamentado em <strong>Engenharia de Software</strong> e <strong>Cibersegurança</strong>.</p>
-                    <p>Ensinamos você a tratar a IA como uma ferramenta de processamento probabilístico, aplicando validação de premissas, tolerância zero a alucinações e design defensivo desde a concepção do prompt.</p>
+                    <div class="authority-content">
+                        <p>O Claritas não utiliza "achismos" ou personas mágicas. Todo o conteúdo aqui é fundamentado em <strong>Engenharia de Software</strong> e <strong>Cibersegurança</strong>.</p>
+                        <p>Ensinamos você a tratar a IA como uma ferramenta de processamento probabilístico, aplicando validação de premissas, tolerância zero a alucinações e design defensivo desde a concepção do prompt.</p>
+                    </div>
                 </div>
             </div>
         </section>
