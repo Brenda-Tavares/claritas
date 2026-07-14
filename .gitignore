@@ -1,0 +1,24 @@
+# Node
+node_modules/
+npm-debug.log*
+
+# Wrangler (CW)
+.wrangler/
+.dev.vars
+worker-playground/.dev.vars
+
+# Environment
+.env
+.env.local
+.env.production
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Governance
+governance/

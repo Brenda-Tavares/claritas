@@ -1,0 +1,2021 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claritas | Engenharia de Prompt e Documentação</title>
+    
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' http://localhost:* https://*.workers.dev; frame-ancestors 'none'; base-uri 'self'; form-action 'none';">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="referrer" content="no-referrer">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+    <link rel="icon" id="favicon" href="assets/icons/favicon-light.ico">
+    <link rel="apple-touch-icon" id="app-icon" href="assets/icons/icon-light.png">
+
+
+    <style>
+        :root {
+            --bg-main: #FAFAF7;
+            --bg-card: rgba(255, 255, 255, 0.95);
+            --header-bg: rgba(250, 250, 247, 0.98);
+            --text-main: #1A1A1A;
+            --text-muted: #6B7280;
+            --accent: #D97706;
+            --accent-soft: rgba(217, 119, 6, 0.08);
+            --border: #E5E7EB;
+            
+            --code-inline-bg: rgba(217, 119, 6, 0.08);
+            --code-inline-text: #92400E;
+            --pre-bg: #1F2937;
+            --pre-text: #F3F4F6;
+            --pre-border: #374151;
+            
+            --table-th-bg: #F9FAFB;
+            --alert-bg: rgba(217, 119, 6, 0.05);
+            --alert-text: #92400E;
+            --alert-border: #D97706;
+            
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        [data-theme="dark"] {
+            --bg-main: #0A0A0A;
+            --bg-card: rgba(23, 23, 23, 0.8);
+            --header-bg: rgba(10, 10, 10, 0.98);
+            --text-main: #F5F5F4;
+            --text-muted: #A8A29E;
+            --accent: #F59E0B;
+            --accent-soft: rgba(245, 158, 11, 0.12);
+            --border: #292524;
+            
+            --code-inline-bg: rgba(245, 158, 11, 0.12);
+            --code-inline-text: #FCD34D;
+            --pre-bg: #000000;
+            --pre-text: #F5F5F4;
+            --pre-border: #1C1917;
+            
+            --table-th-bg: rgba(255, 255, 255, 0.03);
+            --alert-bg: rgba(245, 158, 11, 0.08);
+            --alert-text: #FCD34D;
+            --alert-border: #F59E0B;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        }
+
+        header {
+            background: var(--header-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            padding: 1.25rem 2.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-area { display: flex; align-items: center; gap: 1rem; text-decoration: none; }
+
+        .brand-logo { width: 72px; height: 72px; object-fit: contain; border-radius: 14px; }
+
+        .brand-name { 
+            font-family: 'Playfair Display', serif;
+            font-weight: 800; 
+            color: var(--text-main); 
+            font-size: 1.5rem; 
+            letter-spacing: -0.02em;
+        }
+
+        .nav-controls { display: flex; align-items: center; gap: 2.5rem; }
+        .nav-links { display: flex; gap: 2rem; }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            transition: color 0.2s;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active { color: var(--text-main); }
+        .nav-link.active::after { width: 100%; }
+
+        .theme-toggle {
+            display: flex;
+            gap: 0.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 0.25rem;
+        }
+
+        .theme-btn {
+            background: transparent;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            color: var(--text-muted);
+        }
+
+        .theme-btn.active {
+            background: var(--accent);
+            color: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .theme-btn:hover:not(.active) {
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2.5rem;
+        }
+
+        .page { display: none; }
+        .page.active { display: block; animation: fadeIn 0.6s ease; }
+
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(10px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        .hero {
+            padding: 6rem 0 5rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 5rem;
+        }
+
+        .hero-content { max-width: 560px; }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--accent-soft);
+            color: var(--accent);
+            padding: 0.5rem 1.25rem;
+            border-radius: 24px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 2rem;
+        }
+
+        .hero-badge::before { content: '◈'; font-size: 0.9rem; }
+
+        .hero h1 { 
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem; 
+            font-weight: 900; 
+            line-height: 1.05; 
+            letter-spacing: -0.03em; 
+            margin-bottom: 2rem;
+            color: var(--text-main);
+        }
+
+        .hero h1 em { font-style: italic; color: var(--accent); }
+
+        .hero p { 
+            font-size: 1.25rem; 
+            color: var(--text-muted); 
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .stat-item { display: flex; flex-direction: column; }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .hero-visual { position: relative; height: 480px; }
+
+        /* CORREÇÃO: Code Preview centralizado verticalmente */
+        .code-preview {
+            position: absolute;
+            background: var(--pre-bg);
+            color: var(--pre-text);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1.2rem;
+        }
+
+        .code-preview::before {
+            content: '● ● ●';
+            display: block;
+            color: #6B7280;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .code-line { opacity: 0.7; }
+        .code-line.highlight { opacity: 1; color: var(--accent); font-weight: bold; }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 6rem;
+        }
+
+        .grid-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .grid-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .grid-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent);
+        }
+
+        .grid-card:hover::before { transform: scaleY(1); }
+
+        .card-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--accent);
+            opacity: 0.15;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .grid-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .grid-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+
+        .authority {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 4rem;
+            margin-bottom: 5rem;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .authority-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .authority h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            color: var(--text-main);
+        }
+
+        .authority-content p {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .authority-content strong { color: var(--text-main); font-weight: 600; }
+
+        .page-header {
+            padding: 4rem 0 3rem;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 3rem;
+        }
+
+        .page-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 700px;
+        }
+
+        .content-section {
+            margin-bottom: 4rem;
+            scroll-margin-top: 100px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 28px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .content-text {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .alert {
+            background: var(--alert-bg);
+            border-left: 4px solid var(--alert-border);
+            padding: 1.5rem 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .alert strong { color: var(--alert-border); font-weight: 700; }
+
+        code {
+            background: var(--code-inline-bg);
+            color: var(--code-inline-text);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        pre {
+            background: var(--pre-bg);
+            color: var(--pre-text);
+            padding: 2rem;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 2rem 0;
+            border: 1px solid var(--pre-border);
+            box-shadow: var(--shadow-md);
+        }
+
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        ul { margin: 1.5rem 0; padding-left: 1.5rem; }
+        li { margin-bottom: 0.75rem; color: var(--text-muted); font-size: 1.05rem; }
+        li::marker { color: var(--accent); font-weight: bold; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+
+        th, td { padding: 1.25rem; text-align: left; border-bottom: 1px solid var(--border); }
+
+        th {
+            background: var(--table-th-bg);
+            font-weight: 700;
+            color: var(--text-main);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+        }
+
+        .simulator {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 3rem;
+            margin: 3rem 0;
+        }
+
+        .sim-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .sim-title { font-family: 'Playfair Display', serif; font-size: 1.75rem; font-weight: 700; }
+
+        .sim-generate-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .sim-generate-btn:hover {
+            background: var(--text-main);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .sim-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .sim-column { display: flex; flex-direction: column; }
+
+        .sim-label {
+            font-weight: 700;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+            color: var(--text-main);
+        }
+
+        .sim-input {
+            width: 100%;
+            min-height: 140px;
+            padding: 1.25rem;
+            background: var(--bg-main);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 0.95rem;
+            resize: vertical;
+            transition: border-color 0.2s;
+        }
+
+        .sim-input:focus { outline: none; border-color: var(--accent); }
+
+        .sim-result {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--accent-soft);
+            border-radius: 8px;
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        .sim-result.good { background: rgba(34, 197, 94, 0.1); color: #16A34A; }
+
+        .sim-savings {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--bg-main);
+            border-radius: 12px;
+            text-align: center;
+            border: 2px dashed var(--border);
+        }
+
+        .savings-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .savings-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* MARKDOWN SIDEBAR */
+        .md-layout {
+            position: relative;
+        }
+        .md-sidebar {
+            position: fixed;
+            left: max(12px, calc((100vw - 1200px) / 2 - 185px));
+            top: 50%;
+            transform: translateY(-50%);
+            width: 150px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            z-index: 5;
+            transition: opacity 0.35s ease;
+        }
+        .md-sidebar-link {
+            display: block;
+            padding: 0.2rem 0;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.82rem;
+            text-align: right;
+            transition: font-size 0.25s, opacity 0.25s, color 0.25s;
+        }
+        .md-sidebar-link:hover { color: var(--text-main); opacity: 0.85 !important; }
+        .md-sidebar-link.depth-0 {
+            font-size: 0.95rem;
+            opacity: 1;
+            color: var(--accent);
+        }
+        .md-sidebar-link.depth-1 {
+            font-size: 0.87rem;
+            opacity: 0.65;
+        }
+        .md-sidebar-link.depth-2 {
+            font-size: 0.8rem;
+            opacity: 0.4;
+        }
+        .md-sidebar-link.depth-3 {
+            font-size: 0.75rem;
+            opacity: 0.2;
+        }
+
+        /* MOBILE DROPDOWN */
+        .md-dropdown {
+            display: none;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            background: var(--bg-card);
+        }
+        .md-dropdown summary {
+            padding: 0.85rem 1.25rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            user-select: none;
+        }
+        .md-dropdown summary::-webkit-details-marker { display: none; }
+        .dd-arrow { transition: transform 0.2s; font-size: 0.8rem; color: var(--text-muted); }
+        .md-dropdown[open] .dd-arrow { transform: rotate(180deg); }
+        .dd-links {
+            display: flex;
+            flex-direction: column;
+            border-top: 1px solid var(--border);
+        }
+        .dd-link {
+            padding: 0.75rem 1.25rem;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: background 0.15s, color 0.15s;
+        }
+        .dd-link:hover { background: var(--bg-main); color: var(--text-main); }
+        .dd-link + .dd-link { border-top: 1px solid var(--border); }
+
+        .code-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .code-col {
+            display: flex;
+            flex-direction: column;
+        }
+        .code-col h4 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+        .code-col > :last-child {
+            flex: 1;
+        }
+        .code-col pre { margin: 0; }
+        .code-col .result-box { height: 100%; box-sizing: border-box; }
+
+        blockquote {
+            border-left: 4px solid var(--accent);
+            padding-left: 1rem;
+            color: var(--text-muted);
+            font-style: italic;
+            margin: 1rem 0;
+        }
+
+        .reference-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow-sm);
+        }
+        .reference-card h3 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+        }
+        .reference-card p {
+            margin-bottom: 0.5rem;
+        }
+        .reference-card a {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-decoration: none;
+            border-bottom: 1px solid var(--border);
+            transition: border-color 0.2s, color 0.2s;
+        }
+        .reference-card a:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* FOOTER */
+        .site-footer {
+            border-top: 1px solid var(--border);
+            margin-top: 6rem;
+            padding: 4rem 2.5rem 2rem;
+            background: var(--bg-card);
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+        .footer-col-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-main);
+            margin-bottom: 0.4rem;
+        }
+        .footer-tagline {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        .footer-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            transition: color 0.2s;
+        }
+        .footer-link:hover { color: var(--accent); }
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* TOKEN COUNTER */
+        .api-form {
+            display: grid;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .form-group label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+        .form-select {
+            padding: 0.75rem 1rem;
+            background: var(--bg-main);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+            cursor: pointer;
+        }
+        .form-select:focus { outline: none; border-color: var(--accent); }
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.85rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .btn-primary:hover {
+            background: var(--text-main);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .result-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 1.5rem 0;
+        }
+        .result-item {
+            text-align: center;
+        }
+        .result-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--accent);
+            line-height: 1;
+        }
+        .result-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 0.5rem;
+        }
+        .error-msg {
+            color: #DC2626;
+            font-size: 0.9rem;
+            padding: 0.75rem 1rem;
+            background: rgba(220, 38, 38, 0.08);
+            border-radius: 8px;
+        }
+
+        /* PLAYGROUND */
+        .chat-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+        .chat-messages {
+            padding: 2rem;
+            min-height: 300px;
+            max-height: 500px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .chat-msg {
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            max-width: 85%;
+            line-height: 1.6;
+            font-size: 0.95rem;
+            animation: fadeIn 0.3s ease;
+        }
+        .chat-msg.user {
+            background: var(--accent-soft);
+            color: var(--text-main);
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        .chat-msg.assistant {
+            background: var(--bg-main);
+            color: var(--text-main);
+            align-self: flex-start;
+            border: 1px solid var(--border);
+            border-bottom-left-radius: 4px;
+        }
+        .chat-msg.assistant.loading {
+            opacity: 0.7;
+        }
+        .chat-input-area {
+            display: flex;
+            gap: 1rem;
+            padding: 1.5rem 2rem;
+            border-top: 1px solid var(--border);
+            background: var(--bg-main);
+        }
+        .chat-input {
+            flex: 1;
+            padding: 0.85rem 1.25rem;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+            resize: none;
+        }
+        .chat-input:focus { outline: none; border-color: var(--accent); }
+        .chat-controls {
+            display: flex;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            border-top: 1px solid var(--border);
+            background: var(--bg-main);
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .chat-controls select {
+            padding: 0.5rem 0.75rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+        .chat-controls label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .hero { grid-template-columns: 1fr; }
+            .content-grid { grid-template-columns: 1fr; }
+            .authority { grid-template-columns: 1fr; }
+            .sim-grid { grid-template-columns: 1fr; }
+            .code-comparison { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .result-card { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.5rem; }
+            .nav-controls { gap: 1rem; }
+            .nav-links { gap: 1rem; font-size: 0.85rem; }
+            .footer-content { flex-direction: column; gap: 2rem; }
+            .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+            .chat-msg { max-width: 95%; }
+            .footer-content { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 1300px) {
+            .md-sidebar { display: none; }
+            .md-dropdown { display: block; }
+        }
+        @media (min-width: 1301px) {
+            .md-dropdown { display: none; }
+        }
+
+        @media (max-width: 480px) {
+            .footer-content { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="#home" class="brand-area">
+                <img src="assets/logo-light.png" alt="Claritas" class="brand-logo" id="header-logo" onerror="this.style.display='none'">
+                <span class="brand-name">Claritas</span>
+            </a>
+            <div class="nav-controls">
+                <div class="nav-links">
+                    <a href="#home" class="nav-link active" data-route="home">Início</a>
+                    <a href="#markdown" class="nav-link" data-route="markdown">Markdown</a>
+                    <a href="#prompt" class="nav-link" data-route="prompt">Engenharia</a>
+                    <a href="#tokens" class="nav-link" data-route="tokens">Economia</a>
+                    <a href="#token-counter" class="nav-link" data-route="token-counter">Contador</a>
+                    <a href="#playground" class="nav-link" data-route="playground">Playground</a>
+                    <a href="#sobre" class="nav-link" data-route="sobre">Sobre</a>
+                </div>
+                <div class="theme-toggle">
+                    <button class="theme-btn" data-theme="light" title="Modo Claro">☀</button>
+                    <button class="theme-btn" data-theme="dark" title="Modo Escuro">☾</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- HOME -->
+        <section id="home" class="page active">
+            <div class="hero">
+                <div class="hero-content">
+                    <span class="hero-badge">Documentação Técnica</span>
+                    <h1>Comunicação <em>estruturada</em> para Inteligência Artificial.</h1>
+                    <p>Um guia prático sobre Engenharia de Prompt, Markdown e otimização de tokens. Focado em rigor lógico, cibersegurança e clareza absoluta para desenvolvedores.</p>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">40%</span>
+                            <span class="stat-label">Redução de Tokens</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">∞</span>
+                            <span class="stat-label">Escalabilidade</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">0</span>
+                            <span class="stat-label">Alucinações</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="code-preview">
+                        <div class="code-line"># PROTOCOLO OPERACIONAL</div>
+                        <div class="code-line highlight">1. RIGOR LÓGICO: Valide premissas</div>
+                        <div class="code-line">2. TOLERÂNCIA ZERO: Sem alucinações</div>
+                        <div class="code-line highlight">3. OUTPUT CRU: Apenas código</div>
+                        <div class="code-line">4. SEGURANÇA: CSP obrigatória</div>
+                        <div class="code-line">5. ACESSIBILIDADE: prefers-reduced-motion</div>
+                        <div class="code-line highlight">6. ECONOMIA: Restrição negativa</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <a href="#markdown" class="grid-card" onclick="document.querySelector('[data-route=markdown]').click()">
+                    <div class="card-number">01</div>
+                    <h3>Markdown Universal</h3>
+                    <p>O padrão global para documentação técnica, versionamento e estruturação de dados legíveis por humanos e máquinas.</p>
+                </a>
+                <a href="#prompt" class="grid-card" onclick="document.querySelector('[data-route=prompt]').click()">
+                    <div class="card-number">02</div>
+                    <h3>Espaço Latente</h3>
+                    <p>Como mapear skills e protocolos operacionais dentro das limitações arquiteturais reais dos modelos de linguagem.</p>
+                </a>
+                <a href="#tokens" class="grid-card" onclick="document.querySelector('[data-route=tokens]').click()">
+                    <div class="card-number">03</div>
+                    <h3>Economia de Tokens</h3>
+                    <p>Restrições negativas e output cru para reduzir custos computacionais e latência em APIs de alto volume.</p>
+                </a>
+            </div>
+
+            <div class="authority">
+                <div>
+                    <div class="authority-label">Metodologia</div>
+                    <h2>Endossado por princípios de Engenharia de Software.</h2>
+                </div>
+                <div class="authority-content">
+                    <p>O Claritas não utiliza "achismos" ou personas mágicas. Todo o conteúdo aqui é fundamentado em <strong>Engenharia de Software</strong> e <strong>Cibersegurança</strong>.</p>
+                    <p>Ensinamos você a tratar a IA como uma ferramenta de processamento probabilístico, aplicando validação de premissas, tolerância zero a alucinações e design defensivo desde a concepção do prompt.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- MARKDOWN EXPANDIDO -->
+        <section id="markdown" class="page">
+            <div class="page-header">
+                <h1 class="page-title">A Base: Markdown</h1>
+                <p class="page-subtitle">O padrão global para documentação técnica, READMEs, Wikis e controle de versão. Criado por John Gruber em 2004 com o objetivo de ser legível até mesmo em texto puro.</p>
+            </div>
+
+            <details class="md-dropdown">
+                <summary>Navegar <span class="dd-arrow">▾</span></summary>
+                <div class="dd-links">
+                    <a href="javascript:void(0)" onclick="gotoAnchor('md-titulos')" class="dd-link">Títulos</a>
+                    <a href="javascript:void(0)" onclick="gotoAnchor('md-enfase')" class="dd-link">Ênfase</a>
+                    <a href="javascript:void(0)" onclick="gotoAnchor('md-listas')" class="dd-link">Listas</a>
+                    <a href="javascript:void(0)" onclick="gotoAnchor('md-links')" class="dd-link">Links</a>
+                    <a href="javascript:void(0)" onclick="gotoAnchor('md-imagens')" class="dd-link">Imagens</a>
+                    <a href="javascript:void(0)" onclick="gotoAnchor('md-citacoes')" class="dd-link">Citações</a>
+                    <a href="javascript:void(0)" onclick="gotoAnchor('md-codigo')" class="dd-link">Código</a>
+                    <a href="javascript:void(0)" onclick="gotoAnchor('md-tabelas')" class="dd-link">Tabelas</a>
+                    <a href="javascript:void(0)" onclick="gotoAnchor('md-readme')" class="dd-link">README Completo</a>
+                </div>
+            </details>
+            <div class="md-layout">
+                <nav class="md-sidebar">
+                    <a href="javascript:void(0)" onclick="gotoAnchor('md-titulos')" class="md-sidebar-link" data-target="md-titulos">Títulos</a>
+                    <a href="javascript:void(0)" onclick="gotoAnchor('md-enfase')" class="md-sidebar-link" data-target="md-enfase">Ênfase</a>
+                    <a href="javascript:void(0)" onclick="gotoAnchor('md-listas')" class="md-sidebar-link" data-target="md-listas">Listas</a>
+                    <a href="javascript:void(0)" onclick="gotoAnchor('md-links')" class="md-sidebar-link" data-target="md-links">Links</a>
+                    <a href="javascript:void(0)" onclick="gotoAnchor('md-imagens')" class="md-sidebar-link" data-target="md-imagens">Imagens</a>
+                    <a href="javascript:void(0)" onclick="gotoAnchor('md-citacoes')" class="md-sidebar-link" data-target="md-citacoes">Citações</a>
+                    <a href="javascript:void(0)" onclick="gotoAnchor('md-codigo')" class="md-sidebar-link" data-target="md-codigo">Código</a>
+                    <a href="javascript:void(0)" onclick="gotoAnchor('md-tabelas')" class="md-sidebar-link" data-target="md-tabelas">Tabelas</a>
+                    <a href="javascript:void(0)" onclick="gotoAnchor('md-readme')" class="md-sidebar-link" data-target="md-readme">README Completo</a>
+                </nav>
+
+            <div class="content-section" id="md-titulos">
+                <h2 class="section-title">Títulos e Hierarquia</h2>
+                <p class="content-text">Use cerquilhas (<code>#</code>) para definir a hierarquia. O número de cerquilhas indica o nível do título. <strong>Boa prática:</strong> Use apenas um H1 por página (o título principal) e organize o resto em H2 e H3.</p>
+                <div class="code-comparison">
+                    <div class="code-col">
+                        <h4>Markdown</h4>
+                        <pre><code># Título Principal
+## Seção
+### Subseção
+#### Tópico</code></pre>
+                    </div>
+                    <div class="code-col">
+                        <h4>Resultado</h4>
+                        <div class="result-box" style="padding:1.5rem;background:var(--bg-main);border-radius:8px;border:1px solid var(--border);">
+                            <h1 style="font-family:'Playfair Display',serif;font-weight:800;font-size:2rem;margin-bottom:0.5rem;color:var(--text-main);">Título Principal</h1>
+                            <h2 style="font-weight:700;font-size:1.5rem;margin-bottom:0.5rem;color:var(--text-main);">Seção</h2>
+                            <h3 style="font-weight:600;font-size:1.25rem;margin-bottom:0.5rem;color:var(--text-main);">Subseção</h3>
+                            <h4 style="font-weight:600;font-size:1rem;color:var(--text-muted);">Tópico</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section" id="md-enfase">
+                <h2 class="section-title">Ênfase e Formatação</h2>
+                <p class="content-text">Markdown usa asteriscos ou underlines para ênfase. Evite usar CAIXA ALTA para gritar; use negrito para destacar conceitos-chave.</p>
+                <div class="code-comparison">
+                    <div class="code-col">
+                        <h4>Markdown</h4>
+                        <pre><code>**Negrito** ou __Negrito__
+*Itálico* ou _Itálico_
+~~Tachado~~
+***Misto***</code></pre>
+                    </div>
+                    <div class="code-col">
+                        <h4>Resultado</h4>
+                        <div class="result-box" style="padding:1.5rem;background:var(--bg-main);border-radius:8px;border:1px solid var(--border);line-height:2;">
+                             <strong style="color:var(--text-main);">Negrito</strong><br>
+                            <em style="color:var(--text-main);">Itálico</em><br>
+                            <del style="color:var(--text-muted);">Tachado</del><br>
+                            <strong><em style="color:var(--text-main);">Misto</em></strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section" id="md-listas">
+                <h2 class="section-title">Listas</h2>
+                <p class="content-text">Essenciais para escaneabilidade. Use listas não ordenadas para itens sem hierarquia e ordenadas para passos sequenciais.</p>
+                <div class="code-comparison">
+                    <div class="code-col">
+                        <h4>Markdown</h4>
+                        <pre><code>1. Primeiro
+2. Segundo
+3. Terceiro
+
+---
+
+* Item A
+* Item B
+  * Subitem B1</code></pre>
+                    </div>
+                    <div class="code-col">
+                        <h4>Resultado</h4>
+                        <div class="result-box" style="padding:1.5rem;background:var(--bg-main);border-radius:8px;border:1px solid var(--border);">
+                            <ol style="margin:0 0 1rem 1.5rem;">
+                                <li style="color:var(--text-main);">Primeiro</li>
+                                <li style="color:var(--text-main);">Segundo</li>
+                                <li style="color:var(--text-main);">Terceiro</li>
+                            </ol>
+                            <hr style="border:none;border-top:1px solid var(--border);margin:1rem 0;">
+                            <ul style="margin:0 0 0 1.5rem;">
+                                <li style="color:var(--text-main);">Item A</li>
+                                <li style="color:var(--text-main);">Item B
+                                    <ul style="margin:0.25rem 0 0 1.5rem;">
+                                        <li style="color:var(--text-muted);">Subitem B1</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section" id="md-links">
+                <h2 class="section-title">Links e Âncoras</h2>
+                <p class="content-text">A sintaxe é <code>[Texto Visível](URL)</code>. <strong>Dica de Acessibilidade:</strong> Evite "clique aqui". Use descrições claras como "leia a documentação oficial".</p>
+                <div class="code-comparison">
+                    <div class="code-col">
+                        <h4>Markdown</h4>
+                        <pre><code>[Markdown Guide](https://www.markdownguide.org)
+https://url-direta.com</code></pre>
+                    </div>
+                    <div class="code-col">
+                        <h4>Resultado</h4>
+                        <div class="result-box" style="padding:1.5rem;background:var(--bg-main);border-radius:8px;border:1px solid var(--border);line-height:2;">
+                             <a href="https://www.markdownguide.org" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:underline;font-weight:500;">Markdown Guide</a><br>
+                            <span style="color:var(--text-muted);font-size:0.9rem;">https://url-direta.com</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section" id="md-imagens">
+                <h2 class="section-title">Imagens</h2>
+                <p class="content-text">Semelhante ao link, mas com um ponto de exclamação <code>!</code> no início. O texto entre colchetes é o <strong>Alt Text</strong>, obrigatório para leitores de tela e SEO.</p>
+                <div class="code-comparison">
+                    <div class="code-col">
+                        <h4>Markdown</h4>
+                        <pre><code>![Logotipo Claritas](assets/logo-light.png)</code></pre>
+                    </div>
+                    <div class="code-col">
+                        <h4>Resultado</h4>
+                        <div class="result-box" style="padding:1.5rem;background:var(--bg-main);border-radius:8px;border:1px solid var(--border);text-align:center;">
+                            <img src="assets/logo-light.png" alt="Logotipo Claritas" style="width:64px;height:64px;object-fit:contain;opacity:0.8;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section" id="md-citacoes">
+                <h2 class="section-title">Citações (Blockquotes)</h2>
+                <p class="content-text">Use o sinal <code>&gt;</code> para destacar trechos de outros autores, notas de aviso ou definições importantes.</p>
+                <div class="code-comparison">
+                    <div class="code-col">
+                        <h4>Markdown</h4>
+                        <pre><code>&gt; A simplicidade é o último
+&gt; grau de sofisticação.
+&gt;
+&gt; — Leonardo da Vinci</code></pre>
+                    </div>
+                    <div class="code-col">
+                        <h4>Resultado</h4>
+                        <blockquote style="margin:0;">
+                            A simplicidade é o último grau de sofisticação.<br>— Leonardo da Vinci
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section" id="md-codigo">
+                <h2 class="section-title">Código</h2>
+                <p class="content-text">Fundamental para documentação técnica. Use crase simples para inline e tripla para blocos.</p>
+                <div class="code-comparison">
+                    <div class="code-col">
+                        <h4>Markdown</h4>
+                        <pre><code>Função `console.log()`
+para depurar.
+
+```javascript
+function hello() {
+  return "Claritas";
+}
+```</code></pre>
+                    </div>
+                    <div class="code-col">
+                        <h4>Resultado</h4>
+                        <div class="result-box" style="padding:1.5rem;background:var(--bg-main);border-radius:8px;border:1px solid var(--border);">
+                            <p style="margin-bottom:1rem;color:var(--text-main);">Função <code style="background:var(--code-inline-bg);color:var(--code-inline-text);padding:0.2rem 0.4rem;border-radius:4px;font-weight:600;">console.log()</code> para depurar.</p>
+                            <pre style="margin:0;padding:1.25rem;font-size:0.85rem;"><code style="background:transparent;color:var(--pre-text);padding:0;">function hello() {
+  return "Claritas";
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section" id="md-tabelas">
+                <h2 class="section-title">Tabelas</h2>
+                <p class="content-text">Use pipes <code>|</code> e hífens <code>-</code> para estruturar dados tabulares.</p>
+                <div class="code-comparison">
+                    <div class="code-col">
+                        <h4>Markdown</h4>
+                        <pre><code>| Nome   | Tipo   |
+|--------|--------|
+| Clara  | Admin  |
+| João   | Editor |</code></pre>
+                    </div>
+                    <div class="code-col">
+                        <h4>Resultado</h4>
+                        <div style="padding:0;background:var(--bg-main);border-radius:8px;border:1px solid var(--border);overflow:hidden;">
+                            <table style="margin:0;border:none;box-shadow:none;">
+                                <tr><th style="background:var(--table-th-bg);">Nome</th><th style="background:var(--table-th-bg);">Tipo</th></tr>
+                                <tr><td style="color:var(--text-main);">Clara</td><td style="color:var(--text-muted);">Admin</td></tr>
+                                <tr><td style="color:var(--text-main);">João</td><td style="color:var(--text-muted);">Editor</td></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EXEMPLO COMPLETO DE README -->
+            <div class="content-section" id="md-readme">
+                <h2 class="section-title">Exemplo Completo de README</h2>
+                <p class="content-text">Veja como todos os elementos se combinam em um README real. Compare o código Markdown com o resultado renderizado.</p>
+                <div class="code-comparison">
+                    <div class="code-col">
+                        <h4>README.md</h4>
+                        <pre><code># Meu Projeto
+
+&gt; Ferramenta CLI para validação de Markdown.
+
+## Instalação
+
+```bash
+npm install meu-projeto
+```
+
+## Uso
+
+```bash
+meu-projeto --input README.md
+```
+
+## Funcionalidades
+
+-   Validação de sintaxe
+-   Export para HTML
+-   Suporte a **tabelas** e `código inline`
+
+## Licença
+
+MIT</code></pre>
+                    </div>
+                    <div class="code-col">
+                        <h4>Resultado</h4>
+                        <div class="result-box" style="padding:1.5rem;background:var(--bg-main);border-radius:8px;border:1px solid var(--border);">
+                            <h1 style="font-family:'Playfair Display',serif;font-weight:800;font-size:2rem;margin-bottom:1rem;color:var(--text-main);">Meu Projeto</h1>
+                            <blockquote style="margin:0 0 1.5rem 0;font-size:1rem;">
+                                Ferramenta CLI para validação de Markdown.
+                            </blockquote>
+                            <h2 style="font-weight:700;font-size:1.25rem;margin-bottom:0.75rem;color:var(--text-main);">Instalação</h2>
+                            <pre style="margin:0 0 1.5rem 0;padding:1rem;font-size:0.85rem;"><code style="background:transparent;color:var(--pre-text);padding:0;">npm install meu-projeto</code></pre>
+                            <h2 style="font-weight:700;font-size:1.25rem;margin-bottom:0.75rem;color:var(--text-main);">Uso</h2>
+                            <pre style="margin:0 0 1.5rem 0;padding:1rem;font-size:0.85rem;"><code style="background:transparent;color:var(--pre-text);padding:0;">meu-projeto --input README.md</code></pre>
+                            <h2 style="font-weight:700;font-size:1.25rem;margin-bottom:0.75rem;color:var(--text-main);">Funcionalidades</h2>
+                            <ul style="margin:0 0 1.5rem 1.5rem;">
+                                <li style="color:var(--text-main);">Validação de sintaxe</li>
+                                <li style="color:var(--text-main);">Export para HTML</li>
+                                <li style="color:var(--text-main);">Suporte a <strong>tabelas</strong> e <code style="background:var(--code-inline-bg);color:var(--code-inline-text);padding:0.15rem 0.3rem;border-radius:4px;">código inline</code></li>
+                            </ul>
+                            <h2 style="font-weight:700;font-size:1.25rem;margin-bottom:0.5rem;color:var(--text-main);">Licença</h2>
+                            <p style="color:var(--text-muted);">MIT</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- PROMPT -->
+        <section id="prompt" class="page">
+            <div class="page-header">
+                <h1 class="page-title">Engenharia: O Espaço Latente</h1>
+                <p class="page-subtitle">Prompt é mapeamento de probabilidades, não mágica.</p>
+            </div>
+
+            <div class="content-section">
+                <div class="alert">
+                    <strong>Atenção:</strong> Modelos não possuem personalidades reais. Pedir para um modelo leve "atuar como um modelo denso" é uma falha lógica de arquitetura. O modelo não tem os pesos neurais necessários.
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Skills com Base Acadêmica</h2>
+                <p class="content-text">Cada skill abaixo é fundamentada em literatura de referência (papers acadêmicos e livros de engenharia).</p>
+
+                <!-- Skill 1 -->
+                <div class="reference-card">
+                    <h3>1. Validação de Premissas (Chain-of-Thought)</h3>
+                    <p class="content-text">Exigir que o modelo liste premissas, valide a lógica e identifique lacunas antes de responder. Isso reduz alucinações e conclusões precipitadas.</p>
+                    <p><strong>Base teórica:</strong> Wei, Jason et al. <em>"Chain-of-Thought Prompting Elicits Reasoning in Large Language Models"</em>. NeurIPS, 2022.</p>
+                    <p><strong>Aplicação:</strong> Antes de gerar código, o modelo deve listar as premissas do problema e validar cada uma.</p>
+                </div>
+
+                <!-- Skill 2 -->
+                <div class="reference-card">
+                    <h3>2. Restrição Negativa (Output Cru)</h3>
+                    <p class="content-text">Usar diretivas do tipo "NÃO inclua...", "PROIBIDO..." para podar comportamentos verbosos padrão do modelo. Reduz 30-50% no consumo de tokens de saída.</p>
+                    <p><strong>Base teórica:</strong> Phoenix, James; Corbin, Mike. <em>"Prompt Engineering for Generative AI"</em>. O'Reilly Media, 2023.</p>
+                    <p><strong>Aplicação:</strong> "NÃO inclua explicações. NÃO use saudações. Forneça APENAS o código."</p>
+                </div>
+
+                <!-- Skill 3 -->
+                <div class="reference-card">
+                    <h3>3. Contratos de Interface (Output Estruturado)</h3>
+                    <p class="content-text">Definir schema JSON, template HTML ou estrutura Markdown rigorosa como contrato entre humano e IA. Output determinístico e parseável.</p>
+                    <p><strong>Base teórica:</strong> Winters, Hyrum; Manshreck, Titus; Wright, Davor. <em>"Software Engineering at Google"</em>. O'Reilly, 2020.</p>
+                    <p><strong>Aplicação:</strong> "Responda APENAS com JSON neste formato: { \"nome\": \"\", \"tipo\": \"\" }"</p>
+                </div>
+
+                <!-- Skill 4 -->
+                <div class="reference-card">
+                    <h3>4. Espaços Latentes e Limites Arquiteturais</h3>
+                    <p class="content-text">Mapear o que um modelo pode versus o que ele finge poder fazer. Evitar prompts do tipo "atue como um modelo maior" — ele não tem os pesos neurais necessários.</p>
+                    <p><strong>Base teórica:</strong> Christian, Brian. <em>"The Alignment Problem: Machine Learning and Human Values"</em>. W. W. Norton & Company, 2020.</p>
+                    <p><strong>Aplicação:</strong> Em vez de "atue como GPT-5", defina skills específicas que o modelo atual possui.</p>
+                </div>
+
+                <!-- Skill 5 -->
+                <div class="reference-card">
+                    <h3>5. Economia Computacional</h3>
+                    <p class="content-text">Entender a relação entre tamanho de contexto, tokens processados e custo real de execução para escolher o modelo adequado para cada tarefa.</p>
+                    <p><strong>Base teórica:</strong> Kaplan, Jared et al. <em>"Scaling Laws for Neural Language Models"</em>. arXiv:2001.08361, 2020.</p>
+                    <p><strong>Aplicação:</strong> Tarefas simples (resumo) usam modelos pequenos (Gemini Flash). Tarefas complexas (código) usam modelos grandes (GPT-4o).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TOKENS -->
+        <section id="tokens" class="page">
+            <div class="page-header">
+                <h1 class="page-title">Economia de Tokens</h1>
+                <p class="page-subtitle">Cada palavra gerada custa processamento. Em APIs de alto volume, a otimização é obrigatória.</p>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Simulador Interativo</h2>
+                <p class="content-text">Digite ou cole um prompt verboso no campo esquerdo. Clique em "Gerar Versão Claritas" para ver automaticamente uma versão otimizada e comparar o custo.</p>
+
+                <div class="simulator">
+                    <div class="sim-header">
+                        <h3 class="sim-title">Comparador de Custo</h3>
+                        <button class="sim-generate-btn" id="generate-btn">Gerar Versão Claritas</button>
+                    </div>
+                    <div class="sim-grid">
+                        <div class="sim-column">
+                            <label class="sim-label">Prompt Ruim (Verboso)</label>
+                            <textarea id="bad-prompt" class="sim-input" placeholder="Olá, tudo bem? Gostaria que você atuasse como um especialista sênior e me ajudasse a criar um site...">Olá, tudo bem? Gostaria que você atuasse como um especialista sênior em desenvolvimento web e me ajudasse a criar um site bonito e moderno sobre engenharia de prompt. Por favor, seja bem detalhado e explique cada passo.</textarea>
+                            <div class="sim-result" id="bad-result">~68 tokens</div>
+                        </div>
+                        <div class="sim-column">
+                            <label class="sim-label">Prompt Claritas (Otimizado)</label>
+                            <textarea id="good-prompt" class="sim-input" placeholder="A versão otimizada aparecerá aqui..." readonly></textarea>
+                            <div class="sim-result good" id="good-result">~0 tokens</div>
+                        </div>
+                    </div>
+                    <div class="sim-savings">
+                        <div class="savings-number" id="savings-percent">0%</div>
+                        <div class="savings-label">Economia de Tokens</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Técnica: Output Cru</h2>
+                <p class="content-text">Utilize a <strong>Restrição Negativa</strong> para podar o comportamento padrão do modelo. Dizer o que a IA não deve fazer é a forma mais rápida de economizar tokens.</p>
+                <pre><code>REGRAS DE OUTPUT:
+- Forneça APENAS o código HTML puro.
+- NÃO inclua explicações, saudações ou comentários finais.
+- Comece com &lt;!DOCTYPE html&gt; e termine com &lt;/html&gt;.</code></pre>
+            </div>
+        </section>
+
+        <!-- TOKEN COUNTER -->
+        <section id="token-counter" class="page">
+            <div class="page-header">
+                <h1 class="page-title">Contador de Tokens</h1>
+                <p class="page-subtitle">Calcule o custo estimado de tokens por modelo e o custo aproximado em dólares.</p>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Calculadora</h2>
+                <p class="content-text">Cole seu texto abaixo e selecione o modelo para obter a contagem estimada de tokens e o custo.</p>
+
+                <div class="api-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="tc-model">Modelo</label>
+                            <select id="tc-model" class="form-select"></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="tc-pricing">Precificação</label>
+                            <select id="tc-pricing" class="form-select">
+                                <option value="input">Input (entrada)</option>
+                                <option value="output">Output (saída)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="tc-text">Texto</label>
+                        <textarea id="tc-text" class="sim-input" rows="8" placeholder="Cole seu prompt ou texto aqui..."></textarea>
+                    </div>
+                    <button class="btn-primary" id="tc-btn">Calcular Tokens</button>
+                </div>
+
+                <div id="tc-result" class="result-card" style="display:none;">
+                    <div class="result-item">
+                        <div class="result-value" id="tc-tokens">0</div>
+                        <div class="result-label">Tokens</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-value" id="tc-cost">$0</div>
+                        <div class="result-label">Custo Estimado</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-value" id="tc-chars">0</div>
+                        <div class="result-label">Caracteres</div>
+                    </div>
+                </div>
+
+                <div id="tc-error" class="error-msg" style="display:none;"></div>
+            </div>
+        </section>
+
+        <!-- PLAYGROUND -->
+        <section id="playground" class="page">
+            <div class="page-header">
+                <h1 class="page-title">Playground de Prompt</h1>
+                <p class="page-subtitle">Teste seus prompts contra modelos reais de linguagem via API.</p>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Chat</h2>
+                <p class="content-text">Envie mensagens e veja a resposta em tempo real com streaming.</p>
+
+                <div class="chat-container">
+                    <div class="chat-messages" id="pg-messages"></div>
+                    <div class="chat-controls">
+                        <label>Modelo:</label>
+                        <select id="pg-model"></select>
+                        <label style="margin-left:1rem;">Sistema:</label>
+                        <select id="pg-system">
+                            <option value="default">Padrão</option>
+                            <option value="technical">Técnico</option>
+                            <option value="creative">Criativo</option>
+                        </select>
+                        <button class="btn-primary" id="pg-clear" style="margin-left:auto;padding:0.6rem 1.25rem;font-size:0.9rem;display:none;">Limpar</button>
+                    </div>
+                    <div class="chat-input-area">
+                        <textarea class="chat-input" id="pg-input" rows="2" placeholder="Digite sua mensagem... (Enter para enviar, Shift+Enter para nova linha)"></textarea>
+                        <button class="btn-primary" id="pg-send" style="align-self:flex-end;">Enviar</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOBRE -->
+        <section id="sobre" class="page">
+            <div class="page-header">
+                <h1 class="page-title">Sobre o Claritas</h1>
+                <p class="page-subtitle">Transparência, metodologia e as fontes que embasam este guia.</p>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">O Propósito</h2>
+                <p class="content-text">O Claritas nasceu da necessidade de unir dois mundos que frequentemente operam isolados: a <strong>Documentação Técnica</strong> (Markdown) e a <strong>Engenharia de Prompt</strong> para Inteligência Artificial.</p>
+                <p class="content-text">Acreditamos que a forma como você estrutura a informação (seja para um humano ler um README ou para uma IA processar um prompt) determina a qualidade do resultado final. Clareza não é estética; é eficiência.</p>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Metodologia</h2>
+                <p class="content-text">Todo o conteúdo aqui é validado sob a ótica da <strong>Engenharia de Software</strong> e da <strong>Cibersegurança</strong>. Não ensinamos "truques" ou "hacks" mágicos. Ensinamos protocolos:</p>
+                <ul>
+                    <li><strong>Rigor Lógico:</strong> Validação de premissas antes da execução.</li>
+                    <li><strong>Segurança por Design:</strong> Prevenção de injeção de prompt e vazamento de dados.</li>
+                    <li><strong>Eficiência Computacional:</strong> Respeito aos limites de tokens e latência das APIs.</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Referências e Créditos</h2>
+                <p class="content-text">O Claritas é um projeto de curadoria e aplicação prática. Agradecemos e referenciamos as autoridades que tornam o ecossistema Markdown possível:</p>
+                
+                <div class="reference-card">
+                    <h3>John Gruber</h3>
+                    <p>Criador do Markdown em 2004. Sua filosofia de "legibilidade acima de tudo" é a base de toda documentação moderna.</p>
+                </div>
+
+                <div class="reference-card">
+                    <h3>The Markdown Guide</h3>
+                    <p>Referência completa e open-source mantida por Matt Cone. Utilizado como base teórica para a expansão dos conceitos de sintaxe.</p>
+                    <a href="https://www.markdownguide.org" target="_blank" rel="noopener noreferrer">markdownguide.org</a>
+                </div>
+
+                <div class="reference-card">
+                    <h3>CommonMark</h3>
+                    <p>A especificação forte e padronizada para o Markdown. Essencial para entender a base técnica que unifica os diferentes "flavors" da linguagem.</p>
+                    <a href="https://commonmark.org" target="_blank" rel="noopener noreferrer">commonmark.org</a>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Internacionalização (Roadmap)</h2>
+                <div class="alert">
+                    <strong>Status:</strong> Atualmente, o Claritas está disponível apenas em <strong>Português (PT-BR)</strong>. 
+                    <p style="margin-top: 1rem; margin-bottom: 0;">Versões em <strong>Inglês (EN)</strong> e <strong>Chinês Simplificado (ZH)</strong> estão planejadas para a V2. A decisão de manter o site monolíngue nesta fase visa garantir a performance máxima (zero inchaço de DOM) e a perfeição tipográfica antes de escalar para outros alfabetos.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-col">
+                <span class="brand-name" style="font-size: 1.1rem;">Claritas</span>
+                <p class="footer-tagline">Guia técnico sobre Markdown e engenharia de prompt. Conteúdo baseado em especificações oficiais e literatura acadêmica.</p>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title">Markdown</h4>
+                <a href="javascript:void(0)" onclick="gotoAnchor('md-titulos')" class="footer-link">Títulos</a>
+                <a href="javascript:void(0)" onclick="gotoAnchor('md-enfase')" class="footer-link">Ênfase</a>
+                <a href="javascript:void(0)" onclick="gotoAnchor('md-listas')" class="footer-link">Listas</a>
+                <a href="javascript:void(0)" onclick="gotoAnchor('md-links')" class="footer-link">Links</a>
+                <a href="javascript:void(0)" onclick="gotoAnchor('md-codigo')" class="footer-link">Código</a>
+                <a href="javascript:void(0)" onclick="gotoAnchor('md-tabelas')" class="footer-link">Tabelas</a>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title">Portal</h4>
+                <a href="#home" class="footer-link">Início</a>
+                <a href="#prompt" class="footer-link">Engenharia de Prompt</a>
+                <a href="#tokens" class="footer-link">Economia de Tokens</a>
+                <a href="#token-counter" class="footer-link">Contador</a>
+                <a href="#playground" class="footer-link">Playground</a>
+                <a href="#sobre" class="footer-link">Sobre</a>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title">Fontes Oficiais</h4>
+                <a href="https://spec.commonmark.org" target="_blank" rel="noopener noreferrer" class="footer-link">CommonMark</a>
+                <a href="https://github.github.com/gfm" target="_blank" rel="noopener noreferrer" class="footer-link">GFM</a>
+                <a href="https://www.markdownguide.org" target="_blank" rel="noopener noreferrer" class="footer-link">Markdown Guide</a>
+                <a href="https://daringfireball.net/projects/markdown/syntax" target="_blank" rel="noopener noreferrer" class="footer-link">Daring Fireball</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ShipClaw · Claritas</p>
+        </div>
+    </footer>
+
+    <script>
+        // ── Config ──
+        const API = {
+            playground: 'https://claritas.shipclaw.workers.dev'
+        };
+
+        // ── Routing ──
+        const ALLOWED_ROUTES = ['home', 'markdown', 'prompt', 'tokens', 'token-counter', 'playground', 'sobre'];
+        const pages = document.querySelectorAll('.page');
+        const links = document.querySelectorAll('.nav-link');
+        const themeBtns = document.querySelectorAll('.theme-btn');
+
+        function navigate() {
+            let route = window.location.hash.substring(1) || 'home';
+            if (!ALLOWED_ROUTES.includes(route)) route = 'home';
+            pages.forEach(page => page.classList.toggle('active', page.id === route));
+            links.forEach(link => link.classList.toggle('active', link.getAttribute('data-route') === route));
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.addEventListener('hashchange', navigate);
+        window.addEventListener('DOMContentLoaded', navigate);
+
+        function gotoAnchor(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                if (!document.getElementById('markdown').classList.contains('active')) {
+                    window.location.hash = 'markdown';
+                    setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+                } else {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        }
+
+        // ── Sidebar depth tracking ──
+        (function() {
+            var sidebar = document.querySelector('.md-sidebar');
+            var links = Array.from(document.querySelectorAll('.md-sidebar-link'));
+            var sections = Array.from(document.querySelectorAll('#markdown .content-section[id^="md-"]'));
+            if (!sidebar || !links.length || !sections.length) return;
+            var mdPage = document.getElementById('markdown');
+            function toggle() { sidebar.style.display = mdPage.classList.contains('active') ? '' : 'none'; }
+            toggle();
+            new MutationObserver(toggle).observe(mdPage, { attributes: true, attributeFilter: ['class'] });
+            function hideBeyond() {
+                var footer = document.querySelector('.site-footer');
+                if (!footer) return true;
+                var wBot = window.innerHeight;
+                var fTop = footer.getBoundingClientRect().top;
+                return fTop <= wBot;
+            }
+            function update() {
+                if (hideBeyond()) { sidebar.style.opacity = '0'; sidebar.style.pointerEvents = 'none'; }
+                else { sidebar.style.opacity = ''; sidebar.style.pointerEvents = ''; }
+                var best = -1, bestDist = Infinity;
+                var ref = 120;
+                for (var i = 0; i < sections.length; i++) {
+                    var rect = sections[i].getBoundingClientRect();
+                    var dist = Math.abs(rect.top - ref);
+                    if (dist < bestDist) { bestDist = dist; best = i; }
+                }
+                for (var j = 0; j < links.length; j++) {
+                    links[j].className = 'md-sidebar-link';
+                    var dist = Math.abs(j - best);
+                    var depth = Math.min(dist, 3);
+                    links[j].classList.add('depth-' + depth);
+                }
+            }
+            var ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) { ticking = true; requestAnimationFrame(function() { update(); ticking = false; }); }
+            });
+            update();
+        })();
+
+        // ── Theme ──
+        const savedTheme = localStorage.getItem('claritas-theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        let currentTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+
+        const applyTheme = (theme) => {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('claritas-theme', theme);
+            themeBtns.forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-theme') === theme);
+            });
+            document.getElementById('favicon').href = `assets/icons/favicon-${theme}.ico`;
+            document.getElementById('app-icon').href = `assets/icons/icon-${theme}.png`;
+            const logo = document.getElementById('header-logo');
+            if (logo) logo.src = `assets/logo-${theme}.png`;
+            currentTheme = theme;
+        };
+
+        applyTheme(currentTheme);
+
+        themeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                applyTheme(btn.getAttribute('data-theme'));
+            });
+        });
+
+        // ── Token Simulator (existing) ──
+        const badInput = document.getElementById('bad-prompt');
+        const goodInput = document.getElementById('good-prompt');
+        const badResult = document.getElementById('bad-result');
+        const goodResult = document.getElementById('good-result');
+        const generateBtn = document.getElementById('generate-btn');
+        const savingsPercent = document.getElementById('savings-percent');
+
+        const estimateTokens = (text) => Math.ceil(text.length / 4);
+
+        const updateSim = () => {
+            const badTokens = estimateTokens(badInput.value);
+            const goodTokens = estimateTokens(goodInput.value);
+            badResult.textContent = `~${badTokens} tokens`;
+            goodResult.textContent = `~${goodTokens} tokens`;
+            if (badTokens > 0 && goodTokens > 0) {
+                const savings = Math.round(((badTokens - goodTokens) / badTokens) * 100);
+                savingsPercent.textContent = `${savings}%`;
+            } else {
+                savingsPercent.textContent = `0%`;
+            }
+        };
+
+        generateBtn.addEventListener('click', () => {
+            const badPrompt = badInput.value;
+            if (badPrompt.trim()) {
+                const optimized = `Gere site HTML/CSS sobre: "${badPrompt.substring(0, 50)}...". Siga SKILLS.md. Output cru, sem explicações. Comece com <!DOCTYPE html>.`;
+                goodInput.value = optimized;
+                updateSim();
+            }
+        });
+
+        badInput.addEventListener('input', updateSim);
+        goodInput.addEventListener('input', updateSim);
+        updateSim();
+
+        // ── Token Counter (vanilla JS) ──
+        (function() {
+            const MODELS = [
+                { id: 'gpt-4o', label: 'GPT-4o', priceIn: 0.00001, priceOut: 0.00003 },
+                { id: 'gpt-4o-mini', label: 'GPT-4o Mini', priceIn: 0.00000015, priceOut: 0.0000006 },
+                { id: 'claude-3.5-sonnet', label: 'Claude 3.5 Sonnet', priceIn: 0.000003, priceOut: 0.000015 },
+                { id: 'claude-3-haiku', label: 'Claude 3 Haiku', priceIn: 0.00000025, priceOut: 0.00000125 },
+            ];
+
+            const selModel = document.getElementById('tc-model');
+            const selPricing = document.getElementById('tc-pricing');
+            const txtInput = document.getElementById('tc-text');
+            const btn = document.getElementById('tc-btn');
+            const resCard = document.getElementById('tc-result');
+            const resTokens = document.getElementById('tc-tokens');
+            const resCost = document.getElementById('tc-cost');
+            const resChars = document.getElementById('tc-chars');
+            const errEl = document.getElementById('tc-error');
+
+            MODELS.forEach(m => {
+                const opt = document.createElement('option');
+                opt.value = m.id;
+                opt.textContent = m.label;
+                selModel.appendChild(opt);
+            });
+
+            function count() {
+                const text = txtInput.value;
+                if (!text.trim()) return;
+                btn.disabled = true;
+                btn.textContent = 'Calculando...';
+                errEl.style.display = 'none';
+                resCard.style.display = 'none';
+                try {
+                    const tokens = Math.ceil(text.length / 4);
+                    const m = MODELS.find(m => m.id === selModel.value);
+                    const ppc = selPricing.value === 'input' ? m.priceIn : m.priceOut;
+                    resTokens.textContent = tokens.toLocaleString();
+                    resCost.textContent = '$' + (tokens * ppc).toFixed(6);
+                    resChars.textContent = text.length.toLocaleString();
+                    resCard.style.display = 'grid';
+                } catch (e) {
+                    errEl.textContent = e.message;
+                    errEl.style.display = 'block';
+                } finally {
+                    btn.disabled = false;
+                    btn.textContent = 'Calcular Tokens';
+                }
+            }
+
+            btn.addEventListener('click', count);
+            txtInput.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); count(); } });
+        })();
+
+        // ── Playground (vanilla JS) ──
+        (function() {
+            const MODELS = [
+                { id: 'gemini-1.5-flash', label: 'Gemini 1.5 Flash' },
+                { id: 'gemini-1.5-pro', label: 'Gemini 1.5 Pro' },
+            ];
+            const SYSTEM_PROMPTS = {
+                default: 'Você é um assistente útil e conciso.',
+                technical: 'Você é um engenheiro de software sênior. Seja técnico, preciso e direto. Use exemplos de código quando relevante.',
+                creative: 'Você é um designer criativo. Seja expressivo e visual nas suas respostas.',
+            };
+
+            const msgEl = document.getElementById('pg-messages');
+            const selModel = document.getElementById('pg-model');
+            const selSystem = document.getElementById('pg-system');
+            const inputEl = document.getElementById('pg-input');
+            const sendBtn = document.getElementById('pg-send');
+            const clearBtn = document.getElementById('pg-clear');
+
+            let loading = false;
+            let abortController = null;
+            let dotsInterval = null;
+            let dotsSpan = null;
+            let messages = [];
+
+            MODELS.forEach(m => {
+                const opt = document.createElement('option');
+                opt.value = m.id;
+                opt.textContent = m.label;
+                selModel.appendChild(opt);
+            });
+
+            function addMessage(role, content) {
+                const d = document.createElement('div');
+                d.className = 'chat-msg ' + role;
+                d.textContent = content;
+                msgEl.appendChild(d);
+                msgEl.scrollTop = msgEl.scrollHeight;
+                return d;
+            }
+
+            function showLoading() {
+                const d = document.createElement('div');
+                d.className = 'chat-msg assistant loading';
+                d.id = 'pg-loading';
+                const span = document.createElement('span');
+                span.textContent = 'Pensando';
+                dotsSpan = document.createElement('span');
+                span.appendChild(dotsSpan);
+                d.appendChild(span);
+                msgEl.appendChild(d);
+                msgEl.scrollTop = msgEl.scrollHeight;
+                let dots = 0;
+                dotsInterval = setInterval(() => {
+                    dots = (dots + 1) % 4;
+                    dotsSpan.textContent = '.'.repeat(dots);
+                }, 500);
+            }
+
+            function hideLoading() {
+                const el = document.getElementById('pg-loading');
+                if (el) el.remove();
+                if (dotsInterval) clearInterval(dotsInterval);
+                dotsInterval = null;
+            }
+
+            async function send() {
+                const text = inputEl.value.trim();
+                if (!text || loading) return;
+                inputEl.value = '';
+                messages.push({ role: 'user', content: text });
+                addMessage('user', text);
+                loading = true;
+                sendBtn.disabled = true;
+                sendBtn.textContent = '...';
+                showLoading();
+                clearBtn.style.display = 'none';
+
+                const systemMsg = SYSTEM_PROMPTS[selSystem.value];
+                const chatMessages = [{ role: 'system', content: systemMsg }, ...messages.map(m => ({ role: m.role, content: m.content }))];
+
+                abortController = new AbortController();
+                try {
+                    const res = await fetch(API.playground + '/api/complete', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ model: selModel.value, messages: chatMessages }),
+                        signal: abortController.signal
+                    });
+                    if (!res.ok) {
+                        const err = await res.json().catch(() => ({}));
+                        throw new Error(err.error || `Erro ${res.status}`);
+                    }
+                    hideLoading();
+                    messages.push({ role: 'assistant', content: '' });
+                    const assistantEl = addMessage('assistant', '');
+
+                    const reader = res.body.getReader();
+                    const decoder = new TextDecoder();
+                    let assistantMsg = '';
+
+                    while (true) {
+                        const { done, value } = await reader.read();
+                        if (done) break;
+                        const chunk = decoder.decode(value, { stream: true });
+                        const lines = chunk.split('\n');
+                        for (const line of lines) {
+                            if (line.startsWith('data: ')) {
+                                const data = line.slice(6);
+                                if (data === '[DONE]') continue;
+                                try {
+                                    const parsed = JSON.parse(data);
+                                    const text = parsed.candidates?.[0]?.content?.parts?.[0]?.text || parsed.text || '';
+                                    assistantMsg = text;
+                                    messages[messages.length - 1].content = assistantMsg;
+                                    assistantEl.textContent = assistantMsg;
+                                    msgEl.scrollTop = msgEl.scrollHeight;
+                                } catch {}
+                            }
+                        }
+                    }
+                } catch (e) {
+                    hideLoading();
+                    if (e.name !== 'AbortError') {
+                        addMessage('assistant', 'Erro: ' + e.message);
+                        messages.push({ role: 'assistant', content: 'Erro: ' + e.message });
+                    }
+                } finally {
+                    loading = false;
+                    sendBtn.disabled = false;
+                    sendBtn.textContent = 'Enviar';
+                    if (messages.length) clearBtn.style.display = '';
+                    abortController = null;
+                }
+            }
+
+            function clearChat() {
+                if (abortController) abortController.abort();
+                hideLoading();
+                msgEl.innerHTML = '';
+                messages = [];
+                clearBtn.style.display = 'none';
+                sendBtn.disabled = false;
+                sendBtn.textContent = 'Enviar';
+            }
+
+            sendBtn.addEventListener('click', send);
+            clearBtn.addEventListener('click', clearChat);
+            inputEl.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    send();
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
