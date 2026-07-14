@@ -1865,7 +1865,7 @@ MIT</code></pre>
         (function() {
             const MODELS = [
                 { id: 'llama-3.1-8b', label: 'Llama 3.1 8B' },
-                { id: 'mistral-7b', label: 'Mistral 7B' },
+                { id: 'llama-3.2-3b', label: 'Llama 3.2 3B' },
             ];
             const SYSTEM_PROMPTS = {
                 default: 'Você é um assistente útil e conciso.',
@@ -1974,7 +1974,7 @@ MIT</code></pre>
                                 try {
                                     const parsed = JSON.parse(data);
                                     const text = parsed.candidates?.[0]?.content?.parts?.[0]?.text || parsed.text || '';
-                                    assistantMsg = text;
+                                    assistantMsg += text;
                                     messages[messages.length - 1].content = assistantMsg;
                                     assistantEl.textContent = assistantMsg;
                                     msgEl.scrollTop = msgEl.scrollHeight;

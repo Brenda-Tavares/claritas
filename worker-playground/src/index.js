@@ -5,8 +5,8 @@ const app = new Hono();
 app.use('/*', cors());
 
 const MODEL_MAP = {
-  'llama-3.1-8b': '@cf/meta/llama-3.1-8b-instruct',
-  'mistral-7b': '@cf/mistral/mistral-7b-instruct-v0.1',
+  'llama-3.1-8b': '@cf/meta/llama-3.1-8b-instruct-fp8',
+  'llama-3.2-3b': '@cf/meta/llama-3.2-3b-instruct',
 };
 
 app.post('/api/complete', async (c) => {
@@ -21,41 +21,66 @@ app.post('/api/complete', async (c) => {
       return c.json({ error: `Modelo desconhecido: ${model}` }, 400);
     }
 
-    const { readable, writable } = new TransformStream();
-    const writer = writable.getWriter();
-    const encoder = new TextEncoder();
-
-    (async () => {
-      try {
-        const stream = await c.env.AI.run(aiModel, {
+        const aiResult = await c.env.AI.run(aiModel, {
           messages,
           stream: true,
         });
 
-        for await (const chunk of stream) {
-          const text = chunk.response;
-          if (text) {
-            const payload = JSON.stringify({
-              candidates: [{ content: { parts: [{ text }] } }]
-            });
-            await writer.write(encoder.encode(`data: ${payload}\n\n`));
-          }
-        }
-        await writer.write(encoder.encode('data: [DONE]\n\n'));
-      } catch (e) {
-        await writer.write(encoder.encode(`data: ${JSON.stringify({ error: e.message })}\n\n`));
-      } finally {
-        await writer.close();
-      }
-    })();
+        const encoder = new TextEncoder();
+        const decoder = new TextDecoder();
 
-    return new Response(readable, {
-      headers: {
-        'Content-Type': 'text/event-stream',
-        'Cache-Control': 'no-cache',
-        'Connection': 'keep-alive',
-      },
-    });
+        const transform = new TransformStream({
+          transform(chunk, controller) {
+            try {
+              const sse = decoder.decode(chunk, { stream: true });
+              const lines = sse.split('\n');
+              for (const line of lines) {
+                if (line.startsWith('data: ')) {
+                  const data = line.slice(6).trim();
+                  if (!data) continue;
+                  const parsed = JSON.parse(data);
+                  const text = parsed.response || '';
+                  if (text) {
+                    const out = JSON.stringify({ candidates: [{ content: { parts: [{ text }] } }] });
+                    controller.enqueue(encoder.encode(`data: ${out}\n\n`));
+                  }
+                }
+              }
+            } catch {}
+          },
+          flush(controller) {
+            controller.enqueue(encoder.encode('data: [DONE]\n\n'));
+          },
+        });
+
+        const body = aiResult instanceof ReadableStream
+          ? aiResult.pipeThrough(transform)
+          : new ReadableStream({
+              async start(controller) {
+                try {
+                  for await (const chunk of aiResult) {
+                    const text = chunk.response || '';
+                    if (text) {
+                      const out = JSON.stringify({ candidates: [{ content: { parts: [{ text }] } }] });
+                      controller.enqueue(encoder.encode(`data: ${out}\n\n`));
+                    }
+                  }
+                } catch (e) {
+                  controller.enqueue(encoder.encode(`data: ${JSON.stringify({ error: e.message })}\n\n`));
+                } finally {
+                  controller.enqueue(encoder.encode('data: [DONE]\n\n'));
+                  controller.close();
+                }
+              },
+            });
+
+        return new Response(body, {
+          headers: {
+            'Content-Type': 'text/event-stream',
+            'Cache-Control': 'no-cache',
+            'Connection': 'keep-alive',
+          },
+        });
   } catch (e) {
     return c.json({ error: e.message }, 500);
   }
