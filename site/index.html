@@ -94,15 +94,18 @@
             line-height: 1;
             z-index: 110;
         }
+        .nav-close { display: none; }
 
         .mobile-overlay {
-            display: none;
             position: fixed;
             inset: 0;
             background: rgba(0,0,0,0.5);
             z-index: 98;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
         }
-        .mobile-overlay.open { display: block; }
+        .mobile-overlay.open { opacity: 1; pointer-events: auto; }
 
         header {
             background: var(--header-bg);
@@ -1018,7 +1021,6 @@
                 transform: translateY(-50%);
             }
             .nav-controls {
-                display: none;
                 position: fixed;
                 top: 0;
                 right: 0;
@@ -1027,15 +1029,31 @@
                 background: var(--bg-card);
                 backdrop-filter: blur(20px);
                 -webkit-backdrop-filter: blur(20px);
+                display: flex;
                 flex-direction: column;
                 justify-content: flex-start;
                 align-items: stretch;
-                padding: 5rem 1.5rem 2rem;
-                gap: 0;
+                padding: 1rem;
+                gap: 0.5rem;
                 z-index: 99;
                 box-shadow: -4px 0 24px rgba(0,0,0,0.1);
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
             }
-            .nav-controls.open { display: flex; }
+            .nav-controls.open { transform: translateX(0); }
+            .nav-close {
+                display: block;
+                background: none;
+                border: none;
+                font-size: 1.5rem;
+                color: var(--text-muted);
+                cursor: pointer;
+                padding: 0.5rem;
+                margin-left: auto;
+                line-height: 1;
+                transition: color 0.2s;
+            }
+            .nav-close:hover { color: var(--text-main); }
             .nav-links {
                 flex-direction: column;
                 gap: 0.25rem;
@@ -1095,6 +1113,7 @@
             </a>
             <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
             <div class="nav-controls">
+                <button class="nav-close" id="nav-close" aria-label="Fechar">✕</button>
                 <div class="nav-links">
                     <a href="#home" class="nav-link active" data-route="home">Início</a>
                     <a href="#markdown" class="nav-link" data-route="markdown">Markdown</a>
@@ -1773,9 +1792,20 @@ MIT</code></pre>
             }
             hamburger.addEventListener('click', toggleMenu);
             overlay.addEventListener('click', closeMenu);
+            document.getElementById('nav-close')?.addEventListener('click', closeMenu);
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', closeMenu);
             });
+
+            let touchStartX = 0;
+            navControls.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].clientX;
+            }, { passive: true });
+            navControls.addEventListener('touchmove', (e) => {
+                if (!navControls.classList.contains('open')) return;
+                const dx = e.touches[0].clientX - touchStartX;
+                if (dx > 80) closeMenu();
+            }, { passive: true });
         }
 
         // ── Routing ──
