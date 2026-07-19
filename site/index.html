@@ -1897,12 +1897,74 @@ MIT</code></pre>
             }
         };
 
-        generateBtn.addEventListener('click', () => {
-            const badPrompt = badInput.value;
-            if (badPrompt.trim()) {
-                const optimized = `Gere site HTML/CSS sobre: "${badPrompt.substring(0, 50)}...". Siga SKILLS.md. Output cru, sem explicações. Comece com <!DOCTYPE html>.`;
-                goodInput.value = optimized;
+        generateBtn.addEventListener('click', async () => {
+            const badPrompt = badInput.value.trim();
+            if (!badPrompt) return;
+
+            generateBtn.disabled = true;
+            generateBtn.textContent = 'Otimizando...';
+
+            try {
+                const res = await fetch(API.playground + '/api/complete', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        model: 'llama-3.1-8b',
+                        messages: [
+                            {
+                                role: 'system',
+                                content: `Você é um especialista em engenharia de prompt chamado Claritas. Sua função é reescrever prompts ruins em prompts otimizados seguindo estas regras:
+
+1. Remova saudações, rodeios e explicações desnecessárias
+2. Seja direto e específico sobre o que o modelo deve fazer
+3. Use restrições negativas (NÃO, PROIBIDO) para podar comportamento verboso
+4. Defina o formato exato de output esperado
+5. Mantenha APENAS a instrução essencial, sem contexto irrelevante
+
+Forneça APENAS o prompt otimizado, sem explicações ou comentários.`
+                            },
+                            {
+                                role: 'user',
+                                content: `Otimize este prompt: "${badPrompt}"`
+                            }
+                        ]
+                    })
+                });
+
+                if (!res.ok) {
+                    const err = await res.json().catch(() => ({}));
+                    throw new Error(err.error || `Erro ${res.status}`);
+                }
+
+                const reader = res.body.getReader();
+                const decoder = new TextDecoder();
+                let optimized = '';
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+                    const chunk = decoder.decode(value, { stream: true });
+                    const lines = chunk.split('\n');
+                    for (const line of lines) {
+                        if (line.startsWith('data: ')) {
+                            const data = line.slice(6);
+                            if (data === '[DONE]') continue;
+                            try {
+                                const parsed = JSON.parse(data);
+                                const text = parsed.candidates?.[0]?.content?.parts?.[0]?.text || parsed.text || '';
+                                optimized += text;
+                                goodInput.value = optimized;
+                            } catch {}
+                        }
+                    }
+                }
+
                 updateSim();
+            } catch (e) {
+                goodInput.value = 'Erro ao otimizar: ' + e.message;
+            } finally {
+                generateBtn.disabled = false;
+                generateBtn.textContent = 'Gerar Versão Claritas';
             }
         });
 

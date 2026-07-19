@@ -67,7 +67,7 @@ claritas/
 │   ├── wrangler.toml           # Configuração do Worker
 │   └── package.json            # Dependências (Hono + Wrangler)
 │
-└── README.md└── README.md                   # Este arquivo
+└── README.md                   # Este arquivo
 ```
 
 ---
