@@ -1,55 +1,65 @@
 # Claritas
 
 > Portal técnico de Engenharia de Prompt e Documentação Markdown.
+> Technical portal for Prompt Engineering and Markdown Documentation.
+>
 > Projeto portfólio — **Brenda Tavares** (ShipClaw).
 
 ---
 
-## Visão Geral
+## 🇧🇷 Visão Geral
 
 Claritas é um portal de documentação sênior que une **Markdown** (sintaxe universal para documentação técnica) e **Engenharia de Prompt** (comunicação estruturada com modelos de linguagem), com fundamentação em especificações oficiais (CommonMark, GFM) e literatura acadêmica (Wei et al., Phoenix & Corbin, Winters et al.).
 
 Construído sob política **zero-build, zero-dependency** — o HTML abre diretamente no navegador, sem compilação, sem bundlers, sem runtime JavaScript externo.
 
+## 🇬🇧 Overview
+
+Claritas is a senior documentation portal that combines **Markdown** (universal syntax for technical documentation) and **Prompt Engineering** (structured communication with language models), grounded in official specifications (CommonMark, GFM) and academic literature (Wei et al., Phoenix & Corbin, Winters et al.).
+
+Built under a **zero-build, zero-dependency** policy — the HTML opens directly in the browser, no compilation, no bundlers, no external JavaScript runtime.
+
 ---
 
-## Stack Tecnológica
+## Stack Tecnológica / Tech Stack
 
-| Camada | Tecnologia | Frameworks |
+| Camada / Layer | Tecnologia / Technology | Frameworks |
 |--------|-----------|------------|
 | **Frontend** | HTML5 Semântico + CSS3 Puro + JavaScript Vanilla ES6+ | Zero frameworks JS |
 | **Design** | CSS Grid, Flexbox, Variáveis CSS (`:root`), Custom Properties | Zero bibliotecas CSS |
-| **Tipografia** | Inter (corpo) + Playfair Display (títulos) via Google Fonts | Única dependência externa |
-| **Backend (API)** | Cloudflare Workers + Hono (framework web para Workers) | Hono ^4.6 |
-| **Streaming** | Server-Sent Events (SSE) via TransformStream | Nativo do Workers |
-| **Deploy** | Wrangler CLI | Zero build local |
-| **Segurança** | Content-Security-Policy, X-Frame-Options, Referrer-Policy | Meta tags + HTTP headers |
-| **Controle** | Git + GitHub | — |
+| **Tipografia / Typography** | Inter (body) + Playfair Display (headings) via Google Fonts | Única dependência externa / Only external dependency |
+| **Backend (API)** | Cloudflare Workers + Hono | Hono ^4.6 |
+| **Streaming** | Server-Sent Events (SSE) via TransformStream | Native to Workers |
+| **Modelo de IA / AI Model** | Workers AI (Llama 3.1 8B / Llama 3.2 3B) | Gratuito / Free tier |
+| **Deploy** | Cloudflare Pages (site) + Wrangler (Worker) | Zero build local / Local zero build |
+| **Segurança / Security** | Content-Security-Policy, X-Frame-Options, Referrer-Policy | Meta tags + HTTP headers |
+| **Controle / Version Control** | Git + GitHub | — |
 
-### Linguagens
+### Linguagens / Languages
 
-- **HTML5** — 100% semântico (header, nav, main, section, footer, details, summary)
+- **HTML5** — 100% semântico / semantic (header, nav, main, section, footer, details, summary)
 - **CSS3** — Grid layouts, Flexbox, animações keyframe, media queries, prefers-reduced-motion
 - **JavaScript ES6+** — SPA routing, IntersectionObserver / scroll tracking, SSE streaming, async/await
-- **TOML** — Configuração do Worker (`wrangler.toml`)
-- **JSON** — Pacotes npm e schemas de API
+- **TOML** — Configuração do Worker / Worker config (`wrangler.toml`)
+- **JSON** — Pacotes npm e schemas de API / npm packages and API schemas
 
 ---
 
-## Funcionalidades
+## Funcionalidades / Features
 
 - **Roteador SPA** com Allowlist defensiva — 15 rotas validadas, fallback seguro para `#home`
-- **Sidebar flutuante** com tracking de profundidade — item ativo em destaque, demais com escala decrescente
+- **Sidebar flutuante** com tracking de profundidade — item ativo em destaque, escala decrescente nos demais
 - **Dark Mode** com persistência via `localStorage` — toggle claro/escuro
-- **Playground de Prompt** — chat interativo com Gemini 1.5 via Cloudflare Worker (SSE)
-- **Contador de Tokens** — estimativa chars/4 com simulação de custo
+- **Playground de Prompt** — chat interativo com Workers AI via Cloudflare Worker (SSE)
+- **Token Simulator** — otimização automática de prompts via IA
+- **Contador de Tokens** — estimativa chars/4 com simulação de custo por modelo
 - **Footer 4 colunas** — navegação completa, links externos para CommonMark, GFM, Markdown Guide
 - **Design responsivo** — desktop (1200px), tablet (768px), mobile (480px)
 - **Acessibilidade** — prefers-reduced-motion, hierarquia visual, contraste WCAG AA
 
 ---
 
-## Estrutura do Projeto
+## Estrutura do Projeto / Project Structure
 
 ```
 claritas/
@@ -63,7 +73,7 @@ claritas/
 │
 ├── worker-playground/
 │   ├── src/
-│   │   └── index.js            # Cloudflare Worker (proxy Gemini)
+│   │   └── index.js            # Cloudflare Worker (proxy Workers AI)
 │   ├── wrangler.toml           # Configuração do Worker
 │   └── package.json            # Dependências (Hono + Wrangler)
 │
@@ -72,40 +82,82 @@ claritas/
 
 ---
 
-## Execução Local
+## Execução Local / Getting Started
 
-### Frontend (abertura direta)
+### 🇧🇷 Frontend (abertura direta)
 Abra `site/index.html` no navegador. Nenhuma instalação necessária.
 
-### Servidor estático (para CSP)
+### 🇬🇧 Frontend (direct open)
+Open `site/index.html` in your browser. No installation required.
+
+### 🇧🇷 Servidor estático (para CSP)
 ```bash
 cd site
 python -m http.server 8080
-# ou: npx serve . --listen 8080
 ```
 Acesse `http://localhost:8080`
 
-### Playground com Gemini
-O playground requer o Worker Cloudflare rodando:
+### 🇬🇧 Static server (for CSP)
+```bash
+cd site
+python -m http.server 8080
+```
+Open `http://localhost:8080`
 
+### 🇧🇷 Playground com Workers AI
 ```bash
 cd worker-playground
-echo GEMINI_API_KEY=sua-chave-aqui > .dev.vars
-npm run dev
+npm install
+npx wrangler dev
 ```
 
-Em produção:
+### 🇬🇧 Playground with Workers AI
 ```bash
 cd worker-playground
-echo "GEMINI_API_KEY=sua-chave-aqui" | wrangler secret put GEMINI_API_KEY
-npm run deploy
+npm install
+npx wrangler dev
 ```
 
-O URL do Worker deve ser atualizado no `connect-src` da CSP em `site/index.html` (substituir `https://*.workers.dev` pelo domínio real).
+### 🇧🇷 Deploy do Worker
+```bash
+cd worker-playground
+npx wrangler deploy
+```
+
+### 🇬🇧 Worker Deploy
+```bash
+cd worker-playground
+npx wrangler deploy
+```
 
 ---
 
-## Segurança
+## API (Cloudflare Worker)
+
+### `POST /api/complete`
+🇧🇷 Proxy SSE para Workers AI (Llama 3.1 8B / Llama 3.2 3B).
+🇬🇧 SSE proxy to Workers AI (Llama 3.1 8B / Llama 3.2 3B).
+
+**Request:**
+```json
+{
+  "model": "llama-3.1-8b",
+  "messages": [
+    { "role": "system", "content": "Você é um assistente..." },
+    { "role": "user", "content": "Explique Markdown" }
+  ]
+}
+```
+
+**Response:** 🇧🇷 Stream de tokens via SSE. / 🇬🇧 Token stream via SSE.
+
+### `GET /api/health`
+🇧🇷 Health check. / 🇬🇧 Health check.
+Retorna / Returns `{ "status": "ok" }`.
+
+---
+
+## Segurança / Security
 
 ### Content-Security-Policy
 ```
@@ -120,48 +172,20 @@ base-uri 'self'
 form-action 'none'
 ```
 
-### Medidas implementadas
+### 🇧🇷 Medidas implementadas / 🇬🇧 Implemented measures
 - **Zero dependências externas** no frontend (exceto Google Fonts)
 - **Zero `innerHTML`** com dados de usuário — toda saída dinâmica usa `textContent` + `appendChild`
 - **Zero `eval()`** — CSP sem `'unsafe-eval'`
 - **Zero CDN** — sem scripts de terceiros
 - **Allowlist de rotas** — rejeição automática de rotas inválidas
 - **Links externos** com `target="_blank" rel="noopener noreferrer"`
-
-### Observações para produção
-- Restringir CORS do Worker ao domínio do Claritas
-- Configurar domínio customizado para o Worker (evitar exposição da API key em URLs)
-- Adicionar rate limiting no Worker
-- Validar tipos dos campos `model` e `messages` no endpoint `/api/complete`
+- **Nenhuma chave de API no código** — secrets gerenciados via `wrangler secret`
 
 ---
 
-## API (Cloudflare Worker)
+## Portfólio / Portfolio
 
-### `POST /api/complete`
-Proxy SSE para Google Gemini API.
-
-**Request:**
-```json
-{
-  "model": "gemini-1.5-flash",
-  "messages": [
-    { "role": "system", "content": "Você é um assistente..." },
-    { "role": "user", "content": "Explique Markdown" }
-  ]
-}
-```
-
-**Response:** Server-Sent Events stream com tokens incrementalmente.
-
-### `GET /api/health`
-Health check. Retorna `{ "status": "ok" }`.
-
----
-
-## Portfólio
-
-Este projeto demonstra:
+Este projeto demonstra / This project demonstrates:
 
 - **Arquitetura SPA zero-build** — HTML único que funciona sem servidor
 - **Governança por prompt** — toda modificação passa por auditoria de 6 testes de estresse
@@ -172,14 +196,16 @@ Este projeto demonstra:
 
 ---
 
-## Licença
+## Licença / License
 
-Projeto de código aberto mantido por **Brenda Tavares** (ShipClaw).  
-Código-fonte livre para reuso educacional e base para portais de documentação, desde que mantidas as meta tags de segurança e removidas as referências à marca ShipClaw em derivações.
+🇧🇷 Projeto de código aberto mantido por **Brenda Tavares** (ShipClaw).  
+🇬🇧 Open source project maintained by **Brenda Tavares** (ShipClaw).
+
+🇧🇷 Código-fonte livre para reuso educacional e base para portais de documentação, desde que mantidas as meta tags de segurança e removidas as referências à marca ShipClaw em derivações.  
+🇬🇧 Source code free for educational reuse and as a base for documentation portals, provided security meta tags are preserved and ShipClaw references are removed in derivations.
 
 ---
 
-**Mantenedor:** Brenda Tavares (ShipClaw)  
-**Repositório ShipClaw:** *(a definir)*  
-**Versão:** 2.0  
-**Última atualização:** 2026-07-14
+**Mantenedor / Maintainer:** Brenda Tavares (ShipClaw)  
+**Versão / Version:** 2.1  
+**Última atualização / Last update:** 2026-07-19
