@@ -206,6 +206,7 @@ Este projeto demonstra / This project demonstrates:
 
 ---
 
-**Mantenedor / Maintainer:** Brenda Tavares (ShipClaw)  
+**Mantenedor / Maintainer:** Brenda Tavares (ShipClaw)
+Este projeto também é mantido em **ShipClaw**: [https://github.com/shipclawdev/claritas](https://github.com/shipclawdev/claritas)
 **Versão / Version:** 2.1  
 **Última atualização / Last update:** 2026-07-19
