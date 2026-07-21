@@ -1854,23 +1854,25 @@ MIT</code></pre>
         let currentTheme = savedTheme || (prefersDark ? 'dark' : 'light');
 
         const applyTheme = (theme) => {
-            document.documentElement.setAttribute('data-theme', theme);
-            localStorage.setItem('claritas-theme', theme);
+            const safeTheme = theme === 'light' || theme === 'dark' ? theme : 'light';
+            document.documentElement.setAttribute('data-theme', safeTheme);
+            localStorage.setItem('claritas-theme', safeTheme);
             themeBtns.forEach(btn => {
-                btn.classList.toggle('active', btn.getAttribute('data-theme') === theme);
+                btn.classList.toggle('active', btn.getAttribute('data-theme') === safeTheme);
             });
-            document.getElementById('favicon').href = `assets/icons/favicon-${theme}.ico`;
-            document.getElementById('app-icon').href = `assets/icons/icon-${theme}.png`;
+            document.getElementById('favicon').href = `assets/icons/favicon-${safeTheme}.ico`;
+            document.getElementById('app-icon').href = `assets/icons/icon-${safeTheme}.png`;
             const logo = document.getElementById('header-logo');
-            if (logo) logo.src = `assets/logo-${theme}.png`;
-            currentTheme = theme;
+            if (logo) logo.src = `assets/logo-${safeTheme}.png`;
+            currentTheme = safeTheme;
         };
 
         applyTheme(currentTheme);
 
         themeBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                applyTheme(btn.getAttribute('data-theme'));
+                const t = btn.getAttribute('data-theme');
+                if (t === 'light' || t === 'dark') applyTheme(t);
             });
         });
 
@@ -2165,7 +2167,7 @@ Forneça APENAS o prompt otimizado, sem explicações ou comentários.`
             function clearChat() {
                 if (abortController) abortController.abort();
                 hideLoading();
-                msgEl.innerHTML = '';
+                msgEl.textContent = '';
                 messages = [];
                 clearBtn.style.display = 'none';
                 sendBtn.disabled = false;
