@@ -1,7 +1,4 @@
 // Cloudflare Pages Function — proxy para OpenRouter
-// A chave OPENROUTER_API_KEY é configurada como variável de ambiente no Cloudflare Pages
-// (Settings → Environment variables → Production).
-// O navegador chama este endpoint; a chave nunca sai do servidor.
 
 const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
 const ALLOWED_MODELS = [
@@ -11,7 +8,6 @@ const ALLOWED_MODELS = [
   'nousresearch/hermes-3-llama-3.1-405b:free'
 ];
 
-// Rate limit simples por IP (em memória — não persiste entre invocações em produção real)
 const rateLimit = new Map();
 const RATE_LIMIT_WINDOW = 60_000; // 1 minuto
 const RATE_LIMIT_MAX = 30;        // 30 req/min por IP
@@ -118,7 +114,6 @@ export async function onRequestPost(context) {
     return jsonError(upstream.status || 502, 'OpenRouter: ' + (errText || upstream.statusText));
   }
 
-  // Repassa o stream SSE upstream → cliente
   const headers = new Headers();
   headers.set('Content-Type', 'text/event-stream; charset=utf-8');
   headers.set('Cache-Control', 'no-cache, no-transform');
