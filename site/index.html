@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Claritas | Engenharia de Prompt e Documentação</title>
     
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' http://localhost:* https://*.workers.dev; frame-ancestors 'none'; base-uri 'self'; form-action 'none';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' http://localhost:*; frame-ancestors 'none'; base-uri 'self'; form-action 'none';">
     <meta http-equiv="X-Frame-Options" content="DENY">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="no-referrer">
@@ -920,6 +920,165 @@
             padding: 0.75rem 1rem;
             background: rgba(220, 38, 38, 0.08);
             border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        /* OPENROUTER FORM */
+        .form-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            transition: border-color 0.2s;
+        }
+        .form-input:focus { outline: none; border-color: var(--accent); }
+        .api-key-row {
+            display: flex;
+            gap: 0.5rem;
+            align-items: stretch;
+        }
+        .form-hint {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            line-height: 1.5;
+        }
+        .form-hint code {
+            background: var(--accent-soft);
+            color: var(--code-inline-text);
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+        .form-hint a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .form-hint a:hover { text-decoration: underline; }
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .model-checkboxes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+        .model-checkboxes label {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.85rem 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+        .model-checkboxes label:hover {
+            border-color: var(--accent);
+        }
+        .model-checkboxes input[type="checkbox"] {
+            accent-color: var(--accent);
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        .model-checkboxes label.is-default {
+            border-color: var(--accent);
+            background: var(--accent-soft);
+        }
+        .playground-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .model-grid {
+            display: grid;
+            gap: 1.25rem;
+            margin-top: 2rem;
+        }
+        .model-grid.cols-1 { grid-template-columns: 1fr; }
+        .model-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+        .model-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+        .model-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+        .model-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            min-height: 200px;
+        }
+        .model-card.is-error { border-color: #DC2626; }
+        .model-card-header {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .model-card-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            line-height: 1.3;
+        }
+        .model-card-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: 'Inter', monospace;
+        }
+        .model-card-metrics {
+            display: flex;
+            gap: 0.75rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+        }
+        .model-card-metrics span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        .model-card-metrics strong {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+        .model-card-body {
+            flex: 1;
+            white-space: pre-wrap;
+            line-height: 1.6;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            overflow-y: auto;
+            max-height: 400px;
+        }
+        .model-card-body.loading {
+            opacity: 0.6;
+            font-style: italic;
         }
 
         /* PLAYGROUND */
@@ -1057,6 +1216,14 @@
             .code-comparison { grid-template-columns: 1fr; }
             .form-row { grid-template-columns: 1fr; }
             .result-card { grid-template-columns: 1fr; }
+            .model-grid.cols-2,
+            .model-grid.cols-3,
+            .model-grid.cols-4 { grid-template-columns: 1fr; }
+            .model-checkboxes { grid-template-columns: 1fr; }
+            .api-key-row { flex-direction: column; }
+            .playground-actions { flex-direction: column; align-items: stretch; }
+            .playground-actions .btn-primary,
+            .playground-actions .btn-secondary { width: 100%; }
             .page-title { font-size: 1.5rem; }
             .page-subtitle { font-size: 0.95rem; }
             .footer-content { flex-direction: column; gap: 2rem; }
@@ -1572,12 +1739,12 @@ MIT</code></pre>
         <section id="token-counter" class="page">
             <div class="page-header">
                 <h1 class="page-title">Contador de Tokens</h1>
-                <p class="page-subtitle">Calcule o custo estimado de tokens por modelo e o custo aproximado em dólares.</p>
+                <p class="page-subtitle">Calcule o custo estimado de tokens por modelo do OpenRouter e o custo aproximado em dólares.</p>
             </div>
 
             <div class="content-section">
                 <h2 class="section-title">Calculadora</h2>
-                <p class="content-text">Cole seu texto abaixo e selecione o modelo para obter a contagem estimada de tokens e o custo.</p>
+                <p class="content-text">Cole seu texto abaixo e selecione o modelo para obter a contagem estimada de tokens e o custo. Os dados são enviados diretamente ao OpenRouter a partir do seu navegador.</p>
 
                 <div class="api-form">
                     <div class="form-row">
@@ -1623,31 +1790,42 @@ MIT</code></pre>
         <section id="playground" class="page">
             <div class="page-header">
                 <h1 class="page-title">Playground de Prompt</h1>
-                <p class="page-subtitle">Teste seus prompts contra modelos reais de linguagem via API.</p>
+                <p class="page-subtitle">Compare respostas de 2 a 4 modelos gratuitos do OpenRouter em paralelo.</p>
             </div>
 
             <div class="content-section">
-                <h2 class="section-title">Chat</h2>
-                <p class="content-text">Envie mensagens e veja a resposta em tempo real com streaming.</p>
+                <h2 class="section-title">Configuração</h2>
+                <p class="content-text">Selecione sua chave de API, escolha os modelos a serem comparados e envie seu prompt. As requisições saem diretamente do seu navegador para o OpenRouter.</p>
 
-                <div class="chat-container">
-                    <div class="chat-messages" id="pg-messages"></div>
-                    <div class="chat-controls">
-                        <label>Modelo:</label>
-                        <select id="pg-model"></select>
-                        <label style="margin-left:1rem;">Sistema:</label>
-                        <select id="pg-system">
-                            <option value="default">Padrão</option>
-                            <option value="technical">Técnico</option>
-                            <option value="creative">Criativo</option>
-                        </select>
-                        <button class="btn-primary" id="pg-clear" style="margin-left:auto;padding:0.6rem 1.25rem;font-size:0.9rem;display:none;">Limpar</button>
+                <div class="api-form">
+                    <div class="form-group">
+                        <label>Modelos para comparar (selecione 2 a 4)</label>
+                        <div class="model-checkboxes" id="pg-models"></div>
                     </div>
-                    <div class="chat-input-area">
-                        <textarea class="chat-input" id="pg-input" rows="2" placeholder="Digite sua mensagem... (Enter para enviar, Shift+Enter para nova linha)"></textarea>
-                        <button class="btn-primary" id="pg-send" style="align-self:flex-end;">Enviar</button>
+
+                    <div class="form-group">
+                        <label for="pg-system">Persona do sistema</label>
+                        <select id="pg-system" class="form-select">
+                            <option value="default">Padrão — Assistente útil e conciso</option>
+                            <option value="technical">Técnico — Engenheiro sênior</option>
+                            <option value="creative">Criativo — Designer expressivo</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pg-input">Seu prompt</label>
+                        <textarea id="pg-input" class="sim-input" rows="3" placeholder="Digite sua mensagem... (Ctrl+Enter para enviar)"></textarea>
+                    </div>
+
+                    <div class="playground-actions">
+                        <button class="btn-primary" id="pg-send">Comparar modelos selecionados</button>
+                        <button class="btn-secondary" id="pg-clear" style="display:none;">Limpar conversa</button>
                     </div>
                 </div>
+
+                <div id="pg-error" class="error-msg" style="display:none;"></div>
+
+                <div id="pg-results" class="model-grid"></div>
             </div>
         </section>
 
@@ -1745,9 +1923,9 @@ MIT</code></pre>
 
     <script>
         // ── Config ──
-        const API = {
-            playground: 'https://claritas.shipclaw.workers.dev'
-        };
+        // OpenRouter é chamado via Pages Function server-side (/api/chat) que
+        // guarda a OPENROUTER_API_KEY como variável de ambiente no Cloudflare.
+        // A chave nunca sai do servidor.
 
         // ── Mobile Menu ──
         const hamburger = document.getElementById('hamburger');
@@ -1907,11 +2085,12 @@ MIT</code></pre>
             generateBtn.textContent = 'Otimizando...';
 
             try {
-                const res = await fetch(API.playground + '/api/complete', {
+                const res = await fetch(CHAT_ENDPOINT, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        model: 'llama-3.1-8b',
+                        model: 'meta-llama/llama-3.2-3b-instruct:free',
+                        stream: true,
                         messages: [
                             {
                                 role: 'system',
@@ -1935,29 +2114,33 @@ Forneça APENAS o prompt otimizado, sem explicações ou comentários.`
 
                 if (!res.ok) {
                     const err = await res.json().catch(() => ({}));
-                    throw new Error(err.error || `Erro ${res.status}`);
+                    throw new Error(err.error?.message || `Erro HTTP ${res.status}`);
                 }
 
                 const reader = res.body.getReader();
                 const decoder = new TextDecoder();
                 let optimized = '';
+                let buffer = '';
 
                 while (true) {
                     const { done, value } = await reader.read();
                     if (done) break;
-                    const chunk = decoder.decode(value, { stream: true });
-                    const lines = chunk.split('\n');
+                    buffer += decoder.decode(value, { stream: true });
+                    const lines = buffer.split('\n');
+                    buffer = lines.pop() || '';
                     for (const line of lines) {
-                        if (line.startsWith('data: ')) {
-                            const data = line.slice(6);
-                            if (data === '[DONE]') continue;
-                            try {
-                                const parsed = JSON.parse(data);
-                                const text = parsed.candidates?.[0]?.content?.parts?.[0]?.text || parsed.text || '';
-                                optimized += text;
-                                goodInput.value = optimized;
-                            } catch {}
-                        }
+                        const t = line.trim();
+                        if (!t.startsWith('data:')) continue;
+                        const data = t.slice(5).trim();
+                        if (data === '[DONE]') continue;
+                        try {
+                            const parsed = JSON.parse(data);
+                            const text = parsed.choices?.[0]?.delta?.content
+                                || parsed.choices?.[0]?.text
+                                || '';
+                            optimized += text;
+                            goodInput.value = optimized;
+                        } catch {}
                     }
                 }
 
@@ -1974,15 +2157,19 @@ Forneça APENAS o prompt otimizado, sem explicações ou comentários.`
         goodInput.addEventListener('input', updateSim);
         updateSim();
 
+        // ── OpenRouter config ──
+        // A chamada vai para o Pages Function server-side (/api/chat) que
+        // guarda a OPENROUTER_API_KEY como variável de ambiente no Cloudflare.
+        const OPENROUTER_MODELS = [
+            { id: 'google/gemma-2-9b-it:free', label: 'Google Gemma 2 9B', isDefault: true },
+            { id: 'meta-llama/llama-3.2-3b-instruct:free', label: 'Llama 3.2 3B Instruct' },
+            { id: 'mistralai/mistral-7b-instruct:free', label: 'Mistral 7B Instruct' },
+            { id: 'nousresearch/hermes-3-llama-3.1-405b:free', label: 'Hermes 3 Llama 3.1 405B' }
+        ];
+        const CHAT_ENDPOINT = '/api/chat';
+
         // ── Token Counter (vanilla JS) ──
         (function() {
-            const MODELS = [
-                { id: 'gpt-4o', label: 'GPT-4o', priceIn: 0.00001, priceOut: 0.00003 },
-                { id: 'gpt-4o-mini', label: 'GPT-4o Mini', priceIn: 0.00000015, priceOut: 0.0000006 },
-                { id: 'claude-3.5-sonnet', label: 'Claude 3.5 Sonnet', priceIn: 0.000003, priceOut: 0.000015 },
-                { id: 'claude-3-haiku', label: 'Claude 3 Haiku', priceIn: 0.00000025, priceOut: 0.00000125 },
-            ];
-
             const selModel = document.getElementById('tc-model');
             const selPricing = document.getElementById('tc-pricing');
             const txtInput = document.getElementById('tc-text');
@@ -1993,191 +2180,296 @@ Forneça APENAS o prompt otimizado, sem explicações ou comentários.`
             const resChars = document.getElementById('tc-chars');
             const errEl = document.getElementById('tc-error');
 
-            MODELS.forEach(m => {
+            OPENROUTER_MODELS.forEach(m => {
                 const opt = document.createElement('option');
                 opt.value = m.id;
-                opt.textContent = m.label;
+                opt.textContent = m.label + (m.isDefault ? ' (padrão)' : '');
+                if (m.isDefault) opt.selected = true;
                 selModel.appendChild(opt);
             });
 
             function count() {
                 const text = txtInput.value;
                 if (!text.trim()) return;
+
                 btn.disabled = true;
                 btn.textContent = 'Calculando...';
                 errEl.style.display = 'none';
                 resCard.style.display = 'none';
-                try {
-                    const tokens = Math.ceil(text.length / 4);
-                    const m = MODELS.find(m => m.id === selModel.value);
-                    const ppc = selPricing.value === 'input' ? m.priceIn : m.priceOut;
-                    resTokens.textContent = tokens.toLocaleString();
-                    resCost.textContent = '$' + (tokens * ppc).toFixed(6);
-                    resChars.textContent = text.length.toLocaleString();
-                    resCard.style.display = 'grid';
-                } catch (e) {
-                    errEl.textContent = e.message;
-                    errEl.style.display = 'block';
-                } finally {
-                    btn.disabled = false;
-                    btn.textContent = 'Calcular Tokens';
-                }
+                (async () => {
+                    try {
+                        const model = selModel.value;
+                        const res = await fetch(CHAT_ENDPOINT, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                model,
+                                stream: false,
+                                messages: [{ role: 'user', content: text }]
+                            })
+                        });
+                        if (!res.ok) {
+                            const err = await res.json().catch(() => ({}));
+                            throw new Error(err.error?.message || ('Erro HTTP ' + res.status));
+                        }
+                        const data = await res.json();
+                        const usage = data.usage || {};
+                        const promptTokens = usage.prompt_tokens || Math.ceil(text.length / 4);
+                        const completionTokens = usage.completion_tokens || 0;
+                        resTokens.textContent = (promptTokens + completionTokens).toLocaleString();
+                        resCost.textContent = '$' + ((promptTokens + completionTokens) * 0).toFixed(6);
+                        resChars.textContent = text.length.toLocaleString();
+                        resCard.style.display = 'grid';
+                    } catch (e) {
+                        errEl.textContent = e.message;
+                        errEl.style.display = 'block';
+                    } finally {
+                        btn.disabled = false;
+                        btn.textContent = 'Calcular Tokens';
+                    }
+                })();
             }
 
             btn.addEventListener('click', count);
             txtInput.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); count(); } });
         })();
 
-        // ── Playground (vanilla JS) ──
+        // ── Playground (via /api/chat, comparação lado a lado) ──
         (function() {
-            const MODELS = [
-                { id: 'llama-3.1-8b', label: 'Llama 3.1 8B' },
-                { id: 'llama-3.2-3b', label: 'Llama 3.2 3B' },
-            ];
             const SYSTEM_PROMPTS = {
                 default: 'Você é um assistente útil e conciso.',
                 technical: 'Você é um engenheiro de software sênior. Seja técnico, preciso e direto. Use exemplos de código quando relevante.',
-                creative: 'Você é um designer criativo. Seja expressivo e visual nas suas respostas.',
+                creative: 'Você é um designer criativo. Seja expressivo e visual nas suas respostas.'
             };
 
-            const msgEl = document.getElementById('pg-messages');
-            const selModel = document.getElementById('pg-model');
-            const selSystem = document.getElementById('pg-system');
+            const modelsContainer = document.getElementById('pg-models');
             const inputEl = document.getElementById('pg-input');
+            const selSystem = document.getElementById('pg-system');
             const sendBtn = document.getElementById('pg-send');
             const clearBtn = document.getElementById('pg-clear');
+            const resultsGrid = document.getElementById('pg-results');
+            const errEl = document.getElementById('pg-error');
 
-            let loading = false;
-            let abortController = null;
-            let dotsInterval = null;
-            let dotsSpan = null;
-            let messages = [];
+            let abortControllers = new Map();
+            let loadingCount = 0;
+            let conversationHistory = [];
 
-            MODELS.forEach(m => {
-                const opt = document.createElement('option');
-                opt.value = m.id;
-                opt.textContent = m.label;
-                selModel.appendChild(opt);
+            OPENROUTER_MODELS.forEach(m => {
+                const lbl = document.createElement('label');
+                if (m.isDefault) lbl.classList.add('is-default');
+                const cb = document.createElement('input');
+                cb.type = 'checkbox';
+                cb.value = m.id;
+                cb.checked = !!m.isDefault;
+                if (m.isDefault) cb.dataset.default = '1';
+                const txt = document.createElement('span');
+                txt.textContent = m.label;
+                lbl.appendChild(cb);
+                lbl.appendChild(txt);
+                modelsContainer.appendChild(lbl);
             });
 
-            function addMessage(role, content) {
-                const d = document.createElement('div');
-                d.className = 'chat-msg ' + role;
-                d.textContent = content;
-                msgEl.appendChild(d);
-                msgEl.scrollTop = msgEl.scrollHeight;
-                return d;
+            function getSelectedModels() {
+                return Array.from(modelsContainer.querySelectorAll('input[type="checkbox"]:checked'))
+                    .map(cb => cb.value);
             }
 
-            function showLoading() {
-                const d = document.createElement('div');
-                d.className = 'chat-msg assistant loading';
-                d.id = 'pg-loading';
-                const span = document.createElement('span');
-                span.textContent = 'Pensando';
-                dotsSpan = document.createElement('span');
-                span.appendChild(dotsSpan);
-                d.appendChild(span);
-                msgEl.appendChild(d);
-                msgEl.scrollTop = msgEl.scrollHeight;
-                let dots = 0;
-                dotsInterval = setInterval(() => {
-                    dots = (dots + 1) % 4;
-                    dotsSpan.textContent = '.'.repeat(dots);
-                }, 500);
+            function showError(msg) {
+                errEl.textContent = msg;
+                errEl.style.display = 'block';
+            }
+            function clearError() {
+                errEl.style.display = 'none';
             }
 
-            function hideLoading() {
-                const el = document.getElementById('pg-loading');
-                if (el) el.remove();
-                if (dotsInterval) clearInterval(dotsInterval);
-                dotsInterval = null;
+            function makeCard(modelId) {
+                const m = OPENROUTER_MODELS.find(x => x.id === modelId);
+                const card = document.createElement('article');
+                card.className = 'model-card';
+                card.dataset.model = modelId;
+
+                const header = document.createElement('div');
+                header.className = 'model-card-header';
+                const title = document.createElement('div');
+                title.className = 'model-card-title';
+                title.textContent = m.label;
+                const subtitle = document.createElement('div');
+                subtitle.className = 'model-card-subtitle';
+                subtitle.textContent = modelId;
+                header.appendChild(title);
+                header.appendChild(subtitle);
+
+                const metrics = document.createElement('div');
+                metrics.className = 'model-card-metrics';
+                const dashSpan = document.createElement('span');
+                dashSpan.textContent = '—';
+                metrics.appendChild(dashSpan);
+
+                const body = document.createElement('div');
+                body.className = 'model-card-body loading';
+                body.textContent = 'Aguardando...';
+
+                card.appendChild(header);
+                card.appendChild(metrics);
+                card.appendChild(body);
+                return { card, metrics, body };
+            }
+
+            function formatNumber(n) {
+                return (n || 0).toLocaleString();
+            }
+
+            function updateGridCols(n) {
+                resultsGrid.classList.remove('cols-1', 'cols-2', 'cols-3', 'cols-4');
+                resultsGrid.classList.add('cols-' + n);
+            }
+
+            function readSSE(reader, onChunk, signal) {
+                const decoder = new TextDecoder();
+                let buffer = '';
+                return (async () => {
+                    while (true) {
+                        if (signal.aborted) throw new DOMException('aborted', 'AbortError');
+                        const { done, value } = await reader.read();
+                        if (done) break;
+                        buffer += decoder.decode(value, { stream: true });
+                        const lines = buffer.split('\n');
+                        buffer = lines.pop() || '';
+                        for (const line of lines) {
+                            const t = line.trim();
+                            if (!t.startsWith('data:')) continue;
+                            const data = t.slice(5).trim();
+                            if (data === '[DONE]') continue;
+                            try {
+                                const parsed = JSON.parse(data);
+                                const delta = parsed.choices?.[0]?.delta?.content
+                                    || parsed.choices?.[0]?.text
+                                    || '';
+                                if (delta) onChunk(delta);
+                            } catch {}
+                        }
+                    }
+                })();
+            }
+
+            async function callChatAPI(model, messages, signal) {
+                const res = await fetch(CHAT_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ model, messages, stream: true }),
+                    signal
+                });
+                if (!res.ok) {
+                    const err = await res.json().catch(() => ({}));
+                    throw new Error(err.error?.message || ('Erro HTTP ' + res.status));
+                }
+                return res;
             }
 
             async function send() {
                 const text = inputEl.value.trim();
-                if (!text || loading) return;
+                if (!text) return;
+                if (loadingCount > 0) return;
+
+                const selected = getSelectedModels();
+                if (selected.length < 2) { showError('Selecione pelo menos 2 modelos para comparar.'); return; }
+                if (selected.length > 4) { showError('Selecione no máximo 4 modelos.'); return; }
+
+                clearError();
                 inputEl.value = '';
-                messages.push({ role: 'user', content: text });
-                addMessage('user', text);
-                loading = true;
-                sendBtn.disabled = true;
-                sendBtn.textContent = '...';
-                showLoading();
-                clearBtn.style.display = 'none';
+                conversationHistory.push({ role: 'user', content: text });
+                resultsGrid.textContent = '';
+                updateGridCols(selected.length);
 
                 const systemMsg = SYSTEM_PROMPTS[selSystem.value];
-                const chatMessages = [{ role: 'system', content: systemMsg }, ...messages.map(m => ({ role: m.role, content: m.content }))];
+                const messages = [{ role: 'system', content: systemMsg }, ...conversationHistory];
 
-                abortController = new AbortController();
-                try {
-                    const res = await fetch(API.playground + '/api/complete', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ model: selModel.value, messages: chatMessages }),
-                        signal: abortController.signal
-                    });
-                    if (!res.ok) {
-                        const err = await res.json().catch(() => ({}));
-                        throw new Error(err.error || `Erro ${res.status}`);
-                    }
-                    hideLoading();
-                    messages.push({ role: 'assistant', content: '' });
-                    const assistantEl = addMessage('assistant', '');
+                sendBtn.disabled = true;
+                clearBtn.style.display = '';
+                loadingCount = selected.length;
+                abortControllers.clear();
 
-                    const reader = res.body.getReader();
-                    const decoder = new TextDecoder();
-                    let assistantMsg = '';
+                const promises = selected.map(async (modelId) => {
+                    const { card, metrics, body } = makeCard(modelId);
+                    resultsGrid.appendChild(card);
+                    const ac = new AbortController();
+                    abortControllers.set(modelId, ac);
 
-                    while (true) {
-                        const { done, value } = await reader.read();
-                        if (done) break;
-                        const chunk = decoder.decode(value, { stream: true });
-                        const lines = chunk.split('\n');
-                        for (const line of lines) {
-                            if (line.startsWith('data: ')) {
-                                const data = line.slice(6);
-                                if (data === '[DONE]') continue;
-                                try {
-                                    const parsed = JSON.parse(data);
-                                    const text = parsed.candidates?.[0]?.content?.parts?.[0]?.text || parsed.text || '';
-                                    assistantMsg += text;
-                                    messages[messages.length - 1].content = assistantMsg;
-                                    assistantEl.textContent = assistantMsg;
-                                    msgEl.scrollTop = msgEl.scrollHeight;
-                                } catch {}
-                            }
+                    const t0 = Date.now();
+                    try {
+                        const res = await callChatAPI(modelId, messages, ac.signal);
+                        body.classList.remove('loading');
+                        body.textContent = '';
+
+                        let fullText = '';
+                        await readSSE(res.body.getReader(), (delta) => {
+                            fullText += delta;
+                            body.textContent = fullText;
+                            body.scrollTop = body.scrollHeight;
+                        }, ac.signal);
+
+                        const dt = Date.now() - t0;
+                        const estTokens = Math.ceil(fullText.length / 4);
+                        metrics.textContent = '';
+                        const mTime = document.createElement('span');
+                        mTime.textContent = '⏱ ';
+                        const tStrong = document.createElement('strong');
+                        tStrong.textContent = (dt / 1000).toFixed(1) + 's';
+                        mTime.appendChild(tStrong);
+                        const mTok = document.createElement('span');
+                        mTok.textContent = '~';
+                        const tStrong2 = document.createElement('strong');
+                        tStrong2.textContent = formatNumber(estTokens);
+                        mTok.appendChild(tStrong2);
+                        mTok.appendChild(document.createTextNode(' tokens'));
+                        metrics.appendChild(mTime);
+                        metrics.appendChild(mTok);
+                        return { modelId, success: true, content: fullText };
+                    } catch (e) {
+                        body.classList.remove('loading');
+                        body.textContent = '';
+                        card.classList.add('is-error');
+                        const err = document.createElement('div');
+                        err.textContent = '⚠ ' + (e.message || 'Erro desconhecido');
+                        body.appendChild(err);
+                        metrics.textContent = '';
+                        const failSpan = document.createElement('span');
+                        failSpan.textContent = 'falha';
+                        metrics.appendChild(failSpan);
+                        return { modelId, success: false, error: e.message };
+                    } finally {
+                        loadingCount--;
+                        if (loadingCount === 0) {
+                            sendBtn.disabled = false;
                         }
                     }
-                } catch (e) {
-                    hideLoading();
-                    if (e.name !== 'AbortError') {
-                        addMessage('assistant', 'Erro: ' + e.message);
-                        messages.push({ role: 'assistant', content: 'Erro: ' + e.message });
-                    }
-                } finally {
-                    loading = false;
-                    sendBtn.disabled = false;
-                    sendBtn.textContent = 'Enviar';
-                    if (messages.length) clearBtn.style.display = '';
-                    abortController = null;
+                });
+
+                const results = await Promise.all(promises);
+                const assistantMsg = results
+                    .filter(r => r.success)
+                    .map(r => '[' + OPENROUTER_MODELS.find(x => x.id === r.modelId).label + ']:\n' + r.content)
+                    .join('\n\n---\n\n');
+                if (assistantMsg) {
+                    conversationHistory.push({ role: 'assistant', content: assistantMsg });
                 }
             }
 
             function clearChat() {
-                if (abortController) abortController.abort();
-                hideLoading();
-                msgEl.textContent = '';
-                messages = [];
-                clearBtn.style.display = 'none';
+                for (const ac of abortControllers.values()) ac.abort();
+                abortControllers.clear();
+                loadingCount = 0;
+                conversationHistory = [];
+                resultsGrid.textContent = '';
+                clearError();
                 sendBtn.disabled = false;
-                sendBtn.textContent = 'Enviar';
+                clearBtn.style.display = 'none';
             }
 
             sendBtn.addEventListener('click', send);
             clearBtn.addEventListener('click', clearChat);
             inputEl.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' && !e.shiftKey) {
+                if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
                     e.preventDefault();
                     send();
                 }
