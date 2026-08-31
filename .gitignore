@@ -23,5 +23,5 @@ desktop.ini
 # Governance
 governance/
 
-# Worker (removido na v2.2 — migrado para Cloudflare Pages Function)
+# Worker (removido na v2.2)
 worker-playground/
