@@ -1,13 +1,21 @@
 // Cloudflare Pages Function — proxy para OpenRouter
+// A chave OPENROUTER_API_KEY é configurada como variável de ambiente no Cloudflare Pages
+// (Settings → Environment variables → Production).
+// O navegador chama este endpoint; a chave nunca sai do servidor.
 
 const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
 const ALLOWED_MODELS = [
-  'google/gemma-2-9b-it:free',
-  'meta-llama/llama-3.2-3b-instruct:free',
-  'mistralai/mistral-7b-instruct:free',
-  'nousresearch/hermes-3-llama-3.1-405b:free'
+  'minimax/minimax-m3:free',
+  'minimax/minimax-m2.7:free',
+  'nvidia/nemotron-3-super-120b-a12b:free',
+  'nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free',
+  'nvidia/nemotron-3-ultra-550b-a55b:free',
+  'z-ai/glm-5.2:free',
+  'cohere/north-mini-code:free',
+  'poolside/laguna-xs-2.1:free'
 ];
 
+// Rate limit simples por IP (em memória — não persiste entre invocações em produção real)
 const rateLimit = new Map();
 const RATE_LIMIT_WINDOW = 60_000; // 1 minuto
 const RATE_LIMIT_MAX = 30;        // 30 req/min por IP
@@ -114,6 +122,7 @@ export async function onRequestPost(context) {
     return jsonError(upstream.status || 502, 'OpenRouter: ' + (errText || upstream.statusText));
   }
 
+  // Repassa o stream SSE upstream → cliente
   const headers = new Headers();
   headers.set('Content-Type', 'text/event-stream; charset=utf-8');
   headers.set('Cache-Control', 'no-cache, no-transform');
