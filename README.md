@@ -28,10 +28,10 @@ Built under a **zero-build, zero-dependency** policy — the HTML opens directly
 | **Frontend** | HTML5 Semântico + CSS3 Puro + JavaScript Vanilla ES6+ | Zero frameworks JS |
 | **Design** | CSS Grid, Flexbox, Variáveis CSS (`:root`), Custom Properties | Zero bibliotecas CSS |
 | **Tipografia / Typography** | Inter (body) + Playfair Display (headings) via Google Fonts | Única dependência externa / Only external dependency |
-| **Backend (API)** | Cloudflare Workers + Hono | Hono ^4.6 |
+| **Backend (API)** | Cloudflare Pages Functions | Vanilla (sem framework) |
 | **Streaming** | Server-Sent Events (SSE) via TransformStream | Native to Workers |
-| **Modelo de IA / AI Model** | Workers AI (Llama 3.1 8B / Llama 3.2 3B) | Gratuito / Free tier |
-| **Deploy** | Cloudflare Pages (site) + Wrangler (Worker) | Zero build local / Local zero build |
+| **Modelo de IA / AI Model** | OpenRouter via Pages Function (8 modelos free: M3, M2.7, Nemotron Super 120B, Nemotron Nano 30B, Nemotron Ultra 550B, Z.AI GLM 5.2, Cohere North Mini, Poolside Laguna XS 2.1) | Gratuito / Free tier |
+| **Deploy** | Cloudflare Pages (site + Functions) | Zero build local / Local zero build |
 | **Segurança / Security** | Content-Security-Policy, X-Frame-Options, Referrer-Policy | Meta tags + HTTP headers |
 | **Controle / Version Control** | Git + GitHub | — |
 
@@ -40,7 +40,7 @@ Built under a **zero-build, zero-dependency** policy — the HTML opens directly
 - **HTML5** — 100% semântico / semantic (header, nav, main, section, footer, details, summary)
 - **CSS3** — Grid layouts, Flexbox, animações keyframe, media queries, prefers-reduced-motion
 - **JavaScript ES6+** — SPA routing, IntersectionObserver / scroll tracking, SSE streaming, async/await
-- **TOML** — Configuração do Worker / Worker config (`wrangler.toml`)
+- **JavaScript** — Configuração da Pages Function (`functions/api/chat.js`)
 - **JSON** — Pacotes npm e schemas de API / npm packages and API schemas
 
 ---
@@ -50,9 +50,9 @@ Built under a **zero-build, zero-dependency** policy — the HTML opens directly
 - **Roteador SPA** com Allowlist defensiva — 15 rotas validadas, fallback seguro para `#home`
 - **Sidebar flutuante** com tracking de profundidade — item ativo em destaque, escala decrescente nos demais
 - **Dark Mode** com persistência via `localStorage` — toggle claro/escuro
-- **Playground de Prompt** — chat interativo com Workers AI via Cloudflare Worker (SSE)
-- **Token Simulator** — otimização automática de prompts via IA
-- **Contador de Tokens** — estimativa chars/4 com simulação de custo por modelo
+- **Playground de Prompt** — comparação lado a lado de 2-4 modelos do OpenRouter (SSE) com persona "Arquiteto de Prompts (RACE)" disponível
+- **Token Simulator** — otimização profissional de prompts via framework RACE (modelo `m2.7`)
+- **Contador de Tokens** — chama OpenRouter para obter `usage.prompt_tokens` e `usage.completion_tokens` reais
 - **Footer 4 colunas** — navegação completa, links externos para CommonMark, GFM, Markdown Guide
 - **Design responsivo** — desktop (1200px), tablet (768px), mobile (480px)
 - **Acessibilidade** — prefers-reduced-motion, hierarquia visual, contraste WCAG AA
@@ -65,17 +65,14 @@ Built under a **zero-build, zero-dependency** policy — the HTML opens directly
 claritas/
 ├── site/
 │   ├── index.html              # Portal completo (arquivo único)
+│   ├── functions/
+│   │   └── api/
+│   │       └── chat.js         # Cloudflare Pages Function (proxy OpenRouter server-side)
 │   └── assets/
 │       ├── favicon-light.ico
 │       ├── favicon-dark.ico
 │       ├── icon-light.png
 │       └── icon-dark.png
-│
-├── worker-playground/
-│   ├── src/
-│   │   └── index.js            # Cloudflare Worker (proxy Workers AI)
-│   ├── wrangler.toml           # Configuração do Worker
-│   └── package.json            # Dependências (Hono + Wrangler)
 │
 └── README.md                   # Este arquivo
 ```
@@ -104,56 +101,34 @@ python -m http.server 8080
 ```
 Open `http://localhost:8080`
 
-### 🇧🇷 Playground com Workers AI
-```bash
-cd worker-playground
-npm install
-npx wrangler dev
-```
-
-### 🇬🇧 Playground with Workers AI
-```bash
-cd worker-playground
-npm install
-npx wrangler dev
-```
-
-### 🇧🇷 Deploy do Worker
-```bash
-cd worker-playground
-npx wrangler deploy
-```
-
-### 🇬🇧 Worker Deploy
-```bash
-cd worker-playground
-npx wrangler deploy
-```
+> 🇧🇷 O site e a API são deployados automaticamente via **Cloudflare Pages** conectado ao repositório GitHub. A chave do OpenRouter vai como **variável de ambiente** no painel do provedor de deploy.
+> 🇬🇧 The site and API are automatically deployed via **Cloudflare Pages** connected to the GitHub repository. The OpenRouter key is stored as an **environment variable** in the deploy provider's dashboard.
 
 ---
 
-## API (Cloudflare Worker)
+## API (Cloudflare Pages Function)
 
-### `POST /api/complete`
-🇧🇷 Proxy SSE para Workers AI (Llama 3.1 8B / Llama 3.2 3B).
-🇬🇧 SSE proxy to Workers AI (Llama 3.1 8B / Llama 3.2 3B).
+### `POST /api/chat`
+🇧🇷 Proxy server-side para OpenRouter. A chave fica em `env.OPENROUTER_API_KEY` (não no código).
+🇬🇧 Server-side proxy to OpenRouter. The key is stored in `env.OPENROUTER_API_KEY` (not in the code).
 
 **Request:**
 ```json
 {
-  "model": "llama-3.1-8b",
+  "model": "minimax/minimax-m3:free",
   "messages": [
     { "role": "system", "content": "Você é um assistente..." },
     { "role": "user", "content": "Explique Markdown" }
-  ]
+  ],
+  "stream": true
 }
 ```
 
 **Response:** 🇧🇷 Stream de tokens via SSE. / 🇬🇧 Token stream via SSE.
 
-### `GET /api/health`
-🇧🇷 Health check. / 🇬🇧 Health check.
-Retorna / Returns `{ "status": "ok" }`.
+**Modelos permitidos** (allowlist no servidor): `minimax/minimax-m3`, `minimax/minimax-m2.7`, `nvidia/nemotron-3-super-120b-a12b`, `nvidia/nemotron-3-nano-omni-30b-a3b-reasoning`, `nvidia/nemotron-3-ultra-550b-a55b`, `z-ai/glm-5.2`, `cohere/north-mini-code`, `poolside/laguna-xs-2.1` (todos `:free`).
+
+**Rate limit:** 30 req/min por IP.
 
 ---
 
@@ -166,7 +141,7 @@ script-src 'self' 'unsafe-inline'
 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com
 font-src 'self' https://fonts.gstatic.com
 img-src 'self' data:
-connect-src 'self' http://localhost:* https://*.workers.dev
+connect-src 'self' http://localhost:*
 frame-ancestors 'none'
 base-uri 'self'
 form-action 'none'
@@ -179,7 +154,7 @@ form-action 'none'
 - **Zero CDN** — sem scripts de terceiros
 - **Allowlist de rotas** — rejeição automática de rotas inválidas
 - **Links externos** com `target="_blank" rel="noopener noreferrer"`
-- **Nenhuma chave de API no código** — secrets gerenciados via `wrangler secret`
+- **Nenhuma chave de API no código** — variáveis de ambiente do provedor de deploy, lidas server-side pela Pages Function
 
 ---
 
@@ -190,8 +165,8 @@ Este projeto demonstra / This project demonstrates:
 - **Arquitetura SPA zero-build** — HTML único que funciona sem servidor
 - **Governança por prompt** — toda modificação passa por auditoria de 6 testes de estresse
 - **Design system rigoroso** — paleta definida, dark mode, sem frameworks CSS
-- **Streaming serverless** — SSE via Cloudflare Workers + Hono
-- **Segurança em camada única** — CSP como única barreira, sem backend
+- **Streaming serverless** — SSE via Cloudflare Pages Function (proxy server-side para OpenRouter)
+- **Segurança em camada única** — CSP como única barreira, sem backend próprio
 - **UX com scroll tracking** — sidebar adaptativa com profundidade visual
 
 ---
@@ -206,7 +181,20 @@ Este projeto demonstra / This project demonstrates:
 
 ---
 
-**Mantenedor / Maintainer:** Brenda Tavares (ShipClaw)
-Este projeto também é mantido em **ShipClaw**: [https://github.com/shipclawdev/claritas](https://github.com/shipclawdev/claritas)
-**Versão / Version:** 2.1  
+**Mantenedor / Maintainer:** Brenda Tavares (ShipClaw)  
+**Versão / Version:** 2.3  
 **Última atualização / Last update:** 2026-07-19
+
+> **Alterações da v2.3 (2026-07-19):**
+> - Allowlist OpenRouter atualizada para os **8 modelos free** atualmente disponíveis (M3, M2.7, Nemotron Super 120B, Nemotron Nano 30B Reasoning, Nemotron Ultra 550B, Z.AI GLM 5.2, Cohere North Mini, Poolside Laguna XS 2.1)
+> - Removido `gemma-2-9b-it:free` (indisponível)
+> - Nova persona **"Arquiteto de Prompts (RACE)"** no Playground e Token Simulator — framework RACE (Role/Action/Context/Expectation) + restrições anti-alucinação
+> - Token Simulator agora usa `minimax/minimax-m2.7:free` e o system prompt `PROMPT_ENGINEER_SYSTEM` (RACE completo)
+>
+> **Alterações da v2.2 (2026-07-19):**
+> - Backend migrado de Cloudflare Workers para **Cloudflare Pages Functions**
+> - Modelo de IA migrado de Workers AI para **OpenRouter** (4 modelos free iniciais)
+> - `worker-playground/` removido da estrutura — substituído por `site/functions/api/chat.js`
+> - CSP `connect-src` reduzido para `'self' http://localhost:*` (chave fica server-side)
+> - Playground reformulado para **comparação lado a lado** de 2-4 modelos
+> - Chave da API gerenciada via **variável de ambiente** do provedor de deploy
