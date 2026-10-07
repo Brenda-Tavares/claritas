@@ -1,7 +1,7 @@
 # Claritas
 
 > 提示工程与 Markdown 文档的技术门户。
-> **中文** · [English](README.md) · [Português](README_PT.md)
+> [中文](README_PT.md) · [English](README.md) · [Português](README_PT.md)
 
 **版本：** 2.20 · **维护者：** Brenda Tavares（ShipClaw）· **最后更新：** 2026-10-05
 
