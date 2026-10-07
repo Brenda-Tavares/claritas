@@ -1,7 +1,7 @@
 # Claritas
 
 > Portal técnico de Engenharia de Prompt e documentação Markdown.
-> **Português** · [English](README.md) · [中文](README_ZH.md)
+> [Português](README_PT.md) · [English](README.md) · [中文](README_ZH.md)
 
 **Versão:** 2.20 · **Mantenedora:** Brenda Tavares (ShipClaw) · **Última atualização:** 2026-10-05
 
