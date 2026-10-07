@@ -1,0 +1,45 @@
+Claritas Educational Source License (CESL-1.0)
+
+Copyright (c) 2026 Brenda Tavares (ShipClaw)
+
+This is a custom license. It is not MIT, not Apache, not a Creative Commons
+license, and it is not approved by the Open Source Initiative. It is written
+here in full because the terms matter more than the label, and a label would
+imply permissions this license does not grant.
+
+1. Grant
+
+Permission is granted to use, copy, modify and redistribute this source code,
+and to distribute works derived from it, for educational purposes and as a base
+for documentation portals.
+
+2. Conditions
+
+Both conditions apply to any distribution, modified or unmodified:
+
+  a) The security meta tags must be preserved. In practice this means the
+     Content-Security-Policy, X-Frame-Options, X-Content-Type-Options and
+     Referrer-Policy directives, wherever they are delivered. Removing them
+     from a derivative is a breach of this license, not a permitted edit.
+
+  b) ShipClaw references must be removed in derivatives. Attribution to the
+     original author is not required and must not be kept in a derivative.
+
+3. No warranty
+
+This software is provided "as is", without warranty of any kind, express or
+implied, including but not limited to the warranties of merchantability,
+fitness for a particular purpose and noninfringement. In no event shall the
+copyright holder be liable for any claim, damages or other liability, whether
+in an action of contract, tort or otherwise, arising from, out of or in
+connection with the software or the use or other dealings in the software.
+
+4. Trademarks
+
+"Claritas" and "ShipClaw" are marks of the copyright holder. Condition 2(b)
+applies to them: derivatives must not use them.
+
+5. Questions
+
+This license is intentionally short. If a use is not clearly covered, the
+conservative reading is the one that requires permission.

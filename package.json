@@ -1,0 +1,15 @@
+{
+  "name": "claritas-portfolio",
+  "version": "2.20",
+  "private": true,
+  "description": "Public Claritas portfolio: zero-build static demo plus a Pages Function that owns the provider call.",
+  "scripts": {
+    "check": "npm run check:readmes",
+    "check:readmes": "node scripts/check-readme-parity.mjs",
+    "check:readmes:strict": "node scripts/check-readme-parity.mjs --strict",
+    "check:owasp": "node scripts/test-owasp-claims.mjs",
+    "check:claims": "node scripts/test-claim-guard.mjs",
+    "check:race": "node scripts/test-race-contract.mjs",
+    "test": "npm run check:readmes:strict && node scripts/test-readme-check.mjs && npm run check:owasp && npm run check:claims && npm run check:race"
+  }
+}

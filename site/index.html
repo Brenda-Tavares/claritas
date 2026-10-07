@@ -1,0 +1,2604 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claritas | Engenharia de Prompt e Documentação para qualquer área</title>
+    <meta name="description" content="Portal gratuito de Engenharia de Prompt e Documentação Markdown: use a IA como ferramenta e parceira na sua vida acadêmica, profissional ou pessoal — em qualquer área, não só em TI. Mantido por ShipClaw.">
+    
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' http://localhost:*; base-uri 'self'; form-action 'none';">
+    <meta name="referrer" content="no-referrer">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+    <link rel="icon" id="favicon" href="assets/icons/favicon-light.ico">
+    <link rel="apple-touch-icon" id="app-icon" href="assets/icons/icon-light.png">
+
+
+    <style>
+        :root {
+            --bg-main: #FAFAF7;
+            --bg-card: rgba(255, 255, 255, 0.95);
+            --header-bg: rgba(250, 250, 247, 0.98);
+            --text-main: #1A1A1A;
+            --text-muted: #6B7280;
+            --accent: #D97706;
+            --accent-soft: rgba(217, 119, 6, 0.08);
+            --border: #E5E7EB;
+            
+            --code-inline-bg: rgba(217, 119, 6, 0.08);
+            --code-inline-text: #92400E;
+            --pre-bg: #1F2937;
+            --pre-text: #F3F4F6;
+            --pre-border: #374151;
+            
+            --table-th-bg: #F9FAFB;
+            --alert-bg: rgba(217, 119, 6, 0.05);
+            --alert-text: #92400E;
+            --alert-border: #D97706;
+            
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.08);
+            
+            --lang-active-bg: #B45309;
+            --lang-hover-text: #92310A;
+        }
+
+        [data-theme="dark"] {
+            --bg-main: #0A0A0A;
+            --bg-card: rgba(23, 23, 23, 0.8);
+            --header-bg: rgba(10, 10, 10, 0.98);
+            --text-main: #F5F5F4;
+            --text-muted: #A8A29E;
+            --accent: #F59E0B;
+            --accent-soft: rgba(245, 158, 11, 0.12);
+            --border: #292524;
+            
+            --code-inline-bg: rgba(245, 158, 11, 0.12);
+            --code-inline-text: #FCD34D;
+            --pre-bg: #000000;
+            --pre-text: #F5F5F4;
+            --pre-border: #1C1917;
+            
+            --table-th-bg: rgba(255, 255, 255, 0.03);
+            --alert-bg: rgba(245, 158, 11, 0.08);
+            --alert-text: #FCD34D;
+            --alert-border: #F59E0B;
+            
+            --lang-active-bg: #B45309;
+            --lang-hover-text: #FBBF24;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.75rem;
+            cursor: pointer;
+            color: var(--text-main);
+            padding: 0.25rem;
+            line-height: 1;
+            z-index: 110;
+        }
+
+        .mobile-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 98;
+        }
+        .mobile-overlay.open { display: block; }
+
+        header {
+            background: var(--header-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            padding: 1.25rem 2.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-area { display: flex; align-items: center; gap: 1rem; text-decoration: none; }
+
+        .brand-logo { width: 72px; height: 72px; object-fit: contain; border-radius: 14px; }
+
+        .brand-name { 
+            font-family: 'Playfair Display', serif;
+            font-weight: 800; 
+            color: var(--text-main); 
+            font-size: 1.5rem; 
+            letter-spacing: -0.02em;
+        }
+
+        .nav-controls { display: flex; align-items: center; gap: 2.5rem; }
+        .nav-links { display: flex; gap: 2rem; }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            transition: color 0.2s;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active { color: var(--text-main); }
+        .nav-link.active::after { width: 100%; }
+
+        .theme-toggle {
+            display: flex;
+            gap: 0.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 0.25rem;
+        }
+
+        .theme-btn {
+            background: transparent;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            color: var(--text-muted);
+        }
+
+        .theme-btn.active {
+            background: var(--accent);
+            color: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .theme-btn:hover:not(.active) {
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        .lang-toggle {
+            display: flex;
+            gap: 0.15rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 0.25rem;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            padding: 0.3rem 0.55rem;
+            border-radius: 18px;
+            cursor: pointer;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            transition: all 0.2s;
+            line-height: 1;
+        }
+
+        .lang-btn.active {
+            background: var(--lang-active-bg);
+            color: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .lang-btn:hover:not(.active) {
+            background: var(--accent-soft);
+            color: var(--lang-hover-text);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2.5rem;
+        }
+
+        .page { display: none; }
+        .page.active { display: block; animation: fadeIn 0.6s ease; }
+
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(10px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        .hero {
+            padding: 6rem 0 5rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 5rem;
+        }
+
+        .hero-content { max-width: 560px; }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--accent-soft);
+            color: var(--accent);
+            padding: 0.5rem 1.25rem;
+            border-radius: 24px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 2rem;
+        }
+
+        .hero-badge::before { content: '◈'; font-size: 0.9rem; }
+
+        .hero h1 { 
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem; 
+            font-weight: 900; 
+            line-height: 1.05; 
+            letter-spacing: -0.03em; 
+            margin-bottom: 2rem;
+            color: var(--text-main);
+        }
+
+        .hero h1 em { font-style: italic; color: var(--accent); }
+
+        .hero p { 
+            font-size: 1.25rem; 
+            color: var(--text-muted); 
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .stat-item { display: flex; flex-direction: column; }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .hero-visual { position: relative; height: 480px; }
+
+        
+        .code-preview {
+            position: absolute;
+            background: var(--pre-bg);
+            color: var(--pre-text);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1.2rem;
+        }
+
+        .code-preview::before {
+            content: '● ● ●';
+            display: block;
+            color: #6B7280;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .code-line { opacity: 0.7; }
+        .code-line.highlight { opacity: 1; color: var(--accent); font-weight: bold; }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 6rem;
+        }
+
+        .grid-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .grid-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .grid-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent);
+        }
+
+        .grid-card:hover::before { transform: scaleY(1); }
+
+        .card-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--accent);
+            opacity: 0.15;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .grid-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .grid-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+
+        .authority {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 4rem;
+            margin-bottom: 5rem;
+        }
+
+        .authority-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .authority-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .authority h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            color: var(--text-main);
+        }
+
+        .authority-content p {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .authority-content strong { color: var(--text-main); font-weight: 600; }
+
+        .page-header {
+            padding: 4rem 0 3rem;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 3rem;
+        }
+
+        .page-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 700px;
+        }
+
+        .content-section {
+            margin-bottom: 4rem;
+            scroll-margin-top: 100px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 28px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .content-text {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .alert {
+            background: var(--alert-bg);
+            border-left: 4px solid var(--alert-border);
+            padding: 1.5rem 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .alert strong { color: var(--alert-border); font-weight: 700; }
+
+        code {
+            background: var(--code-inline-bg);
+            color: var(--code-inline-text);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        pre {
+            background: var(--pre-bg);
+            color: var(--pre-text);
+            padding: 2rem;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 2rem 0;
+            border: 1px solid var(--pre-border);
+            box-shadow: var(--shadow-md);
+        }
+
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        ul { margin: 1.5rem 0; padding-left: 1.5rem; }
+        li { margin-bottom: 0.75rem; color: var(--text-muted); font-size: 1.05rem; }
+        li::marker { color: var(--accent); font-weight: bold; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+
+        th, td { padding: 1.25rem; text-align: left; border-bottom: 1px solid var(--border); }
+
+        th {
+            background: var(--table-th-bg);
+            font-weight: 700;
+            color: var(--text-main);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+        }
+
+        .simulator {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 3rem;
+            margin: 3rem 0;
+        }
+
+        .sim-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .sim-title { font-family: 'Playfair Display', serif; font-size: 1.75rem; font-weight: 700; }
+
+        .sim-generate-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .sim-generate-btn:hover {
+            background: var(--text-main);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .sim-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .sim-column { display: flex; flex-direction: column; }
+
+        .sim-label {
+            font-weight: 700;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+            color: var(--text-main);
+        }
+
+        .sim-input {
+            width: 100%;
+            min-height: 140px;
+            padding: 1.25rem;
+            background: var(--bg-main);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 0.95rem;
+            resize: vertical;
+            transition: border-color 0.2s;
+        }
+
+        .sim-input:focus { outline: none; border-color: var(--accent); }
+
+        .sim-result {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--accent-soft);
+            border-radius: 8px;
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        .sim-result.good { background: rgba(34, 197, 94, 0.1); color: #16A34A; }
+
+        .sim-savings {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--bg-main);
+            border-radius: 12px;
+            text-align: center;
+            border: 2px dashed var(--border);
+        }
+
+        .savings-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .savings-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        
+        .md-layout {
+            position: relative;
+        }
+        .md-sidebar {
+            position: fixed;
+            left: max(12px, calc((100vw - 1200px) / 2 - 185px));
+            top: 50%;
+            transform: translateY(-50%);
+            width: 150px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            z-index: 5;
+            transition: opacity 0.35s ease;
+        }
+        .md-sidebar-link {
+            display: block;
+            padding: 0.2rem 0;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.82rem;
+            text-align: right;
+            transition: font-size 0.25s, opacity 0.25s, color 0.25s;
+        }
+        .md-sidebar-link:hover { color: var(--text-main); opacity: 0.85 !important; }
+        .md-sidebar-link.depth-0 {
+            font-size: 0.95rem;
+            opacity: 1;
+            color: var(--accent);
+        }
+        .md-sidebar-link.depth-1 {
+            font-size: 0.87rem;
+            opacity: 0.65;
+        }
+        .md-sidebar-link.depth-2 {
+            font-size: 0.8rem;
+            opacity: 0.4;
+        }
+        .md-sidebar-link.depth-3 {
+            font-size: 0.75rem;
+            opacity: 0.2;
+        }
+
+        
+        .md-dropdown {
+            display: none;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            background: var(--bg-card);
+        }
+        .md-dropdown summary {
+            padding: 0.85rem 1.25rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            user-select: none;
+        }
+        .md-dropdown summary::-webkit-details-marker { display: none; }
+        .dd-arrow { transition: transform 0.2s; font-size: 0.8rem; color: var(--text-muted); }
+        .md-dropdown[open] .dd-arrow { transform: rotate(180deg); }
+        .dd-links {
+            display: flex;
+            flex-direction: column;
+            border-top: 1px solid var(--border);
+        }
+        .dd-link {
+            padding: 0.75rem 1.25rem;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: background 0.15s, color 0.15s;
+        }
+        .dd-link:hover { background: var(--bg-main); color: var(--text-main); }
+        .dd-link + .dd-link { border-top: 1px solid var(--border); }
+
+        .code-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .code-col {
+            display: flex;
+            flex-direction: column;
+        }
+        .code-col h4 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+        .code-col > :last-child {
+            flex: 1;
+        }
+        .code-col pre { margin: 0; }
+        .code-col .result-box { height: 100%; box-sizing: border-box; }
+
+        blockquote {
+            border-left: 4px solid var(--accent);
+            padding-left: 1rem;
+            color: var(--text-muted);
+            font-style: italic;
+            margin: 1rem 0;
+        }
+
+        .reference-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow-sm);
+        }
+        .reference-card h3 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+        }
+        .reference-card p {
+            margin-bottom: 0.5rem;
+        }
+        .reference-card a {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-decoration: none;
+            border-bottom: 1px solid var(--border);
+            transition: border-color 0.2s, color 0.2s;
+        }
+        .reference-card a:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        
+        .site-footer {
+            border-top: 1px solid var(--border);
+            margin-top: 6rem;
+            padding: 4rem 2.5rem 2rem;
+            background: var(--bg-card);
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+        .footer-col-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-main);
+            margin-bottom: 0.4rem;
+        }
+        .footer-tagline {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        .footer-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            transition: color 0.2s;
+        }
+        .footer-link:hover { color: var(--accent); }
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        
+        .api-form {
+            display: grid;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .form-group label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+        .form-select {
+            padding: 0.75rem 1rem;
+            background: var(--bg-main);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+            cursor: pointer;
+        }
+        .form-select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        .pg-persona-select {
+            width: fit-content;
+            max-width: 100%;
+        }
+        .pg-alert-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            align-items: stretch;
+        }
+        .pg-alert-row .alert {
+            margin: 0;
+            padding: 1.1rem 1.25rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .pg-alert-row .alert > strong:first-child {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-size: 1rem;
+        }
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.85rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .btn-primary:hover {
+            background: var(--accent);
+            filter: brightness(0.92);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .result-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 1.5rem 0;
+        }
+        .result-item {
+            text-align: center;
+        }
+        .result-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--accent);
+            line-height: 1;
+        }
+        .result-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 0.5rem;
+        }
+        .error-msg {
+            color: #DC2626;
+            font-size: 0.9rem;
+            padding: 0.75rem 1rem;
+            background: rgba(220, 38, 38, 0.08);
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        
+        .form-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            transition: border-color 0.2s;
+        }
+        .form-input:focus { outline: none; border-color: var(--accent); }
+        .api-key-row {
+            display: flex;
+            gap: 0.5rem;
+            align-items: stretch;
+        }
+        .form-hint {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            line-height: 1.5;
+        }
+        .form-hint code {
+            background: var(--accent-soft);
+            color: var(--code-inline-text);
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+        .form-hint a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .form-hint a:hover { text-decoration: underline; }
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .model-checkboxes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+        .model-checkboxes label {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.85rem 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+        .model-checkboxes label:hover {
+            border-color: var(--accent);
+        }
+        .model-checkboxes input[type="checkbox"] {
+            accent-color: var(--accent);
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        .model-checkboxes label.is-default {
+            border-color: var(--accent);
+            background: var(--accent-soft);
+        }
+        .model-checkboxes label .model-skill-badge {
+            margin-left: auto;
+            padding: 0.1rem 0.5rem;
+            border-radius: 999px;
+            font-size: 0.68rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            background: var(--bg-accent, rgba(100, 116, 139, 0.15));
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
+        /* ================================================================
+           2. CARDS SELECIONÁVEIS
+           O card inteiro é o controle. O checkbox nativo permanece no HTML
+           (lógica de formulário e leitores de tela), mas invisível e fora do
+           fluxo de clique — quem clica é o <label>, que já o envolve.
+           Os estados visuais são espelhados por classe via JS, para não
+           depender de suporte a :has().
+           ================================================================ */
+        .model-checkboxes input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            width: 1px;
+            height: 1px;
+            margin: 0;
+            padding: 0;
+            pointer-events: none;
+        }
+        .model-checkboxes label {
+            position: relative;
+            user-select: none;
+        }
+        .model-checkboxes label.is-selected {
+            border-color: var(--accent);
+            background: var(--accent-soft);
+            box-shadow: 0 0 0 1px var(--accent);
+        }
+        .model-checkboxes label.is-focused {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+        .model-checkboxes label.is-selected:hover {
+            border-color: var(--accent);
+        }
+
+        /* ================================================================
+           3. BADGES POR CATEGORIA (pílulas do design system)
+           O texto continua vindo do i18n; a cor vem do data-skill.
+           ================================================================ */
+        .model-skill-badge {
+            font-weight: 700;
+            border: 1px solid transparent;
+        }
+        .model-skill-badge[data-skill="Geral"] { background: #F1F5F9; color: #334155; border-color: #E2E8F0; }
+        .model-skill-badge[data-skill="Código"] { background: #DBEAFE; color: #1D4ED8; border-color: #BFDBFE; }
+        .model-skill-badge[data-skill="Saúde"] { background: #DCFCE7; color: #15803D; border-color: #BBF7D0; }
+        .model-skill-badge[data-skill="Segurança"] { background: #FEE2E2; color: #B91C1C; border-color: #FECACA; }
+        .model-skill-badge[data-skill="Finanças"] { background: #CCFBF1; color: #0F766E; border-color: #99F6E4; }
+        .model-skill-badge[data-skill="Visual"] { background: #EDE9FE; color: #6D28D9; border-color: #DDD6FE; }
+        [data-theme="dark"] .model-skill-badge { border-color: rgba(255, 255, 255, 0.14); }
+        [data-theme="dark"] .model-skill-badge[data-skill="Geral"] { background: rgba(148, 163, 184, 0.18); color: #CBD5E1; }
+        [data-theme="dark"] .model-skill-badge[data-skill="Código"] { background: rgba(59, 130, 246, 0.20); color: #93C5FD; }
+        [data-theme="dark"] .model-skill-badge[data-skill="Saúde"] { background: rgba(34, 197, 94, 0.20); color: #86EFAC; }
+        [data-theme="dark"] .model-skill-badge[data-skill="Segurança"] { background: rgba(239, 68, 68, 0.20); color: #FCA5A5; }
+        [data-theme="dark"] .model-skill-badge[data-skill="Finanças"] { background: rgba(20, 184, 166, 0.20); color: #5EEAD4; }
+        [data-theme="dark"] .model-skill-badge[data-skill="Visual"] { background: rgba(139, 92, 246, 0.20); color: #C4B5FD; }
+        .model-router-badge {
+            display: inline-block;
+            margin-left: 0.35rem;
+            padding: 0.1rem 0.45rem;
+            border-radius: 999px;
+            border: 1px dashed currentColor;
+            font-size: 0.66rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--text-muted);
+            opacity: 0.75;
+            vertical-align: middle;
+        }
+
+        /* ================================================================
+           1. AVISOS FORA DA TELA PADRÃO — botão discreto + modal
+           ================================================================ */
+        .page-title-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        .page-title-row .page-title {
+            margin-bottom: 0;
+        }
+        .pg-help-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.35rem 0.75rem;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            color: var(--text-muted);
+            font-family: inherit;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .pg-help-btn:hover,
+        .pg-help-btn[aria-expanded="true"] {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--accent-soft);
+        }
+        .pg-help-btn:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+        .pg-help-btn-icon {
+            width: 1.1em;
+            height: 1.1em;
+            flex: none;
+            opacity: 0.45;
+        }
+        .pg-help-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 60;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        .pg-help-modal[hidden] {
+            display: none;
+        }
+        .pg-help-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(10, 10, 10, 0.55);
+        }
+        .pg-help-panel {
+            position: relative;
+            width: 100%;
+            max-width: 720px;
+            max-height: 85vh;
+            overflow: auto;
+            background: var(--bg-card);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+            padding: 1.25rem 1.5rem 1.5rem;
+        }
+        .pg-help-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+        .pg-help-title {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        .pg-help-close {
+            background: none;
+            border: 0;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            font-size: 1.5rem;
+            line-height: 1;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .pg-help-close:hover {
+            background: var(--accent-soft);
+            color: var(--text-main);
+        }
+        .pg-help-body .alert {
+            margin: 0 0 1rem;
+            padding: 1.1rem 1.25rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .pg-help-body .alert:last-child {
+            margin-bottom: 0;
+        }
+        .pg-help-body .alert > strong:first-child {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-size: 1rem;
+        }
+
+        /* ================================================================
+           CONFIRMACAO DE ACAO DESTRUTIVA — no modal nativo do navegador
+           ================================================================
+           Reaproveita .pg-help-backdrop / .pg-help-panel / .pg-help-head /
+           .pg-help-close de proposito: a harmonia visual vem de dentro, e
+           nao de uma segunda paleta que pode divergir depois. O que sobra
+           abaixo e so a diferenca real — largura de um dialogo curto, o
+           texto da pergunta e o par de botoes. */
+        .pg-confirm-panel {
+            max-width: 30rem;
+            padding: 1.25rem 1.5rem 1.25rem;
+        }
+        .pg-confirm-msg {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .pg-confirm-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.6rem;
+            margin-top: 1.25rem;
+            flex-wrap: wrap;
+        }
+        .pg-confirm-actions .btn-secondary,
+        .pg-confirm-actions .btn-primary {
+            padding: 0.6rem 1.1rem;
+            min-height: 0;
+        }
+        /* O botao destrutivo nao e vermelho: o site inteiro e monocromatico e
+           um vermelho solto brigaria com a paleta. O peso visual vem da borda
+           cheia, e nao da cor. */
+        .pg-confirm-ok {
+            background: var(--accent);
+            color: #fff;
+            border: 1px solid var(--accent);
+        }
+        .pg-confirm-ok:hover {
+            filter: brightness(1.08);
+        }
+        .pg-confirm-ok:focus-visible,
+        .pg-confirm-cancel:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        /* ================================================================
+           4. ÁREA DE PROMPT — ampla e com atalho sempre visível
+           ================================================================ */
+        textarea.pg-prompt-input {
+            min-height: 220px;
+        }
+        .pg-prompt-hint {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 0.4rem;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            opacity: 0.7;
+        }
+        /* O aviso do RACE e uma frase explicativa, nao uma dica curta: block e
+           alinhada a esquerda. E o [hidden] aqui e obrigatorio — .pg-prompt-hint
+           declara display:flex, e regra de autor vence a do navegador, entao o
+           atributo hidden sozinho NAO esconderia nada e a frase apareceria nas
+           quatro personas. */
+        .pg-prompt-hint-race {
+            display: block;
+            text-align: left;
+        }
+        .pg-prompt-hint-race[hidden] {
+            display: none;
+        }
+
+        .playground-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .pg-banner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+        .pg-banner-text {
+            flex: 1;
+            line-height: 1.4;
+        }
+        .pg-banner-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0.25rem;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+        .pg-banner-close:hover { color: var(--text-main); }
+        .pg-clear-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .pg-clear-btn:hover {
+            border-color: #DC2626;
+            color: #DC2626;
+        }
+        .model-grid {
+            display: grid;
+            gap: 1.25rem;
+            margin-top: 2rem;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .model-grid.cols-1 { grid-template-columns: minmax(0, 700px); }
+        .model-grid.cols-2 { grid-template-columns: repeat(2, minmax(0, 600px)); justify-content: center; }
+        .model-grid.cols-3 { grid-template-columns: repeat(3, minmax(0, 420px)); justify-content: center; }
+        .model-grid.cols-4 { grid-template-columns: repeat(4, minmax(0, 320px)); justify-content: center; }
+        .model-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            min-height: 200px;
+            max-height: 600px;
+            user-select: text;
+            -webkit-user-select: text;
+            cursor: text;
+            overflow: hidden;
+        }
+        .model-card.is-error { border-color: #DC2626; }
+        .model-card.is-evasive { border-color: #D97706; }
+        .model-card-skill {
+            display: inline-block;
+            margin-top: 0.25rem;
+            padding: 0.1rem 0.5rem;
+            border-radius: 999px;
+            font-size: 0.68rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            background: var(--bg-accent, rgba(100, 116, 139, 0.15));
+            color: var(--text-muted);
+            width: fit-content;
+        }
+        /* O aviso do roteador ocupa o lugar do badge de skill no card de
+           resultado. Aqui é texto, não etiqueta: precisa de linha e leitura,
+           por isso entra em bloco em vez de pílula ao lado do id. */
+        .model-card-router {
+            display: block;
+            margin-top: 0.4rem;
+            padding: 0.45rem 0.6rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color, #E2E8F0);
+            background: var(--bg-accent, rgba(100, 116, 139, 0.08));
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            line-height: 1.45;
+            text-transform: none;
+            letter-spacing: normal;
+        }
+        .evasive-warning {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.25rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+            border: 1px dashed #D97706;
+            background: rgba(217, 119, 6, 0.08);
+            color: #D97706;
+            font-size: 0.78rem;
+        }
+        /* Modelo substituido por fallback: mesma forma do aviso de resposta, cor
+           diferente (vermelho) porque e outra coisa -- nao e a resposta que
+           falhou, e o MODELO que estava fora do ar. */
+        .substitute-warning {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.25rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+            border: 1px dashed #DC2626;
+            background: rgba(220, 38, 38, 0.08);
+            color: #DC2626;
+            font-size: 0.78rem;
+        }
+        .evasive-warning .btn-retry {
+            background: #D97706;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 0.3rem 0.7rem;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+        .evasive-warning .btn-retry:hover { filter: brightness(0.92); }
+        .evasive-warning .btn-retry:disabled { opacity: 0.5; cursor: default; }
+        .model-card-header {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .model-card-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            line-height: 1.3;
+        }
+        .model-card-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: 'Inter', monospace;
+        }
+        .model-card-metrics {
+            display: flex;
+            gap: 0.75rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+        }
+        .model-card-metrics span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        .model-card-metrics strong {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+        .model-card-body {
+            flex: 1;
+            white-space: pre-wrap;
+            line-height: 1.6;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            overflow-y: auto;
+            max-height: 400px;
+            user-select: text;
+            -webkit-user-select: text;
+            cursor: text;
+        }
+        .model-card-body.loading {
+            opacity: 0.6;
+            font-style: italic;
+        }
+
+        .pg-thread {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+            overflow-y: auto;
+            max-height: 380px;
+            padding-right: 0.25rem;
+        }
+        .pg-turn {
+            border-radius: 10px;
+            padding: 0.65rem 0.85rem;
+            font-size: 0.88rem;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-break: break-word;
+            user-select: text;
+            -webkit-user-select: text;
+        }
+        .pg-turn.user {
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            align-self: flex-end;
+            max-width: 92%;
+            border-bottom-right-radius: 4px;
+            color: var(--text-main);
+        }
+        .pg-turn.assistant {
+            background: transparent;
+            border: none;
+            align-self: stretch;
+            border-bottom-left-radius: 0;
+            color: var(--text-main);
+        }
+        .pg-turn.assistant.is-streaming .pg-turn-text { opacity: 0.75; }
+        .pg-turn-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.35rem;
+        }
+        .pg-turn-copy {
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 0.68rem;
+            font-weight: 500;
+            text-transform: none;
+            letter-spacing: 0;
+            cursor: pointer;
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            font-family: inherit;
+            flex-shrink: 0;
+        }
+        .pg-turn-copy:hover { background: var(--accent-soft, rgba(100, 116, 139, 0.2)); color: var(--text-main); }
+        .pg-continuity {
+            border-top: 1px solid var(--border);
+            padding-top: 0.6rem;
+        }
+        .pg-card-input {
+            width: 100%;
+            padding: 0.4rem 0.6rem;
+            background: var(--bg-main);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 0.78rem;
+            resize: none;
+            min-height: 2rem;
+            max-height: 3.5rem;
+        }
+        .pg-card-input:focus { outline: none; border-color: var(--accent); }
+        .pg-input-hint {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            margin-top: 0.2rem;
+            line-height: 1.3;
+        }
+        body[data-device='mobile'] .pg-thread { max-height: 60vh; }
+        body[data-device='tablet'] .pg-thread { max-height: 440px; }
+        body[data-device='notebook'] .pg-thread { max-height: 420px; }
+        body[data-device='desktop'] .pg-thread { max-height: 420px; }
+
+        
+        .chat-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+        .chat-messages {
+            padding: 2rem;
+            min-height: 300px;
+            max-height: 500px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .chat-msg {
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            max-width: 85%;
+            line-height: 1.6;
+            font-size: 0.95rem;
+            animation: fadeIn 0.3s ease;
+        }
+        .chat-msg.user {
+            background: var(--accent-soft);
+            color: var(--text-main);
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        .chat-msg.assistant {
+            background: var(--bg-main);
+            color: var(--text-main);
+            align-self: flex-start;
+            border: 1px solid var(--border);
+            border-bottom-left-radius: 4px;
+        }
+        .chat-msg.assistant.loading {
+            opacity: 0.7;
+        }
+        .chat-input-area {
+            display: flex;
+            gap: 1rem;
+            padding: 1.5rem 2rem;
+            border-top: 1px solid var(--border);
+            background: var(--bg-main);
+        }
+        .chat-input {
+            flex: 1;
+            padding: 0.85rem 1.25rem;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+            resize: none;
+        }
+        .chat-input:focus { outline: none; border-color: var(--accent); }
+        .chat-controls {
+            display: flex;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            border-top: 1px solid var(--border);
+            background: var(--bg-main);
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .chat-controls select {
+            padding: 0.5rem 0.75rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+        .chat-controls label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            nav { position: relative; }
+            .hamburger {
+                display: block;
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+            .nav-controls {
+                display: none;
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: 280px;
+                height: 100vh;
+                background: var(--bg-card);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: stretch;
+                padding: 5rem 1.5rem 2rem;
+                gap: 0;
+                z-index: 99;
+                box-shadow: -4px 0 24px rgba(0,0,0,0.1);
+            }
+            .nav-controls.open { display: flex; }
+            .nav-links {
+                flex-direction: column;
+                gap: 0.25rem;
+            }
+            .nav-link {
+                font-size: 1.05rem;
+                padding: 0.75rem 1rem;
+                border-radius: 8px;
+            }
+            .nav-link:hover { background: var(--accent-soft); }
+            .theme-toggle { margin-top: 1.5rem; align-self: flex-start; }
+            .lang-toggle { margin-top: 0.75rem; align-self: flex-start; }
+            .hero { grid-template-columns: 1fr; padding: 3rem 0 2.5rem; }
+            .hero h1 { font-size: 1.75rem; }
+            header { padding: 1rem 1.25rem; }
+            main { padding: 0 1.25rem; }
+            .content-grid { grid-template-columns: 1fr; }
+            .authority-grid { grid-template-columns: 1fr; }
+            .sim-grid { grid-template-columns: 1fr; }
+            .code-comparison { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .result-card { grid-template-columns: 1fr; }
+            .model-grid.cols-2,
+            .model-grid.cols-3,
+            .model-grid.cols-4 { grid-template-columns: 1fr; }
+            .model-checkboxes { grid-template-columns: 1fr; }
+            .api-key-row { flex-direction: column; }
+            .playground-actions { flex-direction: column; align-items: stretch; }
+            .playground-actions .btn-primary,
+            .playground-actions .btn-secondary { width: 100%; }
+            .page-title { font-size: 1.5rem; }
+            .page-subtitle { font-size: 0.95rem; }
+            .footer-content { flex-direction: column; gap: 2rem; }
+            .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+            .chat-msg { max-width: 100%; }
+            .chat-controls { flex-direction: column; align-items: stretch; gap: 0.75rem; }
+            .chat-controls label { margin-left: 0 !important; }
+            .chat-input-area { flex-direction: column; }
+            .chat-input { min-height: 3.5rem; }
+            #pg-send { align-self: stretch !important; }
+            .api-form .btn-primary { width: 100%; }
+            .sim-input { font-size: 0.9rem; }
+            .page-header { padding: 2rem 0 1.5rem; }
+            .section-title { font-size: 1.25rem; }
+            pre { overflow-x: auto; white-space: pre; }
+            .hero-stats { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 480px) {
+            .hamburger { font-size: 1.5rem; }
+            .nav-controls { width: min(280px, 86vw); }
+            .hero { padding: 2rem 0 2rem; }
+            .hero h1 { font-size: 1.5rem; }
+            .hero-visual { height: 340px; }
+            .page-title { font-size: 1.35rem; }
+            .section-title { font-size: 1.15rem; }
+            .page-header { padding: 1.5rem 0 1.25rem; }
+            main { padding: 0 1rem; }
+            .model-grid { margin-top: 1.5rem; gap: 1rem; }
+            .model-checkboxes label { padding: 0.7rem 0.9rem; }
+            .result-card { padding: 1.5rem; gap: 1.25rem; }
+            .model-card { padding: 1rem; min-height: 0; max-height: 480px; }
+            .form-group label { font-size: 0.85rem; }
+            .form-select { width: 100%; }
+            .stat-number { font-size: 2rem; }
+            .code-preview { padding: 1.25rem; font-size: 0.8rem; }
+            .chat-input-area { padding: 1rem; }
+            .chat-msg { padding: 0.9rem 1rem; }
+            #pg-send,
+            .playground-actions .btn-primary,
+            .playground-actions .btn-secondary,
+            .api-form .btn-primary { min-height: 3rem; }
+            .footer-content { padding: 2rem 0; }
+            .hero-stats { gap: 1.5rem; }
+        }
+
+        @media (max-width: 360px) {
+            .hero h1 { font-size: 1.35rem; }
+            .page-subtitle { font-size: 0.9rem; }
+            .form-row { gap: 1rem; }
+            .model-checkboxes label { font-size: 0.85rem; flex-wrap: wrap; }
+            .theme-toggle { gap: 0.35rem; }
+            .theme-btn { padding: 0.4rem 0.6rem; }
+            .hero-stats { gap: 1rem; }
+        }
+
+        @media (max-width: 1300px) {
+            .md-sidebar { display: none; }
+            .md-dropdown { display: block; }
+        }
+        @media (min-width: 1301px) {
+            .md-dropdown { display: none; }
+        }
+
+        @media (max-width: 1100px) {
+            .pg-alert-row { grid-template-columns: 1fr; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="#home" class="brand-area">
+                <img src="assets/logo-light.png" alt="Claritas" class="brand-logo" id="header-logo">
+                <span class="brand-name">Claritas</span>
+            </a>
+            <button class="hamburger" id="hamburger" data-i18n-aria="nav.menu" aria-label="Menu">☰</button>
+            <div class="nav-controls">
+                <div class="nav-links">
+                    <a href="#home" class="nav-link active" data-route="home" data-i18n="nav.inicio">Início</a>
+                    <a href="#markdown" class="nav-link" data-route="markdown" data-i18n="nav.markdown">Markdown</a>
+                    <a href="#prompt" class="nav-link" data-route="prompt" data-i18n="nav.engenharia">Engenharia</a>
+                    <a href="#tokens" class="nav-link" data-route="tokens" data-i18n="nav.economia">Economia</a>
+                    <a href="#token-counter" class="nav-link" data-route="token-counter" data-i18n="nav.contador">Contador</a>
+                    <a href="#playground" class="nav-link" data-route="playground" data-i18n="nav.playground">Playground</a>
+                    <a href="#sobre" class="nav-link" data-route="sobre" data-i18n="nav.sobre">Sobre</a>
+                </div>
+                <div class="lang-toggle" role="group" aria-label="Idioma" data-i18n-aria="lang.select">
+                    <button type="button" class="lang-btn" data-lang="pt" title="Português" data-i18n-title="lang.pt">PT</button>
+                    <button type="button" class="lang-btn" data-lang="en" title="English" data-i18n-title="lang.en">EN</button>
+                    <button type="button" class="lang-btn" data-lang="zh" title="中文" data-i18n-title="lang.zh">ZH</button>
+                </div>
+                <div class="theme-toggle">
+                    <button class="theme-btn" data-theme="light" title="Modo Claro" data-i18n-title="nav.theme.light">☀</button>
+                    <button class="theme-btn" data-theme="dark" title="Modo Escuro" data-i18n-title="nav.theme.dark">☾</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="mobile-overlay" id="mobile-overlay"></div>
+
+    <main>
+        
+        <section id="home" class="page active">
+            <div class="hero">
+                <div class="hero-content">
+                    <span class="hero-badge" data-i18n="hero.badge">Acesso gratuito — IA como ferramenta</span>
+                    <h1><span data-i18n="hero.tituloPrefix">Comunicação</span> <em data-i18n="hero.tituloDestaque">estruturada</em> <span data-i18n="hero.tituloSuffix">para Inteligência Artificial.</span></h1>
+                    <p data-i18n="hero.descricao">Um guia prático sobre Engenharia de Prompt, Markdown e otimização de tokens. Conhecimento acessível a qualquer área — acadêmica, profissional ou pessoal — para usar a IA como parceira e ferramenta, com rigor, clareza e sem custo.</p>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">40%</span>
+                            <span class="stat-label" data-i18n="hero.stats.reducao">Redução de Tokens</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">∞</span>
+                            <span class="stat-label" data-i18n="hero.stats.escalabilidade">Escalabilidade</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">0</span>
+                            <span class="stat-label" data-i18n="hero.stats.alucinacoes">Alucinações</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="code-preview">
+                        <div class="code-line"># PROTOCOLO OPERACIONAL</div>
+                        <div class="code-line highlight">1. RIGOR LÓGICO: Valide premissas</div>
+                        <div class="code-line">2. TOLERÂNCIA ZERO: Sem alucinações</div>
+                        <div class="code-line highlight">3. OUTPUT CRU: Apenas código</div>
+                        <div class="code-line">4. SEGURANÇA: CSP obrigatória</div>
+                        <div class="code-line">5. ACESSIBILIDADE: prefers-reduced-motion</div>
+                        <div class="code-line highlight">6. ECONOMIA: Restrição negativa</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <a href="#markdown" class="grid-card" data-open-route="markdown">
+                    <div class="card-number">01</div>
+                    <h3 data-i18n="home.card1.titulo">Markdown Universal</h3>
+                    <p data-i18n="home.card1.descricao">O padrão global para documentação técnica, versionamento e estruturação de dados legíveis por humanos e máquinas.</p>
+                </a>
+                <a href="#prompt" class="grid-card" data-open-route="prompt">
+                    <div class="card-number">02</div>
+                    <h3 data-i18n="home.card2.titulo">Espaço Latente</h3>
+                    <p data-i18n="home.card2.descricao">Como mapear skills e protocolos operacionais dentro das limitações arquiteturais reais dos modelos de linguagem.</p>
+                </a>
+                <a href="#tokens" class="grid-card" data-open-route="tokens">
+                    <div class="card-number">03</div>
+                    <h3 data-i18n="home.card3.titulo">Economia de Tokens</h3>
+                    <p data-i18n="home.card3.descricao">Restrições negativas e output cru para reduzir custos computacionais e latência em APIs de alto volume.</p>
+                </a>
+            </div>
+
+            <div class="authority">
+                <div class="authority-label" data-i18n="home.authority.label">Metodologia</div>
+                <div class="authority-grid">
+                    <h2 data-i18n="home.authority.titulo">Endossado por princípios de Engenharia de Software.</h2>
+                    <div class="authority-content">
+                        <p data-i18n="home.authority.p1">O Claritas não utiliza "achismos" ou personas mágicas. Todo o conteúdo aqui é fundamentado em <strong>Engenharia de Software</strong> e <strong>Cibersegurança</strong>.</p>
+                        <p data-i18n="home.authority.p2">Ensinamos você a tratar a IA como uma ferramenta de processamento probabilístico, aplicando validação de premissas, tolerância zero a alucinações e design defensivo desde a concepção do prompt.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <section id="markdown" class="page">
+            <div class="page-header">
+                <h1 class="page-title" data-i18n="md.titulo">A Base: Markdown</h1>
+                <p class="page-subtitle" data-i18n="md.subtitulo">O padrão global para documentação técnica, READMEs, Wikis e controle de versão. Criado por John Gruber em 2004 com o objetivo de ser legível até mesmo em texto puro.</p>
+            </div>
+
+            <details class="md-dropdown">
+                <summary><span data-i18n="md.navegar">Navegar</span> <span class="dd-arrow">▾</span></summary>
+                <div class="dd-links">
+                    <a href="#md-titulos" data-goto="md-titulos" class="dd-link" data-i18n="md.ancora.titulos">Títulos</a>
+                    <a href="#md-enfase" data-goto="md-enfase" class="dd-link" data-i18n="md.ancora.enfase">Ênfase</a>
+                    <a href="#md-listas" data-goto="md-listas" class="dd-link" data-i18n="md.ancora.listas">Listas</a>
+                    <a href="#md-links" data-goto="md-links" class="dd-link" data-i18n="md.ancora.links">Links</a>
+                    <a href="#md-imagens" data-goto="md-imagens" class="dd-link" data-i18n="md.ancora.imagens">Imagens</a>
+                    <a href="#md-citacoes" data-goto="md-citacoes" class="dd-link" data-i18n="md.ancora.citacoes">Citações</a>
+                    <a href="#md-codigo" data-goto="md-codigo" class="dd-link" data-i18n="md.ancora.codigo">Código</a>
+                    <a href="#md-tabelas" data-goto="md-tabelas" class="dd-link" data-i18n="md.ancora.tabelas">Tabelas</a>
+                    <a href="#md-readme" data-goto="md-readme" class="dd-link" data-i18n="md.ancora.readme">README Completo</a>
+                </div>
+            </details>
+            <div class="md-layout">
+                <nav class="md-sidebar">
+                    <a href="#md-titulos" data-goto="md-titulos" class="md-sidebar-link" data-target="md-titulos" data-i18n="md.ancora.titulos">Títulos</a>
+                    <a href="#md-enfase" data-goto="md-enfase" class="md-sidebar-link" data-target="md-enfase" data-i18n="md.ancora.enfase">Ênfase</a>
+                    <a href="#md-listas" data-goto="md-listas" class="md-sidebar-link" data-target="md-listas" data-i18n="md.ancora.listas">Listas</a>
+                    <a href="#md-links" data-goto="md-links" class="md-sidebar-link" data-target="md-links" data-i18n="md.ancora.links">Links</a>
+                    <a href="#md-imagens" data-goto="md-imagens" class="md-sidebar-link" data-target="md-imagens" data-i18n="md.ancora.imagens">Imagens</a>
+                    <a href="#md-citacoes" data-goto="md-citacoes" class="md-sidebar-link" data-target="md-citacoes" data-i18n="md.ancora.citacoes">Citações</a>
+                    <a href="#md-codigo" data-goto="md-codigo" class="md-sidebar-link" data-target="md-codigo" data-i18n="md.ancora.codigo">Código</a>
+                    <a href="#md-tabelas" data-goto="md-tabelas" class="md-sidebar-link" data-target="md-tabelas" data-i18n="md.ancora.tabelas">Tabelas</a>
+                    <a href="#md-readme" data-goto="md-readme" class="md-sidebar-link" data-target="md-readme" data-i18n="md.ancora.readme">README Completo</a>
+                </nav>
+
+            <div class="content-section" id="md-titulos">
+                <h2 class="section-title" data-i18n="md.titulos.h2">Títulos e Hierarquia</h2>
+                <p class="content-text" data-i18n="md.titulos.p">Use cerquilhas (<code>#</code>) para definir a hierarquia. O número de cerquilhas indica o nível do título. <strong>Boa prática:</strong> Use apenas um H1 por página (o título principal) e organize o resto em H2 e H3.</p>
+                <div class="code-comparison">
+                    <div class="code-col">
+                        <h4 data-i18n="md.h4.markdown">Markdown</h4>
+                        <pre><code data-i18n-code="md.titulos.pre"># Título Principal
+## Seção
+### Subseção
+#### Tópico</code></pre>
+                    </div>
+                    <div class="code-col">
+                        <h4 data-i18n="md.h4.resultado">Resultado</h4>
+                        <div class="result-box" style="padding:1.5rem;background:var(--bg-main);border-radius:8px;border:1px solid var(--border);">
+                            <h1 style="font-family:'Playfair Display',serif;font-weight:800;font-size:2rem;margin-bottom:0.5rem;color:var(--text-main);" data-i18n="md.titulos.res.h1">Título Principal</h1>
+                            <h2 style="font-weight:700;font-size:1.5rem;margin-bottom:0.5rem;color:var(--text-main);" data-i18n="md.titulos.res.h2">Seção</h2>
+                            <h3 style="font-weight:600;font-size:1.25rem;margin-bottom:0.5rem;color:var(--text-main);" data-i18n="md.titulos.res.h3">Subseção</h3>
+                            <h4 style="font-weight:600;font-size:1rem;color:var(--text-muted);" data-i18n="md.titulos.res.h4">Tópico</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+<div class="content-section" id="md-enfase">
+                <h2 class="section-title" data-i18n="md.enfase.h2">Ênfase e Formatação</h2>
+                <p class="content-text" data-i18n="md.enfase.p">Markdown usa asteriscos ou underlines para ênfase. Evite usar CAIXA ALTA para gritar; use negrito para destacar conceitos-chave.</p>
+                <div class="code-comparison">
+                    <div class="code-col">
+                        <h4 data-i18n="md.h4.markdown">Markdown</h4>
+                        <pre><code data-i18n-code="md.enfase.pre">**Negrito** ou __Negrito__
+*Itálico* ou _Itálico_
+~~Tachado~~
+***Misto***</code></pre>
+                    </div>
+                    <div class="code-col">
+                        <h4 data-i18n="md.h4.resultado">Resultado</h4>
+                        <div class="result-box" style="padding:1.5rem;background:var(--bg-main);border-radius:8px;border:1px solid var(--border);line-height:2;">
+                             <strong style="color:var(--text-main);" data-i18n="md.enfase.res.negrito">Negrito</strong><br>
+                            <em style="color:var(--text-main);" data-i18n="md.enfase.res.italico">Itálico</em><br>
+                            <del style="color:var(--text-muted);" data-i18n="md.enfase.res.tachado">Tachado</del><br>
+                            <strong><em style="color:var(--text-main);" data-i18n="md.enfase.res.misto">Misto</em></strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section" id="md-listas">
+                <h2 class="section-title" data-i18n="md.listas.h2">Listas</h2>
+                <p class="content-text" data-i18n="md.listas.p">Essenciais para escaneabilidade. Use listas não ordenadas para itens sem hierarquia e ordenadas para passos sequenciais.</p>
+                <div class="code-comparison">
+                    <div class="code-col">
+                        <h4 data-i18n="md.h4.markdown">Markdown</h4>
+                        <pre><code data-i18n-code="md.listas.pre">1. Primeiro
+2. Segundo
+3. Terceiro
+
+---
+
+* Item A
+* Item B
+  * Subitem B1</code></pre>
+                    </div>
+                    <div class="code-col">
+                        <h4>Resultado</h4>
+                        <div class="result-box" style="padding:1.5rem;background:var(--bg-main);border-radius:8px;border:1px solid var(--border);">
+                            <ol style="margin:0 0 1rem 1.5rem;">
+                                <li style="color:var(--text-main);" data-i18n="md.listas.res.primeiro">Primeiro</li>
+                                <li style="color:var(--text-main);" data-i18n="md.listas.res.segundo">Segundo</li>
+                                <li style="color:var(--text-main);" data-i18n="md.listas.res.terceiro">Terceiro</li>
+                            </ol>
+                            <hr style="border:none;border-top:1px solid var(--border);margin:1rem 0;">
+                            <ul style="margin:0 0 0 1.5rem;">
+                                <li style="color:var(--text-main);" data-i18n="md.listas.res.item_a">Item A</li>
+                                <li style="color:var(--text-main);"><span data-i18n="md.listas.res.item_b">Item B</span>
+                                    <ul style="margin:0.25rem 0 0 1.5rem;">
+                                        <li style="color:var(--text-muted);" data-i18n="md.listas.res.sub_b1">Subitem B1</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+<div class="content-section" id="md-links">
+                <h2 class="section-title" data-i18n="md.links.h2">Links e Âncoras</h2>
+                <p class="content-text" data-i18n="md.links.p">A sintaxe é <code>[Texto Visível](URL)</code>. <strong>Dica de Acessibilidade:</strong> Evite "clique aqui". Use descrições claras como "leia a documentação oficial".</p>
+                <div class="code-comparison">
+                    <div class="code-col">
+                        <h4 data-i18n="md.h4.markdown">Markdown</h4>
+                        <pre><code data-i18n-code="md.links.pre">[Markdown Guide](https://www.markdownguide.org)
+https://url-direta.com</code></pre>
+                    </div>
+                    <div class="code-col">
+                        <h4 data-i18n="md.h4.resultado">Resultado</h4>
+                        <div class="result-box" style="padding:1.5rem;background:var(--bg-main);border-radius:8px;border:1px solid var(--border);line-height:2;">
+                             <a href="https://www.markdownguide.org" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:underline;font-weight:500;">Markdown Guide</a><br>
+                            <span style="color:var(--text-muted);font-size:0.9rem;" data-i18n="md.links.res.url">https://url-direta.com</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section" id="md-imagens">
+                <h2 class="section-title" data-i18n="md.imagens.h2">Imagens</h2>
+                <p class="content-text" data-i18n="md.imagens.p">Semelhante ao link, mas com um ponto de exclamação <code>!</code> no início. O texto entre colchetes é o <strong>Alt Text</strong>, obrigatório para leitores de tela e SEO.</p>
+                <div class="code-comparison">
+                    <div class="code-col">
+                        <h4 data-i18n="md.h4.markdown">Markdown</h4>
+                        <pre><code data-i18n-code="md.imagens.pre">![Logotipo Claritas](assets/logo-light.png)</code></pre>
+                    </div>
+                    <div class="code-col">
+                        <h4 data-i18n="md.h4.resultado">Resultado</h4>
+                        <div class="result-box" style="padding:1.5rem;background:var(--bg-main);border-radius:8px;border:1px solid var(--border);text-align:center;">
+                            <img src="assets/logo-light.png" alt="Logotipo Claritas" style="width:64px;height:64px;object-fit:contain;opacity:0.8;" data-i18n-alt="md.imagens.res.alt">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section" id="md-citacoes">
+                <h2 class="section-title" data-i18n="md.citacoes.h2">Citações (Blockquotes)</h2>
+                <p class="content-text" data-i18n="md.citacoes.p">Use o sinal <code>&gt;</code> para destacar trechos de outros autores, notas de aviso ou definições importantes.</p>
+                <div class="code-comparison">
+                    <div class="code-col">
+                        <h4 data-i18n="md.h4.markdown">Markdown</h4>
+                        <pre><code data-i18n-code="md.citacoes.pre">&gt; A simplicidade é o último
+&gt; grau de sofisticação.
+&gt;
+&gt; — Leonardo da Vinci</code></pre>
+                    </div>
+                    <div class="code-col">
+                        <h4 data-i18n="md.h4.resultado">Resultado</h4>
+                        <blockquote style="margin:0;">
+                            <span data-i18n="md.citacoes.res.quote">A simplicidade é o último grau de sofisticação.</span><br><span data-i18n="md.citacoes.res.autor">— Leonardo da Vinci</span>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section" id="md-codigo">
+                <h2 class="section-title" data-i18n="md.codigo.h2">Código</h2>
+                <p class="content-text" data-i18n="md.codigo.p">Fundamental para documentação técnica. Use crase simples para inline e tripla para blocos.</p>
+                <div class="code-comparison">
+                    <div class="code-col">
+                        <h4 data-i18n="md.h4.markdown">Markdown</h4>
+                        <pre><code data-i18n-code="md.codigo.pre">Função `console.log()`
+para depurar.
+
+```javascript
+function hello() {
+  return "Claritas";
+}
+```</code></pre>
+                    </div>
+                    <div class="code-col">
+                        <h4 data-i18n="md.h4.resultado">Resultado</h4>
+                        <div class="result-box" style="padding:1.5rem;background:var(--bg-main);border-radius:8px;border:1px solid var(--border);">
+                            <p style="margin-bottom:1rem;color:var(--text-main);" data-i18n="md.codigo.res">Função <code style="background:var(--code-inline-bg);color:var(--code-inline-text);padding:0.2rem 0.4rem;border-radius:4px;font-weight:600;">console.log()</code> para depurar.</p>
+                            <pre style="margin:0;padding:1.25rem;font-size:0.85rem;"><code style="background:transparent;color:var(--pre-text);padding:0;">function hello() {
+  return "Claritas";
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section" id="md-tabelas">
+                <h2 class="section-title" data-i18n="md.tabelas.h2">Tabelas</h2>
+                <p class="content-text" data-i18n="md.tabelas.p">Use pipes <code>|</code> e hífens <code>-</code> para estruturar dados tabulares.</p>
+                <div class="code-comparison">
+                    <div class="code-col">
+                        <h4 data-i18n="md.h4.markdown">Markdown</h4>
+                        <pre><code data-i18n-code="md.tabelas.pre">| Nome   | Tipo   |
+|--------|--------|
+| Clara  | Admin  |
+| João   | Editor |</code></pre>
+                    </div>
+                    <div class="code-col">
+                        <h4 data-i18n="md.h4.resultado">Resultado</h4>
+                        <div style="padding:0;background:var(--bg-main);border-radius:8px;border:1px solid var(--border);overflow:hidden;">
+                            <table style="margin:0;border:none;box-shadow:none;">
+                                <tr><th style="background:var(--table-th-bg);" data-i18n="md.tabelas.res.nome">Nome</th><th style="background:var(--table-th-bg);" data-i18n="md.tabelas.res.tipo">Tipo</th></tr>
+                                <tr><td style="color:var(--text-main);" data-i18n="md.tabelas.res.clara">Clara</td><td style="color:var(--text-muted);" data-i18n="md.tabelas.res.admin">Admin</td></tr>
+                                <tr><td style="color:var(--text-main);" data-i18n="md.tabelas.res.joao">João</td><td style="color:var(--text-muted);" data-i18n="md.tabelas.res.editor">Editor</td></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="content-section" id="md-readme">
+                <h2 class="section-title" data-i18n="md.readme.h2">Exemplo Completo de README</h2>
+                <p class="content-text" data-i18n="md.readme.p">Veja como todos os elementos se combinam em um README real. Compare o código Markdown com o resultado renderizado.</p>
+                <div class="code-comparison">
+                    <div class="code-col">
+                        <h4>README.md</h4>
+                        <pre><code data-i18n-code="md.readme.pre"># Meu Projeto
+
+&gt; Ferramenta CLI para validação de Markdown.
+
+## Instalação
+
+```bash
+npm install meu-projeto
+```
+
+## Uso
+
+```bash
+meu-projeto --input README.md
+```
+
+## Funcionalidades
+
+-   Validação de sintaxe
+-   Export para HTML
+-   Suporte a **tabelas** e `código inline`
+
+## Licença
+
+MIT</code></pre>
+                    </div>
+                    <div class="code-col">
+                        <h4 data-i18n="md.h4.resultado">Resultado</h4>
+                        <div class="result-box" style="padding:1.5rem;background:var(--bg-main);border-radius:8px;border:1px solid var(--border);">
+                            <h1 style="font-family:'Playfair Display',serif;font-weight:800;font-size:2rem;margin-bottom:1rem;color:var(--text-main);" data-i18n="md.readme.res.projeto">Meu Projeto</h1>
+                            <blockquote style="margin:0 0 1.5rem 0;font-size:1rem;" data-i18n="md.readme.res.desc">
+                                Ferramenta CLI para validação de Markdown.
+                            </blockquote>
+                            <h2 style="font-weight:700;font-size:1.25rem;margin-bottom:0.75rem;color:var(--text-main);" data-i18n="md.readme.res.instalacao">Instalação</h2>
+                            <pre style="margin:0 0 1.5rem 0;padding:1rem;font-size:0.85rem;"><code style="background:transparent;color:var(--pre-text);padding:0;" data-i18n-code="md.readme.res.cmd_install">npm install meu-projeto</code></pre>
+                            <h2 style="font-weight:700;font-size:1.25rem;margin-bottom:0.75rem;color:var(--text-main);" data-i18n="md.readme.res.uso">Uso</h2>
+                            <pre style="margin:0 0 1.5rem 0;padding:1rem;font-size:0.85rem;"><code style="background:transparent;color:var(--pre-text);padding:0;" data-i18n-code="md.readme.res.cmd_uso">meu-projeto --input README.md</code></pre>
+                            <h2 style="font-weight:700;font-size:1.25rem;margin-bottom:0.75rem;color:var(--text-main);" data-i18n="md.readme.res.funcionalidades">Funcionalidades</h2>
+                            <ul style="margin:0 0 1.5rem 1.5rem;">
+                                <li style="color:var(--text-main);" data-i18n="md.readme.res.li_sintaxe">Validação de sintaxe</li>
+                                <li style="color:var(--text-main);" data-i18n="md.readme.res.li_export">Export para HTML</li>
+                                <li style="color:var(--text-main);" data-i18n="md.readme.res.li_suporte">Suporte a <strong>tabelas</strong> e <code style="background:var(--code-inline-bg);color:var(--code-inline-text);padding:0.15rem 0.3rem;border-radius:4px;">código inline</code></li>
+                            </ul>
+                            <h2 style="font-weight:700;font-size:1.25rem;margin-bottom:0.5rem;color:var(--text-main);" data-i18n="md.readme.res.licenca">Licença</h2>
+                            <p style="color:var(--text-muted);" data-i18n="md.readme.res.mit">MIT</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        
+        <section id="prompt" class="page">
+            <div class="page-header">
+                <h1 class="page-title" data-i18n="prompt.titulo">Engenharia: O Espaço Latente</h1>
+                <p class="page-subtitle" data-i18n="prompt.subtitulo">Prompt é mapeamento de probabilidades, não mágica.</p>
+            </div>
+
+            <div class="content-section">
+                <div class="alert" data-i18n="prompt.alert">
+                    <strong>Atenção:</strong> Modelos não possuem personalidades reais. Pedir para um modelo leve "atuar como um modelo denso" é uma falha lógica de arquitetura. O modelo não tem os pesos neurais necessários.
+                </div>
+                <div class="alert" style="margin-top:0.5rem;" data-i18n="prompt.md_bene">
+                    <strong>Para que serve:</strong> tudo aqui é coadjuvante: o prompt final, o Markdown e as skills ajudam você a criar um prompt profissional para usar em <em>outra IA, agente ou ferramenta externa</em>. O formato <strong>Markdown</strong> potencializa esse uso — estrutura legível e parseável; hierarquia clara de instruções; economia de tokens (menos ruído); contexto preservado; e restrições explícitas que reduzem alucinações.
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title" data-i18n="prompt.skills_h2">Skills com Base Acadêmica</h2>
+                <p class="content-text" data-i18n="prompt.skills_intro">Cada skill abaixo é fundamentada em literatura de referência (papers acadêmicos e livros de engenharia).</p>
+
+                
+                <div class="reference-card">
+                    <h3 data-i18n="prompt.skill1.h3">1. Validação de Premissas (Chain-of-Thought)</h3>
+                    <p class="content-text" data-i18n="prompt.skill1.desc">Exigir que o modelo liste premissas, valide a lógica e identifique lacunas antes de responder. Isso reduz alucinações e conclusões precipitadas.</p>
+                    <p data-i18n="prompt.skill1.base"><strong>Base teórica:</strong> Wei, Jason et al. <em>"Chain-of-Thought Prompting Elicits Reasoning in Large Language Models"</em>. NeurIPS, 2022.</p>
+                    <p data-i18n="prompt.skill1.aplic"><strong>Aplicação:</strong> Antes de gerar código, o modelo deve listar as premissas do problema e validar cada uma.</p>
+                </div>
+
+                
+                <div class="reference-card">
+                    <h3 data-i18n="prompt.skill2.h3">2. Restrição Negativa (Output Cru)</h3>
+                    <p class="content-text" data-i18n="prompt.skill2.desc">Usar diretivas do tipo "NÃO inclua...", "PROIBIDO..." para podar comportamentos verbosos padrão do modelo. Reduz 30-50% no consumo de tokens de saída.</p>
+                    <p data-i18n="prompt.skill2.base"><strong>Base teórica:</strong> Phoenix, James; Corbin, Mike. <em>"Prompt Engineering for Generative AI"</em>. O'Reilly Media, 2023.</p>
+                    <p data-i18n="prompt.skill2.aplic"><strong>Aplicação:</strong> "NÃO inclua explicações. NÃO use saudações. Forneça APENAS o código."</p>
+                </div>
+
+                
+                <div class="reference-card">
+                    <h3 data-i18n="prompt.skill3.h3">3. Contratos de Interface (Output Estruturado)</h3>
+                    <p class="content-text" data-i18n="prompt.skill3.desc">Definir schema JSON, template HTML ou estrutura Markdown rigorosa como contrato entre humano e IA. Output determinístico e parseável.</p>
+                    <p data-i18n="prompt.skill3.base"><strong>Base teórica:</strong> Winters, Hyrum; Manshreck, Titus; Wright, Davor. <em>"Software Engineering at Google"</em>. O'Reilly, 2020.</p>
+                    <p data-i18n="prompt.skill3.aplic"><strong>Aplicação:</strong> "Responda APENAS com JSON neste formato: { "nome": "", "tipo": "" }"</p>
+                </div>
+
+                
+                <div class="reference-card">
+                    <h3 data-i18n="prompt.skill4.h3">4. Espaços Latentes e Limites Arquiteturais</h3>
+                    <p class="content-text" data-i18n="prompt.skill4.desc">Mapear o que um modelo pode versus o que ele finge poder fazer. Evitar prompts do tipo "atue como um modelo maior" — ele não tem os pesos neurais necessários.</p>
+                    <p data-i18n="prompt.skill4.base"><strong>Base teórica:</strong> Christian, Brian. <em>"The Alignment Problem: Machine Learning and Human Values"</em>. W. W. Norton & Company, 2020.</p>
+                    <p data-i18n="prompt.skill4.aplic"><strong>Aplicação:</strong> Em vez de "atue como GPT-5", defina skills específicas que o modelo atual possui.</p>
+                </div>
+
+                
+                <div class="reference-card">
+                    <h3 data-i18n="prompt.skill5.h3">5. Economia Computacional</h3>
+                    <p class="content-text" data-i18n="prompt.skill5.desc">Entender a relação entre tamanho de contexto, tokens processados e custo real de execução para escolher o modelo adequado para cada tarefa.</p>
+                    <p data-i18n="prompt.skill5.base"><strong>Base teórica:</strong> Kaplan, Jared et al. <em>"Scaling Laws for Neural Language Models"</em>. arXiv:2001.08361, 2020.</p>
+                    <p data-i18n="prompt.skill5.aplic"><strong>Aplicação:</strong> Tarefas simples (resumo) usam modelos pequenos (Gemini Flash). Tarefas complexas (código) usam modelos grandes (GPT-4o).</p>
+                </div>
+            </div>
+        </section>
+
+        
+        <section id="tokens" class="page">
+            <div class="page-header">
+                <h1 class="page-title" data-i18n="tokens.titulo">Economia de Tokens</h1>
+                <p class="page-subtitle" data-i18n="tokens.subtitulo">Cada palavra gerada custa processamento. Em APIs de alto volume, a otimização é obrigatória.</p>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title" data-i18n="sim.titulo">Simulador Interativo</h2>
+                <p class="content-text" data-i18n="sim.descricao">Digite ou cole um prompt verboso no campo esquerdo. Clique em "Gerar Versão Claritas" para ver automaticamente uma versão otimizada e comparar o custo.</p>
+                <div class="alert">
+                    <span data-i18n="sim.alert_pre"></span> <a href="#playground" data-i18n="nav.playground"></a><span data-i18n="sim.alert_post"></span>
+                </div>
+
+                <div class="simulator">
+                    <div class="sim-header">
+                        <h3 class="sim-title" data-i18n="sim.comparador">Comparador de Custo</h3>
+                        <button class="sim-generate-btn" id="generate-btn" data-i18n="sim.btn_gerar">Gerar Versão Claritas</button>
+                    </div>
+                    <div class="sim-grid">
+                        <div class="sim-column">
+                            <label class="sim-label" data-i18n="sim.label_ruim">Prompt Ruim (Verboso)</label>
+                            <textarea id="bad-prompt" class="sim-input" maxlength="19500" placeholder="Olá, tudo bem? Gostaria que você atuasse como um especialista sênior e me ajudasse a criar um site..." data-i18n-placeholder="sim.placeholder_ruim" data-i18n-value="sim.exemplo_ruim">Olá, tudo bem? Gostaria que você atuasse como um especialista sênior em desenvolvimento web e me ajudasse a criar um site bonito e moderno sobre engenharia de prompt. Por favor, seja bem detalhado e explique cada passo.</textarea>
+                            <div class="sim-result" id="bad-result">~68 tokens</div>
+                        </div>
+                        <div class="sim-column">
+                            <label class="sim-label" data-i18n="sim.label_otimizado">Prompt Claritas (Otimizado)</label>
+                            <textarea id="good-prompt" class="sim-input" placeholder="A versão otimizada aparecerá aqui..." readonly data-i18n-placeholder="sim.placeholder_otimizado"></textarea>
+                            <div class="sim-result good" id="good-result">~0 tokens</div>
+                        </div>
+                    </div>
+                    <div class="sim-savings">
+                        <div class="savings-number" id="savings-percent">0%</div>
+                        <div class="savings-label" data-i18n="sim.economia">Economia de Tokens</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title" data-i18n="tokens.tec_h2">Técnica: Output Cru</h2>
+                <p class="content-text" data-i18n="tokens.tec_p">Utilize a <strong>Restrição Negativa</strong> para podar o comportamento padrão do modelo. Dizer o que a IA não deve fazer é a forma mais rápida de economizar tokens.</p>
+                <pre><code data-i18n-code="tokens.tec_pre">REGRAS DE OUTPUT:
+- Forneça APENAS o código HTML puro.
+- NÃO inclua explicações, saudações ou comentários finais.
+- Comece com &lt;!DOCTYPE html&gt; e termine com &lt;/html&gt;.</code></pre>
+            </div>
+        </section>
+
+        
+        <section id="token-counter" class="page">
+            <div class="page-header">
+                <h1 class="page-title" data-i18n="tc.titulo">Contador de Tokens</h1>
+                <p class="page-subtitle" data-i18n="tc.subtitulo">Estime quantos tokens seu prompt consumiria em modelos pagos de mercado. Use para comparar custos antes de escolher a IA.</p>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title" data-i18n="tc.section">Calculadora de Custo Real</h2>
+                <p class="content-text" data-i18n="tc.descricao">Cole seu texto abaixo e selecione o modelo pago que você pretende usar. Uma IA fixa (gratuita) faz a contagem precisa de tokens e o sistema multiplica pelo preço atual do mercado — você vê o custo real que pagaria.</p>
+                <div class="alert">
+                    <span data-i18n="tc.alert_pre"></span> <a href="#tokens" data-i18n="tc.lk_simulador"></a><span data-i18n="tc.alert_mid"></span> <a href="#playground" data-i18n="nav.playground"></a><span data-i18n="tc.alert_post"></span>
+                </div>
+
+                <div class="api-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="tc-model" data-i18n="tc.label_modelo">Modelo de mercado</label>
+                            <select id="tc-model" class="form-select"></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="tc-direction" data-i18n="tc.label_direcao">Direção</label>
+                            <select id="tc-direction" class="form-select">
+                                <option value="input" data-i18n="tc.opcao_input">Input (entrada)</option>
+                                <option value="output" data-i18n="tc.opcao_output">Output (saída)</option>
+                                <option value="both" data-i18n="tc.opcao_ambos">Input + Output estimado</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="tc-text" data-i18n="tc.label_texto">Texto</label>
+                        <textarea id="tc-text" class="sim-input" rows="8" maxlength="19500" placeholder="Cole seu prompt ou texto aqui..." data-i18n-placeholder="tc.placeholder_texto"></textarea>
+                    </div>
+                    <button class="btn-primary" id="tc-btn" data-i18n="tc.btn_calcular">Calcular Tokens</button>
+                </div>
+
+                <div id="tc-result" class="result-card" style="display:none;">
+                    <div class="result-item">
+                        <div class="result-value" id="tc-tokens">0</div>
+                        <div class="result-label" data-i18n="tc.token_label">Tokens</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-value" id="tc-cost">$0</div>
+                        <div class="result-label" data-i18n="tc.custo_label">Custo Estimado</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-value" id="tc-chars">0</div>
+                        <div class="result-label" data-i18n="tc.caracteres_label">Caracteres</div>
+                    </div>
+                </div>
+
+                <div id="tc-error" class="error-msg" style="display:none;"></div>
+            </div>
+        </section>
+
+        
+        <section id="playground" class="page">
+            <div class="page-header">
+                <div class="page-title-row">
+                    <h1 class="page-title" data-i18n="pg.titulo">Playground de Prompt</h1>
+                    <button type="button" class="pg-help-btn" id="pg-help-open" aria-haspopup="dialog" aria-expanded="false" aria-controls="pg-help-modal">
+                        <svg class="pg-help-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+                        <span data-i18n="pg.como_funciona">Como funciona</span>
+                    </button>
+                </div>
+                <p class="page-subtitle" data-i18n="pg.subtitulo">Compare respostas de 2 a 3 modelos gratuitos do OpenRouter em paralelo.</p>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title" data-i18n="pg.config">Configuração</h2>
+                <p class="content-text" data-i18n="pg.config_desc">Escolha os modelos a serem comparados, envie seu prompt e receba as respostas lado a lado.</p>
+
+                <div class="api-form">
+                    <div class="form-group">
+                        <label data-i18n="pg.label_modelos">Modelos para comparar (selecione 2 ou 3 — recomendado para melhor visualização)</label>
+                        <div class="model-checkboxes" id="pg-models"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pg-system" data-i18n="pg.label_persona">Persona do sistema</label>
+                        <select id="pg-system" class="form-select pg-persona-select">
+                            <option value="default" data-i18n="pg.opcao_padrao">Padrão — Assistente geral (diálogo)</option>
+                            <option value="technical" data-i18n="pg.opcao_tecnico">Técnico — Engenheiro sênior (diálogo)</option>
+                            <option value="creative" data-i18n="pg.opcao_criativo">Criativo — Designer (diálogo)</option>
+                            <option value="prompt-engineer" data-i18n="pg.opcao_arquiteto">Arquiteto de Prompts (RACE) — saída em Markdown</option>
+                        </select>
+                        <!-- O RACE é a única persona que escreve prompts. Sem
+                             dizer PARA QUEM, "crie uma skill" chega ambíguo. -->
+                        <p class="pg-prompt-hint pg-prompt-hint-race" id="pg-race-hint" data-i18n="pg.hint_race_destino" hidden>Para prompts de skill, persona ou agente: diga para qual agente é. Ex.: "crie a skill de revisão de código para o agente CI do time de backend". O RACE escreve o prompt para a IA externa executar; ele não escreve sobre si mesmo nem expõe as personas deste portal.</p>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="pg-input" data-i18n="pg.label_prompt">Seu prompt</label>
+                        <textarea id="pg-input" class="sim-input pg-prompt-input" rows="6" maxlength="19500" placeholder="Digite sua mensagem..." data-i18n-placeholder="pg.placeholder_prompt"></textarea>
+                        <p class="pg-prompt-hint" data-i18n="pg.hint_ctrl_enter">Ctrl+Enter para enviar</p>
+                    </div>
+
+                    <div class="playground-actions">
+                        <button class="btn-primary" id="pg-send" data-i18n="pg.btn_comparar">Comparar modelos selecionados</button>
+                        <button class="btn-secondary" id="pg-clear" style="display:none;" data-i18n="pg.btn_limpar">Limpar conversa</button>
+                    </div>
+                </div>
+
+                <div id="pg-error" class="error-msg" style="display:none;"></div>
+
+                <div class="pg-banner" id="pg-banner" style="display: none;">
+                    <span class="pg-banner-text" data-i18n="pg.aviso_conversa"></span>
+                    <button class="pg-banner-close" id="pg-banner-close" aria-label="Fechar aviso">&times;</button>
+                </div>
+
+                <div id="pg-results" class="model-grid"></div>
+                <div class="pg-help-modal" id="pg-help-modal" role="dialog" aria-modal="true" aria-labelledby="pg-help-title" hidden>
+                    <div class="pg-help-backdrop" data-pg-help-close></div>
+                    <div class="pg-help-panel">
+                        <div class="pg-help-head">
+                            <h2 class="pg-help-title" id="pg-help-title" data-i18n="pg.como_funciona">Como funciona</h2>
+                            <button type="button" class="pg-help-close" id="pg-help-close" aria-label="Fechar">&times;</button>
+                        </div>
+                        <div class="pg-help-body">
+                        <div class="alert" data-i18n="pg.alert_personas">
+                            <strong>Entenda as personas:</strong> as personas <em>Padrão</em>, <em>Técnico</em> e <em>Criativo</em> conversam com você em diálogo natural. O <em>Arquiteto de Prompts (RACE)</em> é a ferramenta que gera, em Markdown, um prompt pronto para usar em outras IAs, agentes ou ferramentas externas.
+                        </div>
+                        <div class="alert" data-i18n="pg.alert_finalidade">
+                            <strong>Para que serve:</strong> este playground e o <em>Arquiteto de Prompts (RACE)</em> ajudam você a criar, testar e refinar um prompt profissional para usar em <em>outra IA, agente ou ferramenta externa</em>. O formato <strong>Markdown</strong> potencializa esse uso — estrutura legível e parseável; hierarquia clara de instruções; economia de tokens (menos ruído); contexto preservado; e restrições explícitas que reduzem alucinações.
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Confirmacao de limpeza: o que o confirm() nativo do
+                     navegador fazia, mas dentro da paleta e do idioma do site. -->
+                <div class="pg-help-modal" id="pg-confirm-modal" role="dialog" aria-modal="true" aria-labelledby="pg-confirm-title" aria-describedby="pg-confirm-msg" hidden>
+                    <div class="pg-help-backdrop" data-pg-confirm-close></div>
+                    <div class="pg-help-panel pg-confirm-panel">
+                        <div class="pg-help-head">
+                            <h2 class="pg-help-title" id="pg-confirm-title" data-i18n="pg.confirm_limpar_titulo">Limpar a conversa?</h2>
+                            <button type="button" class="pg-help-close" id="pg-confirm-x" data-i18n-aria="pg.btn_fechar" aria-label="Fechar">&times;</button>
+                        </div>
+                        <p class="pg-confirm-msg" id="pg-confirm-msg" data-i18n="pg.confirm_limpar_msg">Isto apaga as respostas de todos os cards e não pode ser desfeito.</p>
+                        <div class="pg-confirm-actions">
+                            <button type="button" class="btn-secondary pg-confirm-cancel" id="pg-confirm-cancel" data-i18n="pg.confirm_limpar_cancelar">Cancelar</button>
+                            <button type="button" class="btn-primary pg-confirm-ok" id="pg-confirm-ok" data-i18n="pg.confirm_limpar_ok">Limpar conversa</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <section id="sobre" class="page">
+            <div class="page-header">
+                <h1 class="page-title" data-i18n="sobre.titulo">Sobre o Claritas</h1>
+                <p class="page-subtitle" data-i18n="sobre.subtitulo">Transparência, metodologia e as fontes que embasam este guia.</p>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title" data-i18n="sobre.prop_titulo">O Propósito</h2>
+                <p class="content-text" data-i18n="sobre.prop_p1">O Claritas é um <strong>portal gratuito</strong> que une dois mundos frequentemente isolados: a <strong>Documentação Técnica</strong> (Markdown) e a <strong>Engenharia de Prompt</strong> para Inteligência Artificial.</p>
+                <p class="content-text" data-i18n="sobre.prop_p2">Nosso objetivo é <strong>dar acesso</strong> — de forma livre e sem custo — a quem quer utilizar prompts em agentes de trabalho, estudos ou projetos pessoais, com mais precisão e melhores resultados. Acreditamos que a forma como você estrutura a informação (seja para um humano ler um README ou para uma IA processar um prompt) determina a qualidade do resultado final. Clareza não é estética; é eficiência.</p>
+                <p class="content-text" data-i18n="sobre.prop_p3">Sabemos que o mercado de trabalho atual exige, cada vez mais, saber <strong>usar a IA e construir prompts</strong>. O Claritas existe, então, com um duplo propósito: <strong>transmitir conhecimento</strong> — para quem quer aprender com calma — e <strong>acelerar o trabalho</strong> — para quem tem a urgência de produzir resultados rápidos em ambientes exigentes, com prompts prontos e confiáveis.</p>
+                <p class="content-text" data-i18n="sobre.prop_p4">O Claritas é o <strong>ponto de partida</strong> desse propósito profissional: aqui está o acesso simples à prática e ao conhecimento, pensado para ser <strong>facilmente absorvido</strong>, respeitando as <strong>variadas subjetividades e níveis de conhecimento</strong> de quem chega. Os demais projetos — como o Cuidar ERP — são esse mesmo princípio já <strong>aplicado</strong>: sistemas completos e facilitados para o usuário, nascidos da mesma vontade de aproximar tecnologia e pessoas.</p>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title" data-i18n="sobre.inter_titulo">Interdisciplinaridade</h2>
+                <p class="content-text" data-i18n="sobre.inter_p">Conhecimento de prompt não é exclusividade de TI — é uma habilidade <strong>transversal</strong>. O Claritas convida você a mesclar demandas sociais do cotidiano — <strong>acadêmicas, profissionais ou pessoais</strong> — com o uso da tecnologia: as IAs atuam como <strong>parceiras e ferramentas</strong> no seu auxílio, não como substitutas.</p>
+                <ul>
+                    <li data-i18n="sobre.inter_acad"><strong>Acadêmico:</strong> estruturação de pesquisa, revisão de literatura, organização de escrita.</li>
+                    <li data-i18n="sobre.inter_prof"><strong>Profissional:</strong> e-mails e relatórios precisos, automação de tarefas, agentes de trabalho.</li>
+                    <li data-i18n="sobre.inter_pess"><strong>Pessoal:</strong> planejamento, aprendizado, clareza em decisões do dia a dia.</li>
+                </ul>
+                <p class="content-text" data-i18n="sobre.inter_fim">Dessa forma, o Claritas expande a valorização das IAs como ferramenta e melhora o acesso para qualquer pessoa desfrutá-las — independentemente da área — promovendo uma verdadeira <strong>interdisciplinaridade</strong>.</p>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title" data-i18n="sobre.usar_titulo">Como usar</h2>
+                <p class="content-text"><span data-i18n="sobre.usar_pre"></span> <a href="#playground" data-i18n="nav.playground"></a><span data-i18n="sobre.usar_post"></span></p>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title" data-i18n="sobre.metod_titulo">Metodologia</h2>
+                <p class="content-text" data-i18n="sobre.metod_p">Todo o conteúdo aqui é validado sob a ótica da <strong>Engenharia de Software</strong> e da <strong>Cibersegurança</strong>. Não ensinamos "truques" ou "hacks" mágicos. Ensinamos protocolos:</p>
+                <ul>
+                    <li data-i18n="sobre.metod_i1"><strong>Rigor Lógico:</strong> Validação de premissas antes da execução.</li>
+                    <li data-i18n="sobre.metod_i2"><strong>Segurança por Design:</strong> Prevenção de injeção de prompt e vazamento de dados.</li>
+                    <li data-i18n="sobre.metod_i3"><strong>Eficiência Computacional:</strong> Respeito aos limites de tokens e latência das APIs.</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title" data-i18n="sobre.ref_titulo">Referências e Créditos</h2>
+                <p class="content-text" data-i18n="sobre.ref_p">O Claritas é um projeto de curadoria e aplicação prática. Agradecemos e referenciamos as autoridades que tornam o ecossistema Markdown possível:</p>
+                
+                <div class="reference-card">
+                    <h3>John Gruber</h3>
+                    <p data-i18n="sobre.ref_gruber">Criador do Markdown em 2004. Sua filosofia de "legibilidade acima de tudo" é a base de toda documentação moderna.</p>
+                </div>
+
+                <div class="reference-card">
+                    <h3>The Markdown Guide</h3>
+                    <p data-i18n="sobre.ref_mdg">Referência completa e open-source mantida por Matt Cone. Utilizado como base teórica para a expansão dos conceitos de sintaxe.</p>
+                    <a href="https://www.markdownguide.org" target="_blank" rel="noopener noreferrer">markdownguide.org</a>
+                </div>
+
+                <div class="reference-card">
+                    <h3>CommonMark</h3>
+                    <p data-i18n="sobre.ref_commonmark">A especificação forte e padronizada para o Markdown. Essencial para entender a base técnica que unifica os diferentes "flavors" da linguagem.</p>
+                    <a href="https://commonmark.org" target="_blank" rel="noopener noreferrer">commonmark.org</a>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title" data-i18n="sobre.i18n_titulo">Internacionalização (Roadmap)</h2>
+                <div class="alert">
+                    <p class="content-text" data-i18n="sobre.i18n_status" style="margin: 0 0 1rem 0;">Status: Atualmente, o Claritas está disponível em Português (PT-BR), Inglês (EN) e Chinês Simplificado (ZH).</p>
+                    <p class="content-text" data-i18n="sobre.i18n_roadmap" style="margin: 0;">Versões em outros idiomas estão sendo expandidas conforme a demanda. O foco continua em performance máxima (zero inchaço de DOM) e tipografia consistente.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-col">
+                <span class="brand-name" style="font-size: 1.1rem;">Claritas</span>
+                <p class="footer-tagline" data-i18n="footer.tagline">Guia gratuito sobre Markdown e engenharia de prompt para qualquer área — acadêmica, profissional ou pessoal. Conteúdo baseado em especificações oficiais e literatura acadêmica.</p>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" data-i18n="footer.col_markdown">Markdown</h4>
+                <a href="#md-titulos" data-goto="md-titulos" class="footer-link" data-i18n="md.ancora.titulos">Títulos</a>
+                <a href="#md-enfase" data-goto="md-enfase" class="footer-link" data-i18n="md.ancora.enfase">Ênfase</a>
+                <a href="#md-listas" data-goto="md-listas" class="footer-link" data-i18n="md.ancora.listas">Listas</a>
+                <a href="#md-links" data-goto="md-links" class="footer-link" data-i18n="md.ancora.links">Links</a>
+                <a href="#md-codigo" data-goto="md-codigo" class="footer-link" data-i18n="md.ancora.codigo">Código</a>
+                <a href="#md-tabelas" data-goto="md-tabelas" class="footer-link" data-i18n="md.ancora.tabelas">Tabelas</a>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" data-i18n="footer.col_portal">Portal</h4>
+                <a href="#home" class="footer-link" data-i18n="footer.inicio">Início</a>
+                <a href="#prompt" class="footer-link" data-i18n="footer.engenharia">Engenharia de Prompt</a>
+                <a href="#tokens" class="footer-link" data-i18n="footer.economia">Economia de Tokens</a>
+                <a href="#token-counter" class="footer-link" data-i18n="footer.contador">Contador</a>
+                <a href="#playground" class="footer-link" data-i18n="footer.playground">Playground</a>
+                <a href="#sobre" class="footer-link" data-i18n="footer.sobre">Sobre</a>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-col-title" data-i18n="footer.col_fontes">Fontes Oficiais</h4>
+                <a href="https://spec.commonmark.org" target="_blank" rel="noopener noreferrer" class="footer-link">CommonMark</a>
+                <a href="https://github.github.com/gfm" target="_blank" rel="noopener noreferrer" class="footer-link">GFM</a>
+                <a href="https://www.markdownguide.org" target="_blank" rel="noopener noreferrer" class="footer-link">Markdown Guide</a>
+                <a href="https://daringfireball.net/projects/markdown/syntax" target="_blank" rel="noopener noreferrer" class="footer-link">Daring Fireball</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p data-i18n="footer.copyright">&copy; 2026 ShipClaw · Claritas</p>
+        </div>
+    </footer>
+
+    
+    <script src="app.js" defer></script>
+</body>
+</html>
