@@ -11,7 +11,9 @@
 
 import {
   resolvePersona,
+  resolveFramework,
   resolveModelDirective,
+  resolveTechnique,
   buildFingerprintMatcher,
   toCanon,
   MASK_LINE,
@@ -25,14 +27,14 @@ const ALLOWED_MODELS = [
   'cohere/north-mini-code:free',
   'google/gemma-4-26b-a4b-it:free',
   'google/gemma-4-31b-it:free',
-  'inclusionai/ling-3.0-flash-sante:free',
   'liquid/lfm-2.5-2.6b:free',
   'nvidia/nemotron-3.5-content-safety:free',
   'poolside/laguna-s-2.1:free',
   'poolside/laguna-xs-2.1:free',
   'openrouter/free',
   'thinkingmachines/inkling:free',
-  'thinkingmachines/inkling-small:free'
+  'thinkingmachines/inkling-small:free',
+  'recursive/flint-v1.0:free',
 ];
 
 // Modelos PAGOS de mercado (apenas para a calculadora de tokens —
@@ -204,9 +206,18 @@ function isValidModel(model) {
 // nenhum: é esta allowlist, e não o `|| 'default'` do resolvePersona, que
 // impede o cliente de escolher uma persona arbitrária.
 const ALLOWED_PERSONAS = ['default', 'technical', 'creative', 'prompt-engineer', 'optimizer', 'estimator'];
+const ALLOWED_FRAMEWORKS = ['race', 'costar', 'crispe'];
+const ALLOWED_TECHNIQUES = ['zero-shot', 'few-shot', 'cot', 'self-consistency', 'least-to-most', 'tot', 'reflexion', 'chaining', 'metaprompt', 'genknowledge', 'active', 'dsp', 'persona', 'formato', 'rag', 'react', 'palm', 'multimodal', 'graph'];
 
 function isValidPersona(persona) {
   return typeof persona === 'string' && ALLOWED_PERSONAS.includes(persona);
+}
+
+function isValidFramework(framework) {
+  return typeof framework === 'string' && ALLOWED_FRAMEWORKS.includes(framework);
+}
+function isValidTechnique(technique) {
+  return typeof technique === 'string' && ALLOWED_TECHNIQUES.includes(technique);
 }
 
 function isValidMessages(messages) {
@@ -356,7 +367,7 @@ export async function onRequestPost(context) {
     return jsonError(400, 'Body JSON inválido.', request);
   }
 
-  const { model, messages, stream, lang, persona } = body;
+  const { model, messages, stream, lang, persona, framework, technique } = body;
 
   // Validação ANTES de montar o prompt. A versão anterior compunha as
   // mensagens e só depois validava, ou seja, fazia trabalho e ainda montava
@@ -366,6 +377,14 @@ export async function onRequestPost(context) {
   }
   if (!isValidPersona(persona)) {
     return jsonError(400, 'Persona não permitida.', request);
+  }
+  // O formato é uma CHAVE de allowlist. Só tem efeito no Arquiteto; nas demais
+  // personas é ignorado, mas um valor desconhecido continua sendo 400.
+  if (framework !== undefined && !isValidFramework(framework)) {
+    return jsonError(400, 'Formato não permitido.', request);
+  }
+  if (technique !== undefined && !isValidTechnique(technique)) {
+    return jsonError(400, 'Técnica não permitida.', request);
   }
   if (!isValidMessages(messages)) {
     return jsonError(400, 'Mensagens inválidas (formato, quantidade ou tamanho).', request);
@@ -380,14 +399,22 @@ export async function onRequestPost(context) {
   // cliente é removido da lista que vai ao provedor, então uma tentativa de
   // injeção some aqui em vez de chegar ao modelo.
   const personaSystem = resolvePersona(persona);
-  // Persona de ferramenta (RACE/optimizer/estimator) tem regras próprias
+  // Persona de ferramenta (Arquiteto/optimizer/estimator) tem regras próprias
   // rígidas e não recebe a diretiva por modelo. A detecção é pela CHAVE
   // validada acima — a versão anterior também sniffava o texto da persona
   // enviada pelo cliente, o que é deixar o cliente decidir o papel do servidor.
   const isToolPersona = ['prompt-engineer', 'optimizer', 'estimator'].includes(persona);
   const modelDirective = isToolPersona ? null : resolveModelDirective(model);
   const langDirective = LANG_DIRECTIVES[normalizeLang(lang)];
+  const frameworkDirective = persona === 'prompt-engineer'
+    ? resolveFramework(framework || 'race')
+    : '';
+  const techniqueDirective = persona === 'prompt-engineer' && technique
+    ? resolveTechnique(technique)
+    : '';
   const systemContent = personaSystem
+    + (frameworkDirective ? '\n\n---\n\n' + frameworkDirective : '')
+    + (techniqueDirective ? '\n\n---\n\n' + techniqueDirective : '')
     + (langDirective || '')
     + (modelDirective ? '\n\n---\n\n' + modelDirective : '');
 

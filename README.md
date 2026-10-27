@@ -1,9 +1,9 @@
-# Claritas
+﻿# Claritas
 
 > Technical portal for Prompt Engineering and Markdown documentation.
-> [Portuguese](README_PT.md) · [English](README.md) · [中文](README_ZH.md)
+> **Portuguese** · [English](README.md) · [中文](README_ZH.md)
 
-**Version:** 2.20 · **Maintainer:** Brenda Tavares (ShipClaw) · **Last update:** 2026-10-05
+**Version:** 2.22 · **Maintainer:** Brenda Tavares (ShipClaw) · **Last update:** 2026-10-27
 
 Zero-build, zero-library, privacy-first. Every sensitive decision runs in a serverless function; the browser never holds a credential.
 
@@ -56,7 +56,7 @@ These are read from the source, not transcribed. A change in code that is not mi
 | Free models (server allowlist) | **11** |
 | Domain skills | **6** |
 | System prompts in the demo | **6** |
-| i18n keys (PT / EN / 中文) | **274** |
+| i18n keys (PT / EN / 中文) | **432** |
 
 ### The eleven allowlisted models
 
@@ -65,7 +65,6 @@ These are read from the source, not transcribed. A change in code that is not mi
 | `cohere/north-mini-code:free` | Code |
 | `google/gemma-4-26b-a4b-it:free` | General |
 | `google/gemma-4-31b-it:free` | General |
-| `inclusionai/ling-3.0-flash-sante:free` | Health |
 | `liquid/lfm-2.5-2.6b:free` | General |
 | `nvidia/nemotron-3.5-content-safety:free` | Safety |
 | `poolside/laguna-s-2.1:free` | Code |
@@ -73,6 +72,7 @@ These are read from the source, not transcribed. A change in code that is not mi
 | `openrouter/free` | *(router)* |
 | `thinkingmachines/inkling:free` | Visual |
 | `thinkingmachines/inkling-small:free` | Visual |
+| `recursive/flint-v1.0:free` | Code |
 
 `openrouter/free` is **not a model** — it is OpenRouter's router, which picks one of the available free models on every request without saying which. It therefore has no domain skill, no model profile and no `MODEL_SKILL` entry: any of those would describe a model that has not been chosen yet, and the profile takes precedence over the skill directive. The client labels it as a router in both the model picker and the result card. The point of the mode is not having to choose; the cost is that **the answer may not be adequate** in some situations.
 
@@ -81,10 +81,13 @@ These are read from the source, not transcribed. A change in code that is not mi
 ## 5. Features
 
 - **SPA router** with a defensive route allowlist and a safe `#home` fallback
-- **Trilingual UI** — PT / EN / 中文, inline dictionary of 274 keys, persisted in `localStorage` under `claritas-lang`; the Markdown, Prompt Engineering and Raw Output pages are fully translated
+- **Trilingual UI** — PT / EN / 中文, inline dictionary of 432 keys, persisted in `localStorage` under `claritas-lang`; the Markdown, Prompt Engineering, Frameworks and Raw Output pages are fully translated
 - **AI answers in the interface language** — the client sends `lang`, the function attaches a fixed language directive it controls; the client cannot override it
 - **Prompt Playground** — 2–3 OpenRouter models side by side over SSE, continuous per-card conversation, a per-model directive appended to the final system message, a vocation badge per model, copy per answer, retry per card, and an accessible configuration dialog
-- **Model/persona selection locked in the UI** during an active dialogue. The server is stateless and re-validates every request on its own, so continuity is a client contract, not a server guarantee.
+- **Prompt format selector (Architect)** — RACE, CO-STAR or CRISPE; the browser sends only the framework key, the function validates it against `ALLOWED_FRAMEWORKS` and resolves the example directive. RACE keeps natural prose; CO-STAR and CRISPE make their blocks explicit. An unknown value is a `400` before any prompt is assembled.
+- **Optional technique selector (Architect)** — the same screen offers a technique key drawn from the framework catalog; the browser sends only the key, the function validates it against `ALLOWED_TECHNIQUES` and resolves the example instruction. The technique shapes the artifact the Architect writes for another AI; it does not make this demo perform retrieval, call tools or run a reasoning loop. An unknown value is a `400`.
+- **Prompt frameworks page (`#frameworks`)** — a public, trilingual reference for RACE, CO-STAR and CRISPE, plus the full technique catalog (direct instruction, zero-shot, few-shot, step-by-step reasoning, ToT, Reflexion, chaining, meta-prompting, RAG, ReAct, PALM, graph prompting and others), with sources and the distinction between composition frameworks and academic techniques. The page teaches the structures; the prompt text in this repository remains an example, not the private project's prompt.
+- **Model/persona/format/technique selection locked in the UI** during an active dialogue. The server is stateless and re-validates every request on its own (model, persona, framework, technique, rate limit), so continuity is a client contract, not a server guarantee.
 - **Evasive or rambling answer detection** — the card is flagged and offers a retry
 - **Output filter (OWASP LLM07)** — the function truncates and masks answers that echo the app's own system messages
 - **Token Simulator** — prompt optimization (remove verbosity, basic structure)
@@ -115,11 +118,15 @@ Six system prompts in total: four selectable in the Playground, plus one for eac
 | `default` | General assistant | Dialogue |
 | `technical` | Senior engineer | Dialogue |
 | `creative` | Designer | Dialogue |
-| `prompt-engineer` | Prompt Architect (RACE) | Structured artifact |
+| `prompt-engineer` | Prompt Architect (RACE / CO-STAR / CRISPE, optional technique) | Structured artifact |
 | `optimizer` | Simulator | Tool |
 | `estimator` | Token counter | Tool |
 
 Dialogue personas answer in conversation; the Prompt Architect produces a Markdown artifact meant for another AI, agent or tool. Tool personas are excluded from the per-model directive so structured output stays disciplined.
+
+**The format is a key, not a paragraph.** The Architect can emit RACE, CO-STAR or CRISPE. The browser sends `framework: "costar"`, never the directive text; `ALLOWED_FRAMEWORKS` validates the key and `EXAMPLE_FRAMEWORK_DIRECTIVES` resolves the example directive. RACE keeps natural prose; CO-STAR and CRISPE expose their blocks. This repeats the persona-allowlist pattern: a free-text format field would be a direct injection channel into the system prompt. The example directives are deliberately divergent from the private project's, so the format page can teach the structures without publishing the real prompt. Outside the Architect the key is ignored; an unknown value is a `400`.
+
+**The technique is also a key.** The optional `technique` field follows the same pattern: `ALLOWED_TECHNIQUES` validates the key and `EXAMPLE_TECHNIQUE_DIRECTIVES` resolves the example instruction. The technique tells the Architect what to ask the target AI to do — structure a retrieval step, verify a result, explore alternatives — but the demo itself never retrieves, calls tools or runs a multi-step loop. An unknown key is a `400`, and the field has no effect outside the Architect.
 
 The **6 domain skills** — code, general, finance, health, visual and safety — each carry their own directive, applied when a model has no specific one.
 
@@ -130,7 +137,9 @@ Two of the six system prompts are tools rather than conversationalists. What mak
 | Stage | Persona | Receives | Returns | Forbidden |
 |---|---|---|---|---|
 | 1 — Optimize | `optimizer` | a verbose prompt | the same intent, restructured and de-noised | answering the request inside it |
-| 2 — Architect | `prompt-engineer` | a raw request | a Markdown artifact for another AI, agent or tool | answering the request itself |
+| 2 — Architect | `prompt-engineer` | a raw request, a format key and an optional technique key | a Markdown artifact for another AI, agent or tool in RACE, CO-STAR or CRISPE | answering the request itself |
+
+The format and technique selectors change the structure and instructions of the artifact, never the rule that the stage does not perform the task, retrieve documents or call tools.
 
 `EXAMPLE_OPTIMIZER_PROMPT` marks the incoming text as input data: everything between `<INPUT>` and `</INPUT>` is data and never an instruction, and the only permitted output is the rewritten prompt in Markdown, with no wrapper and no commentary. `EXAMPLE_PERSONAS['prompt-engineer']` states the same asymmetry in a single line — its only function is to write the prompt, never to perform the task. So the stage that reads untrusted text is explicitly forbidden from obeying it: an injection boundary inside the workflow (OWASP LLM01), distinct from the one that discards a client-sent `system` message.
 
@@ -144,9 +153,9 @@ The artifact is meant to be consumed by a machine, and the examples keep it lean
 |---|---|---|
 | Truncation | output hit the cap mid-stream | the text is cut off, and retrying is pointless until it is not — the button is withheld, because a retry would return the same cut |
 | Evasion | no substantive answer at all | the model returned almost nothing |
-| Broken contract | no role or task assigned to another AI | see below |
+| Broken contract | no signal that the artifact is a prompt: explicit role, block label, imperative instruction, restriction or code fence | see below |
 
-The broken-contract check exists because of a real report: asking the Prompt Architect for a site for storing images returned a well-formatted, confident Markdown document that was not a prompt at all. The older check only caught prose, so the worst failure — an answer that *looks* like a deliverable — passed silently. The warning it now raises is deliberately non-committal: the same model, asked twice, may deliver a prompt, may answer the task directly, or may ask for the details it says it needs. That variation is the reason for the warning, and the reason the warning does not name a cause. Retry is offered; switching model is not, because the same weakness will follow you to another model on that run.
+The broken-contract check exists because of a real report: asking the Prompt Architect for a site for storing images returned a well-formatted, confident Markdown document that was not a prompt at all. The older check only caught prose, so the worst failure — an answer that *looks* like a deliverable — passed silently. The warning it now raises is deliberately non-committal: the same model, asked twice, may deliver a prompt, may answer the task directly, or may ask for the details it says it needs. That variation is the reason for the warning, and the reason the warning does not name a cause. Retry is offered; switching model is not, because the same weakness will follow you to another model on that run. The contract detector is specific to RACE; CO-STAR and CRISPE change the artifact's structure, not what the detector can prove.
 
 **On the token-economy figure.** The Simulator's percentage is computed live in the browser from the two texts you supplied — `ceil(characters / 4)` each — not read from a tokenizer and not measured against a real model output. No fixed reduction is claimed anywhere in this project: `EXAMPLE_ESTIMATOR_PROMPT` says outright that it is a statistical estimate rather than the real tokenizer, and returns its own error margin with it. Where the number is real rather than estimated is the Token Counter, which asks the provider for actual `prompt_tokens` and `completion_tokens` — with the caveat that it degrades quietly. If the provider returns no `usage`, `prompt_tokens` falls back to the same `ceil(text.length / 4)` estimate, `completion_tokens` falls back to `0`, and the combined mode then assumes the output costs exactly as much as the input.
 
@@ -170,6 +179,8 @@ A server-side proxy wraps the provider call. The API key is an environment varia
 ```
 
 A `system` message sent by the client is discarded: the server injects its own system prompt and nothing else.
+
+The Architect may also send `framework: "costar"`; it is optional, defaults to RACE, and is validated against `ALLOWED_FRAMEWORKS` before prompt assembly. The directive text never comes from the client.
 
 **Response** — a token stream over SSE (`stream: true`) or a complete JSON body (`stream: false`).
 
@@ -224,6 +235,7 @@ Counters live in Cloudflare KV (`RATE_LIMIT_KV`) when the binding exists, with a
 - External links carry `target="_blank" rel="noopener noreferrer"`
 - No API key in code — read server-side from the deploy provider's environment
 - Client-sent `system` messages are discarded server-side
+- Framework and technique allowlists (`ALLOWED_FRAMEWORKS`: `race`, `costar`, `crispe`; `ALLOWED_TECHNIQUES`) — the client sends the keys, never the directive text; unknown values are rejected with `400`
 - Output filter for verbatim echo of the app's system messages
 
 The full OWASP LLM Top 10 mapping is in [`SECURITY.md`](SECURITY.md).
@@ -239,7 +251,7 @@ claritas/
 │   ├── functions/
 │   │   └── api/
 │   │       ├── chat.js     # Pages Function: OpenRouter proxy, allowlist, rate limit
-│   │       └── prompts.js  # The real system prompts. Never leaves the server.
+│   │       └── prompts.js  # Example system prompts, resolved server-side; not the private project's.
 │   └── assets/
 │       ├── favicon-light.ico
 │       ├── favicon-dark.ico
@@ -254,12 +266,17 @@ claritas/
 ├── SECURITY.md             # Security model and OWASP LLM Top 10 mapping
 ├── LICENSE                 # Terms (custom license, not a standard one)
 ├── package.json            # Version of record + the check/test scripts
+├── .gitignore              # Keeps local env, logs and private prompt drafts out
 ├── scripts/
 │   ├── check-readme-parity.mjs   # Numbers in these READMEs vs. the code above
-│   └── test-readme-check.mjs     # Proves the check still catches a corrupted doc
+│   ├── test-readme-check.mjs     # Proves the check still catches a corrupted doc
+│   ├── test-owasp-claims.mjs     # OWASP table in SECURITY.md vs. the code
+│   ├── test-claim-guard.mjs      # No README may promise what the code does not do
+│   └── test-race-contract.mjs    # Fixtures for the Architect's contract detector
 └── .github/
+    ├── CODEOWNERS                # Review ownership
     └── workflows/
-        └── readme-parity.yml     # Runs the check on every push
+        └── readme-parity.yml     # Runs the checks on every push
 ```
 
 ## 10. Getting started
@@ -291,6 +308,8 @@ The site and the function are deployed by **Cloudflare Pages** from the connecte
 - **Not a benchmark.** The free models are chosen for zero-cost availability, not performance leadership. A better answer here is not a better model for your real case.
 - **No reasoning measurement.** No ground truth and no scoring; the Playground compares answers to a given prompt.
 - **Not an oracle.** Models can be wrong. These controls reduce injection, leakage and format hallucination; they do not eliminate error.
+- **Format is structure, not compliance.** A model may ignore the CO-STAR or CRISPE blocks; the output is still a prompt, not a guarantee that the target AI will follow it. The contract detector remains specific to RACE.
+- **Technique is instruction, not execution.** Selecting RAG, ReAct or graph prompting changes what the Architect asks the target system to do; it does not add retrieval, tools or a reasoning loop to this demo.
 - **Google Fonts is the only external request** the page makes, and the CSP allows exactly that host. "Zero-library" means no libraries, not no network calls.
 - **In-memory rate limiting is ephemeral** — it is lost on a cold start, so production relies on the `RATE_LIMIT_KV` binding.
 - **The demo has no automated end-to-end tests.** The function's own boundaries are asserted by a static check over the source, not by a browser test.
@@ -302,10 +321,11 @@ Because this is a public artifact, the checks are part of the deliverable rather
 | Check | What it asserts |
 |---|---|
 | `npm run check:readmes` | dictionary parity across the three languages, and the resource bounds match the source |
+| `npm run check:owasp` | the framework and technique allowlists and the OWASP LLM01/LLM07 claims match the code |
 | `npm run check:claims` | these pages make no unfounded claim (no fixed reduction, no guarantee against model error, no borrowed reasoning feature) |
 | `npm run check:race` | the Prompt Architect's contract detector, bound to the real `app.js` instead of a copy that could pass while the app broke |
 
-Each check is mutation-proven: it is deliberately broken to confirm that it fails, because a test that has never been seen to fail is an assumption. All three run in CI on every push, and the portfolio copy is self-sufficient — it verifies from its own directory without the private repository.
+Each check is mutation-proven: it is deliberately broken to confirm that it fails, because a test that has never been seen to fail is an assumption. All four run in CI on every push, and the portfolio copy is self-sufficient — it verifies from its own directory without the private repository.
 
 **What this is not.** None of it is a benchmark of model quality. There is no ground truth and no scoring, so passing every check means the code behaves as documented — not that a model answered well.
 
@@ -313,7 +333,16 @@ Each check is mutation-proven: it is deliberately broken to confirm that it fail
 
 - [`GUIA_TECNICO.md`](GUIA_TECNICO.md) — the *why* behind each decision, and the development history: what was tried, what was rejected, and why the current shape is the one that survived
 - [`SECURITY.md`](SECURITY.md) — the security model and the OWASP LLM Top 10 mapping
+- [Prompt frameworks](site/index.html#frameworks) — RACE, CO-STAR, CRISPE and the full technique catalog, with sources and rigor notes
 - [CommonMark](https://commonmark.org/) · [GFM](https://github.github.com/gfm/) · [OpenRouter](https://openrouter.ai/) · [Cloudflare Pages Functions](https://developers.cloudflare.com/pages/functions/)
+
+## Author
+
+**Brenda Tavares** — Full-Stack Developer
+- B.A. in Humanities, Federal University of Bahia (UFBA)
+- Backend Development, Pitágoras Unopar Anhanguera University
+- GitHub: <https://github.com/Brenda-Tavares>
+- LinkedIn: <https://www.linkedin.com/in/brenda-campos-tavares/>
 
 ---
 

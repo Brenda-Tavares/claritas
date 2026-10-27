@@ -1,9 +1,9 @@
-# Claritas
+﻿# Claritas
 
 > 提示工程与 Markdown 文档的技术门户。
-> [中文](README_PT.md) · [English](README.md) · [Português](README_PT.md)
+> **中文** · [English](README.md) · [Português](README_PT.md)
 
-**版本：** 2.20 · **维护者：** Brenda Tavares（ShipClaw）· **最后更新：** 2026-10-05
+**版本：** 2.22 · **维护者：** Brenda Tavares（ShipClaw）· **最后更新：** 2026-10-27
 
 零构建、零库、以隐私为先。所有敏感决策都在无服务器函数中执行；浏览器从不持有凭据。
 
@@ -56,7 +56,7 @@ Markdown 是技术文档的通用语法，提示工程是与语言模型沟通�
 | 免费模型（服务端允许列表） | **11** |
 | 领域技能 | **6** |
 | 演示中的 system prompt | **6** |
-| i18n 键（PT / EN / 中文） | **274** |
+| i18n 键（PT / EN / 中文） | **432** |
 
 ### 允许列表中的十一个模型
 
@@ -65,7 +65,6 @@ Markdown 是技术文档的通用语法，提示工程是与语言模型沟通�
 | `cohere/north-mini-code:free` | 代码 |
 | `google/gemma-4-26b-a4b-it:free` | 通用 |
 | `google/gemma-4-31b-it:free` | 通用 |
-| `inclusionai/ling-3.0-flash-sante:free` | 健康 |
 | `liquid/lfm-2.5-2.6b:free` | 通用 |
 | `nvidia/nemotron-3.5-content-safety:free` | 安全 |
 | `poolside/laguna-s-2.1:free` | 代码 |
@@ -73,6 +72,7 @@ Markdown 是技术文档的通用语法，提示工程是与语言模型沟通�
 | `openrouter/free` | *路由器* |
 | `thinkingmachines/inkling:free` | 视觉 |
 | `thinkingmachines/inkling-small:free` | 视觉 |
+| `recursive/flint-v1.0:free` | 代码 |
 
 `openrouter/free` **不是模型**，而是 OpenRouter 的路由器：它在每次请求时从可用的免费模型中挑选一个，并且不会告诉你挑中的是哪一个。因此它没有 skill、没有模型档案，也没有 `MODEL_SKILL` 条目——这三者描述的都是"尚未被选中的那个模型"，而模型档案的优先级又高于 skill 指令。客户端在模型选择器和结果卡片上都把它标注为路由器。这个模式的价值在于不必挑选；代价是**回复在某些情况下可能并不合适**。
 
@@ -81,10 +81,13 @@ Markdown 是技术文档的通用语法，提示工程是与语言模型沟通�
 ## 5. 功能
 
 - **SPA 路由**，带防御性路由允许列表与安全的 `#home` 兜底
-- **三语界面** — PT / EN / 中文，内联词典共 274 个键，以 `claritas-lang` 存于 `localStorage`；Markdown、提示工程与原始输出页面均已完整翻译
+- **三语界面** — PT / EN / 中文，内联词典共 432 个键，以 `claritas-lang` 存于 `localStorage`；Markdown、提示工程、提示框架与原始输出页面均已完整翻译
 - **AI 用界面语言作答** — 客户端发送 `lang`，函数附加一条由它自己掌控的固定语言指令；客户端无法覆盖
 - **提示词 Playground** — 通过 SSE 并排运行 2–3 个 OpenRouter 模型，每个卡片连续对话，向最后一条 `system` 消息追加按模型区分的指令，每个模型带专长徽标，每条回答可复制，每个卡片可重试，并配有一个无障碍的配置对话框
-- **对话进行中，界面上的模型/persona 选择被锁定。** 服务端无状态，并会独立校验每次请求，因此对话连续性是客户端的约定，而非服务端的保证。
+- **提示词架构师的格式选择器** — RACE、CO-STAR 或 CRISPE；浏览器只发送格式键，函数用 `ALLOWED_FRAMEWORKS` 校验并解析示例指令。RACE 保持自然文本；CO-STAR 与 CRISPE 显式展示各自的模块。未知值会在任何提示组装之前得到 `400`。
+- **可选技巧选择器（架构师）** —— 同一界面提供取自框架目录的技巧键；浏览器只发送键，函数用 `ALLOWED_TECHNIQUES` 校验并解析示例指令。技巧塑造架构师为另一个 AI 写出的产物；它不会让本演示执行检索、调用工具或运行推理循环。未知值会得到 `400`。
+- **提示框架页面（`#frameworks`）** —— 公开的三语参考，涵盖 RACE、CO-STAR、CRISPE，以及完整的提示技巧目录（直接指令、zero-shot、few-shot、逐步推理、ToT、Reflexion、chaining、meta-prompting、RAG、ReAct、PALM、graph prompting 等），附来源，并区分组合框架与学术技巧。页面讲解结构；本仓库中的提示词文本仍然是示例，而不是私有项目的提示词。
+- **对话进行中，界面上的模型/persona/格式/技巧选择被锁定。** 服务端无状态，并会独立校验每次请求（模型、persona、framework、技巧、限流），因此对话连续性是客户端的约定，而非服务端的保证。
 - **回避性或啰嗦回答检测** — 卡片被标记并提供重试
 - **输出过滤（OWASP LLM07）** — 函数会截断并遮蔽那些回声复述应用自身 `system` 消息的回答
 - **Token 模拟器** — 提示词优化（去除冗余、基本结构）
@@ -115,11 +118,15 @@ Markdown 是技术文档的通用语法，提示工程是与语言模型沟通�
 | `default` | 通用助手 | 对话 |
 | `technical` | 高级工程师 | 对话 |
 | `creative` | 设计师 | 对话 |
-| `prompt-engineer` | 提示词架构师（RACE） | 结构化产物 |
+| `prompt-engineer` | 提示词架构师（RACE / CO-STAR / CRISPE，可选技巧） | 结构化产物 |
 | `optimizer` | 模拟器 | 工具 |
 | `estimator` | token 计数器 | 工具 |
 
 对话型 persona 以对话方式作答；提示词架构师产出一份 Markdown 产物，供另一个 AI、代理或工具使用。工具型 persona 不参与按模型的指令，以保证结构化输出的纪律性。
+
+**格式是一个键，不是一段文字。** 架构师可以输出 RACE、CO-STAR 或 CRISPE。浏览器发送 `framework: "costar"`，绝不发送指令文本；`ALLOWED_FRAMEWORKS` 校验键，`EXAMPLE_FRAMEWORK_DIRECTIVES` 解析示例指令。RACE 保持自然文本；CO-STAR 与 CRISPE 显式展示各自的模块。这重复了 persona 允许列表的模式：自由文本的格式字段会成为直接注入 system prompt 的通道。示例指令刻意与私有项目不同，因此格式页面可以讲解结构而不公开真实提示词。在架构师之外该键会被忽略；未知值会得到 `400`。
+
+**技巧也是一个键。** 可选的 `technique` 字段遵循同一模式：`ALLOWED_TECHNIQUES` 校验键，`EXAMPLE_TECHNIQUE_DIRECTIVES` 解析示例指令。技巧告诉架构师该要求目标 AI 做什么——组织检索步骤、验证结果、探索备选方案——但演示本身从不检索、不调用工具，也不运行多步循环。未知键会得到 `400`，且该字段在架构师之外无效。
 
 **6 项领域技能** —— 代码、通用、金融、健康、视觉与安全 —— 各带一条自己的指令，在模型没有专属指令时套用。
 
@@ -130,7 +137,9 @@ Markdown 是技术文档的通用语法，提示工程是与语言模型沟通�
 | 阶段 | 角色 | 收到 | 返回 | 被禁止 |
 |---|---|---|---|---|
 | 1 — 优化 | `optimizer` | 一段冗长的提示词 | 同样的意图，重构并去掉噪声 | 去回答提示词内部的请求 |
-| 2 — 架构 | `prompt-engineer` | 一句原始需求 | 一份供另一个 AI、代理或工具使用的 Markdown 产物 | 直接回答这个需求本身 |
+| 2 — 架构 | `prompt-engineer` | 一句原始需求、一个格式键和一个可选的技巧键 | 一份供另一个 AI、代理或工具使用的 Markdown 产物，格式为 RACE、CO-STAR 或 CRISPE | 直接回答这个需求本身 |
+
+格式与技巧选择器改变产物的结构和指令，但绝不改变该阶段不执行任务、不检索文档、不调用工具的规则。
 
 `EXAMPLE_OPTIMIZER_PROMPT` 把传入文本标记为输入数据：`<INPUT>` 与 `</INPUT>` 之间的全部内容都是数据，绝不是指令；唯一允许的输出是重写后的提示词，用 Markdown 写成，不加外层引号，也不加说明。`EXAMPLE_PERSONAS['prompt-engineer']` 用一句话表达了同一个不对称——它唯一的职能是写出提示词，绝不去完成任务。也就是说，读到不可信文本的那一段被明确禁止服从它。这是工作流内部的一道注入屏障（OWASP LLM01），与丢弃客户端所发 `system` 消息的那一道彼此独立。
 
@@ -160,6 +169,8 @@ Markdown 是技术文档的通用语法，提示工程是与语言模型沟通�
 ```
 
 客户端发来的 `system` 消息会被丢弃：服务端注入它自己的 system prompt，仅此而已。
+
+架构师也可以发送 `framework: "costar"`；它是可选的，默认 RACE，并会在提示组装之前对照 `ALLOWED_FRAMEWORKS` 校验。指令文本绝不来自客户端。
 
 **响应** — 通过 SSE 的 token 流（`stream: true`）或完整的 JSON body（`stream: false`）。
 
@@ -210,6 +221,7 @@ form-action 'none'
 - 外部链接带有 `target="_blank" rel="noopener noreferrer"`
 - 代码中没有任何 API 密钥 —— 由服务端从部署服务方的环境变量读取
 - 客户端发来的 `system` 消息在服务端被丢弃
+- 格式与技巧允许列表（`ALLOWED_FRAMEWORKS`：`race`、`costar`、`crispe`；`ALLOWED_TECHNIQUES`）—— 客户端发送键，绝不发送指令文本；未知值会以 `400` 拒绝
 - 针对应用 `system` 消息逐字回声设有输出过滤
 
 完整的 OWASP LLM Top 10 映射见 [`SECURITY.md`](SECURITY.md)。
@@ -219,11 +231,13 @@ form-action 'none'
 ```
 claritas/
 ├── site/
-│   ├── index.html          # 整个门户，单个文件
+│   ├── index.html          # 标记、样式与 CSP meta 标签
+│   ├── app.js              # 客户端代码独立成文件，使 script-src 无需 'unsafe-inline'
 │   ├── _headers            # 真实 HTTP 安全响应头（Cloudflare Pages）
 │   ├── functions/
 │   │   └── api/
-│   │       └── chat.js     # Pages Function：OpenRouter 代理、允许列表、限流
+│   │       ├── chat.js     # Pages Function：OpenRouter 代理、允许列表、限流
+│   │       └── prompts.js  # 示例 system prompt，服务端解析；非私有项目原文
 │   └── assets/
 │       ├── favicon-light.ico
 │       ├── favicon-dark.ico
@@ -238,10 +252,15 @@ claritas/
 ├── SECURITY.md             # 安全模型与 OWASP LLM Top 10 映射
 ├── LICENSE                 # 条款（自定义许可证，非标准许可证）
 ├── package.json            # 版本记录 + 校验与测试脚本
+├── .gitignore              # 排除本地环境、日志与私有提示词草稿
 ├── scripts/
 │   ├── check-readme-parity.mjs   # 将这些 README 中的数字与上方代码核对
-│   └── test-readme-check.mjs     # 证明校验仍能发现被破坏的文档
+│   ├── test-readme-check.mjs     # 证明校验仍能发现被破坏的文档
+│   ├── test-owasp-claims.mjs     # SECURITY.md 的 OWASP 表与代码一致
+│   ├── test-claim-guard.mjs      # 不允许 README 承诺代码做不到的事
+│   └── test-race-contract.mjs    # 架构师契约检测器的测试夹具
 └── .github/
+    ├── CODEOWNERS                # 审查归属
     └── workflows/
         └── readme-parity.yml     # 每次 push 都运行校验
 ```
@@ -275,6 +294,8 @@ npm test          # 先校验，再证明校验仍能发现偏差
 - **不是基准测试。** 免费模型是按零成本可用性挑选的，而非性能领先。此处回答更好，并不意味着在你的真实场景中模型更好。
 - **不衡量推理能力。** 没有标准答案，也没有评分；Playground 比较的是对某个给定提示的回答。
 - **不是神谕。** 模型可能出错。这些控制可降低注入、泄漏与格式幻觉，但无法消除错误。
+- **格式是结构，不是合规保证。** 模型可能忽略 CO-STAR 或 CRISPE 模块；输出仍然是一份提示词，而不是目标 AI 会遵循它的承诺。契约检测器仍然专门针对 RACE。
+- **技巧是指令，不是执行。** 选择 RAG、ReAct 或 graph prompting 改变的是架构师对目标系统的要求；它不会为本演示增加检索、工具或推理循环。
 - **Google Fonts 是页面唯一的外部请求**，而 CSP 恰好只允许该主机。"零库"指的是没有库，而不是没有网络请求。
 - **内存限流是短暂的** —— 冷启动即丢失，因此生产环境依赖 `RATE_LIMIT_KV` 绑定。
 - **本演示没有自动化端到端测试。** 函数的各项边界由对源码的静态检查保障，而非浏览器测试。
@@ -285,9 +306,9 @@ npm test          # 先校验，再证明校验仍能发现偏差
 |---|---|---|
 | 截断 | 输出在流式传输中途撞到上限 | 文本被截断了，而且只要情况不变，重试也没有意义——按钮会被撤下，因为再来一次只会得到同样的截断 |
 | 回避 | 完全没有实质内容 | 模型几乎什么都没返回 |
-| 契约破损 | 没有把角色或任务指派给另一个 AI | 见下文 |
+| 契约破损 | 没有表明产物是提示词的信号：显式角色、区块标签、祈使指令、限制条件或代码围栏 | 见下文 |
 
-契约破损检查之所以存在，是因为有一次真实报告：向提示词架构师要一个存图片的网站，得到的是一份排版漂亮、语气笃定的 Markdown 文档，而它根本不是提示词。旧的检查只抓大段散文，于是最糟的那种失败——一个*看起来像*交付物的回答——就静悄悄地溜过去了。它现在发出的提醒是刻意不断言的：同一个模型被问两次，可能交出提示词，可能直接把任务做了，也可能反过来问它自己声称需要的那些细节。这种不确定性正是提醒存在的理由，也正是提醒不去指认某个具体原因的理由。重新生成是给了的；换模型没给，因为这一轮的同一个弱点，换个模型也会跟着你走。
+契约破损检查之所以存在，是因为有一次真实报告：向提示词架构师要一个存图片的网站，得到的是一份排版漂亮、语气笃定的 Markdown 文档，而它根本不是提示词。旧的检查只抓大段散文，于是最糟的那种失败——一个*看起来像*交付物的回答——就静悄悄地溜过去了。它现在发出的提醒是刻意不断言的：同一个模型被问两次，可能交出提示词，可能直接把任务做了，也可能反过来问它自己声称需要的那些细节。这种不确定性正是提醒存在的理由，也正是提醒不去指认某个具体原因的理由。重新生成是给了的；换模型没给，因为这一轮的同一个弱点，换个模型也会跟着你走。契约检测器专门针对 RACE；CO-STAR 和 CRISPE 改变产物结构，但不改变检测器能证明的东西。
 
 ## 12. QA/QC
 
@@ -296,10 +317,11 @@ npm test          # 先校验，再证明校验仍能发现偏差
 | 检查 | 支撑什么 |
 |---|---|
 | `npm run check:readmes` | 三个语言之间的字典对等，以及资源上限与源码一致 |
+| `npm run check:owasp` | 格式与技巧允许列表以及 OWASP LLM01/LLM07 论断和代码一致 |
 | `npm run check:claims` | 这些页面没有无根据的论断（没有固定降幅、没有对模型出错的保证、没有借来的推理能力） |
 | `npm run check:race` | 提示词架构师的契约检测器，绑定到真实的 `app.js`，而不是绑定到一份在应用坏掉时依然可能通过的副本 |
 
-每一项检查都经过变异验证：故意把它弄坏，以确认它确实会失败——因为一个从未被看着失败过的测试，只是一个假设。三项都在每次 push 的 CI 里运行，而 portfolio 那一份是自足的：它从自己的目录自行校验，不需要私有仓库。
+每一项检查都经过变异验证：故意把它弄坏，以确认它确实会失败——因为一个从未被看着失败过的测试，只是一个假设。四项都在每次 push 的 CI 里运行，而 portfolio 那一份是自足的：它从自己的目录自行校验，不需要私有仓库。
 
 **这不是什么。** 其中没有任何一项是模型质量的基准测试。不存在标准答案，也不存在打分，所以全部通过意味着代码的行为与文档一致——而不是说某个模型答得好。
 
@@ -307,7 +329,16 @@ npm test          # 先校验，再证明校验仍能发现偏差
 
 - [`GUIA_TECNICO.md`](GUIA_TECNICO.md) —— 每个决策背后的*理由*，以及开发历程：尝试过什么、否决了什么，以及为何当前形态是最终留存下来的那一个
 - [`SECURITY.md`](SECURITY.md) —— 安全模型与 OWASP LLM Top 10 映射
+- [提示框架](site/index.html#frameworks) —— RACE、CO-STAR、CRISPE 与完整技巧目录，从直接指令、few-shot 到 RAG、ReAct 与 graph prompting，附来源与严谨性说明
 - [CommonMark](https://commonmark.org/) · [GFM](https://github.github.com/gfm/) · [OpenRouter](https://openrouter.ai/) · [Cloudflare Pages Functions](https://developers.cloudflare.com/pages/functions/)
+
+## 作者
+
+**Brenda Tavares** —— 全栈开发者
+- 巴伊亚联邦大学（UFBA）人文学科学士
+- Pitágoras Unopar Anhanguera 大学后端开发
+- GitHub: <https://github.com/Brenda-Tavares>
+- LinkedIn: <https://www.linkedin.com/in/brenda-campos-tavares/>
 
 ---
 

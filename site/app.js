@@ -69,8 +69,8 @@
             "pg.opcao_padrao": { pt: "Padrão — Assistente geral (diálogo)", en: "Default — General assistant (dialogue)", zh: "默认 — 通用助手（对话）" },
             "pg.opcao_tecnico": { pt: "Técnico — Engenheiro sênior (diálogo)", en: "Technical — Senior engineer (dialogue)", zh: "技术 — 资深工程师（对话）" },
             "pg.opcao_criativo": { pt: "Criativo — Designer (diálogo)", en: "Creative — Designer (dialogue)", zh: "创意 — 设计师（对话）" },
-            "pg.opcao_arquiteto": { pt: "Arquiteto de Prompts (RACE) — saída em Markdown", en: "Prompt Architect (RACE) — Markdown output", zh: "提示架构师 (RACE) — Markdown 输出" },
-            "pg.alert_personas": { pt: "**Entenda as personas:** as personas *Padrão*, *Técnico* e *Criativo* conversam com você em diálogo natural. O *Arquiteto de Prompts (RACE)* é a ferramenta que gera, em Markdown, um prompt pronto para usar em outras IAs, agentes ou ferramentas externas.", en: "**Understanding personas:** the *Default*, *Technical*, and *Creative* personas converse with you naturally. The *Prompt Architect (RACE)* generates a ready-to-use prompt in Markdown for use in other AIs, agents, or external tools.", zh: "**了解人格：**默认、技术和创意人格以自然对话方式与你交流。*提示架构师 (RACE)* 生成可直接用于其他 AI、代理或外部工具的 Markdown 格式提示。" },
+            "pg.opcao_arquiteto": { pt: "Arquiteto de Prompts — saída em Markdown (formato selecionável)", en: "Prompt Architect — Markdown output (selectable format)", zh: "提示架构师 — Markdown 输出（可选格式）" },
+            "pg.alert_personas": { pt: "**Entenda as personas:** as personas *Padrão*, *Técnico* e *Criativo* conversam com você em diálogo natural. O *Arquiteto de Prompts* gera, em Markdown, um prompt pronto para usar em outras IAs, agentes ou ferramentas externas. Nele, escolha o formato: **RACE** (texto natural), **CO-STAR** ou **CRISPE** (blocos).", en: "**Understanding personas:** the *Default*, *Technical*, and *Creative* personas converse with you naturally. The *Prompt Architect* generates a ready-to-use prompt in Markdown for other AIs, agents, or external tools. There, choose the format: **RACE** (natural prose), **CO-STAR**, or **CRISPE** (blocks).", zh: "**了解人格：**默认、技术和创意人格以自然对话方式与你交流。*提示架构师* 生成可直接用于其他 AI、代理或外部工具的 Markdown 格式提示。在其中选择格式：**RACE**（自然文本）、**CO-STAR** 或 **CRISPE**（模块）。" },
             "pg.label_prompt": { pt: "Seu prompt", en: "Your prompt", zh: "你的提示" },
             "pg.placeholder_prompt": { pt: "Digite sua mensagem...", en: "Type your message...", zh: "输入消息..." },
     "pg.como_funciona": { pt: "Como funciona", en: "How it works", zh: "工作原理" },
@@ -86,7 +86,7 @@
             "pg.warning_verbose": { pt: "Este modelo respondeu em texto corrido, sem Markdown estruturado.", en: "This model responded in plain text, without structured Markdown.", zh: "该模型以纯文本回复，未使用结构化 Markdown。" },
             "pg.warning_evasivo": { pt: "Este modelo parece não conseguir responder à sua solicitação.", en: "This model seems unable to respond to your request.", zh: "该模型似乎无法回应你的请求。" },
             "pg.warning_truncado": { pt: "Resposta truncada pelo limite do cliente: o texto abaixo está incompleto.", en: "Response truncated at the client limit: the text below is incomplete.", zh: "响应已被客户端上限截断：以下文本不完整。" },
-            "pg.warning_fora_contrato": { pt: "Resposta fora do contrato do RACE: o texto não atribui papel nem tarefa a outra IA. Isso varia por modelo — pode ser que ele respondeu a tarefa em vez de escrever o prompt, que pediu mais detalhes, ou que devolveu outra coisa. Assim não há prompt para copiar: a estrutura em Markdown é o que distingue um prompt de uma resposta. Tente de novo e, se repetir, teste com outro modelo.", en: "Off-contract response: the text assigns no role or task to another AI. This varies by model — it may have answered the task instead of writing the prompt, asked for more detail, or delivered something else. As it stands there is no prompt to copy: the Markdown structure is what tells a prompt apart from an answer. Try again, and if it repeats, try another model.", zh: "回答不符合 RACE 契约：文本没有把角色或任务指派给另一个 AI。这一点因模型而异——它可能直接完成了任务而不是写出提示词，可能要求补充细节，也可能交付了别的东西。就这样下去没有可复制的提示词：正是 Markdown 结构把提示词和回答区分开。请重试；若重复出现，请换一个模型试试。" },
+            "pg.warning_fora_contrato": { pt: "Talvez não seja um prompt: este texto pode ser uma resposta direta ou um pedido de mais detalhes. Antes de copiar, confira se ele atribui uma tarefa clara à IA-alvo. Se não atribuir, peça ao Arquiteto para reescrever como prompt.", en: "This may not be a prompt: the text may be a direct answer or a request for more detail. Before copying, check that it assigns a clear task to the target AI. If it does not, ask the Architect to rewrite it as a prompt.", zh: "这可能不是提示词：文本可能是直接回答或要求补充细节。复制前，请确认它是否为目标 AI 分配了明确任务。如果没有，请要求架构师将其重写为提示词。" },
             "pg.btn_outro": { pt: "Testar com outro modelo", en: "Try another model", zh: "尝试其他模型" },
             "pg.sem_outro": { pt: "Nenhum outro modelo disponível", en: "No other model available", zh: "没有其他可用模型" },
             "pg.testando": { pt: "Testando...", en: "Testing...", zh: "测试中..." },
@@ -152,7 +152,7 @@
             "sobre.inter_fim": { pt: "Dessa forma, o Claritas expande a valorização das IAs como ferramenta e melhora o acesso para qualquer pessoa desfrutá-las — independentemente da área — promovendo uma verdadeira **interdisciplinaridade**.", en: "In this way, Claritas expands the appreciation of AIs as tools and improves access for anyone to benefit from them — regardless of their field — promoting true **interdisciplinarity**.", zh: "通过这种方式，Claritas 拓宽了 AI 作为工具的价值认知，让更多人无论身处何种领域都能从中受益——推动真正的**跨学科融合**。" },
             "sobre.usar_titulo": { pt: "Como usar", en: "How to use", zh: "如何使用" },
             "sobre.usar_pre": { pt: "No ", en: "In the ", zh: "在" },
-            "sobre.usar_post": { pt: ", as personas *Padrão*, *Técnico* e *Criativo* conversam com você em diálogo natural. Para gerar um prompt profissional pronto para outra IA, agente ou ferramenta externa, escolha o **Arquiteto de Prompts (RACE)** — a única persona com saída em Markdown, pensada como ferramenta de produção.", en: ", the *Default*, *Technical*, and *Creative* personas converse with you naturally. To generate a professional prompt ready for another AI, agent, or external tool, choose the **Prompt Architect (RACE)** — the only persona with Markdown output, designed as a production tool.", zh: "中，默认、技术和创意人格以自然对话方式与你交流。要生成可直接用于其他 AI、代理或外部工具的专业提示，请选择**提示架构师 (RACE)**——唯一以 Markdown 输出的人格，专为生产用途设计。" },
+            "sobre.usar_post": { pt: ", as personas *Padrão*, *Técnico* e *Criativo* conversam com você em diálogo natural. Para gerar um prompt profissional pronto para outra IA, agente ou ferramenta externa, escolha o **Arquiteto de Prompts** — a única persona com saída em Markdown, pensada como ferramenta de produção. Nele, escolha o formato do prompt: **RACE**, **CO-STAR** ou **CRISPE**.", en: ", the *Default*, *Technical*, and *Creative* personas converse with you naturally. To generate a professional prompt ready for another AI, agent, or external tool, choose the **Prompt Architect** — the only persona with Markdown output, designed as a production tool. There, choose the prompt format: **RACE**, **CO-STAR**, or **CRISPE**.", zh: "中，默认、技术和创意人格以自然对话方式与你交流。要生成可直接用于其他 AI、代理或外部工具的专业提示，请选择**提示架构师**——唯一以 Markdown 输出的人格，专为生产用途设计。在其中选择提示格式：**RACE**、**CO-STAR** 或 **CRISPE**。" },
             "sobre.metod_titulo": { pt: "Metodologia", en: "Methodology", zh: "方法论" },
             "sobre.metod_p": { pt: "Todo o conteúdo aqui é validado sob a ótica da **Engenharia de Software** e da **Cibersegurança**. Não ensinamos \"truques\" ou \"hacks\" mágicos. Ensinamos protocolos:", en: "All content here is validated through the lens of **Software Engineering** and **Cybersecurity**. We don't teach \"tricks\" or magical \"hacks.\" We teach protocols:", zh: "所有内容均经过**软件工程**和**网络安全**视角的验证。我们不教授\"技巧\"或\"魔法窍门\"，而是教授协议：" },
             "sobre.metod_i1": { pt: "**Rigor Lógico:** Validação de premissas antes da execução.", en: "**Logical Rigor:** Premise validation before execution.", zh: "**逻辑严谨性：**执行前验证前提。" },
@@ -276,9 +276,9 @@
             "tokens.tec_p": { pt: "Utilize a **Restrição Negativa** para podar o comportamento padrão do modelo. Dizer o que a IA não deve fazer é a forma mais rápida de economizar tokens.", en: "Use **Negative Restriction** to prune the model's default behavior. Telling the AI what it shouldn't do is the fastest way to save tokens.", zh: "使用**负面限制**来修剪模型的默认行为。告诉 AI 什么不该做，是节省 Token 的最快方式。" },
             "tokens.tec_pre": { pt: "REGRAS DE OUTPUT:\n- Forneça APENAS o código HTML puro.\n- NÃO inclua explicações, saudações ou comentários finais.\n- Comece com <!DOCTYPE html> e termine com </html>.", en: "OUTPUT RULES:\n- Provide ONLY pure HTML.\n- Do NOT include explanations, greetings, or closing comments.\n- Start with <!DOCTYPE html> and end with </html>.", zh: "输出规则：\n- 仅提供纯 HTML 代码。\n- 不要包含解释、问候语或结尾评论。\n- 以 <!DOCTYPE html> 开头，以 </html> 结尾。" },
             "prompt.md_bene": { pt: "**Para que serve:** tudo aqui é coadjuvante: o prompt final, o Markdown e as skills ajudam você a criar um prompt profissional para usar em **outra IA, agente ou ferramenta externa**. O formato **Markdown** potencializa esse uso — estrutura legível e parseável; hierarquia clara de instruções; economia de tokens (menos ruído); contexto preservado; e restrições explícitas que **reduzem alucinações**.", en: "**What it's for:** everything here is supporting: the final prompt, the Markdown, and the skills help you create a professional prompt to use in **another AI, agent, or external tool**. **Markdown** enhances it — readable, parseable structure; clear hierarchy of instructions; token economy (less noise); preserved context; and explicit constraints that **reduce hallucinations**.", zh: "**用途：**这里的一切都是辅助：最终的提示、Markdown 和技能可帮助你创建用于**另一个 AI、代理或外部工具**的专业提示。**Markdown** 使其更强大——可读且可解析的结构；清晰的指令层级；节省 Token（噪音更少）；保留上下文；以及**减少幻觉**的明确约束。" },
-            "pg.alert_finalidade": { pt: "**Para que serve:** este playground e o *Arquiteto de Prompts (RACE)* ajudam você a criar, testar e refinar um prompt profissional para usar em **outra IA, agente ou ferramenta externa**. O formato **Markdown** potencializa esse uso — estrutura legível e parseável; hierarquia clara de instruções; economia de tokens (menos ruído); contexto preservado; e restrições explícitas que **reduzem alucinações**.", en: "**What it's for:** this playground and the *Prompt Architect (RACE)* help you create, test, and refine a professional prompt for use in **another AI, agent, or external tool**. **Markdown** enhances it — readable, parseable structure; clear hierarchy of instructions; token economy (less noise); preserved context; and explicit constraints that **reduce hallucinations**.", zh: "**用途：**这个工作台和*提示架构师 (RACE)* 可帮助你创建、测试和完善用于**另一个 AI、代理或外部工具**的专业提示。**Markdown** 使其更强大——可读且可解析的结构；清晰的指令层级；节省 Token（噪音更少）；保留上下文；以及**减少幻觉**的明确约束。" },
-            "pg.aviso_conversa": { pt: "**Conversa contínua:** envie novas mensagens pelo grupo (todas as IAs) ou individualmente (apenas uma caixa). **Ao mudar de assunto ou de persona, copie o que precisa e clique em \"Limpar conversa\"** — manter temas diferentes na mesma conversa aumenta o risco de alucinações e respostas fora de contexto.", en: "**Continuous conversation:** send new messages to the group (all AIs) or individually (a single box). **When changing topics or personas, copy what you need and click \"Clear conversation\"** — mixing unrelated topics in the same thread increases the risk of hallucinations and out-of-context answers.", zh: "**连续对话：**通过分组（所有 AI）或单独（单个框）发送新消息。**更换话题或人格时，先复制需要的部分，再点击「清除对话」**——在同一对话中混合不同主题会增加幻觉和答非所问的风险。" },
-            "pg.seletor_bloq": { pt: "Modelos e persona ficam bloqueados durante o diálogo. Limpe a conversa para trocá-los.", en: "Models and persona stay locked during the dialog. Clear the conversation to change them.", zh: "对话期间模型和人格保持锁定。清除对话以更换它们。" },
+            "pg.alert_finalidade": { pt: "**Para que serve:** este playground e o *Arquiteto de Prompts* ajudam você a criar, testar e refinar um prompt profissional para usar em **outra IA, agente ou ferramenta externa**. O formato **Markdown** potencializa esse uso — estrutura legível e parseável; hierarquia clara de instruções; economia de tokens (menos ruído); contexto preservado; e restrições explícitas que **reduzem alucinações**.", en: "**What it's for:** this playground and the *Prompt Architect* help you create, test, and refine a professional prompt for use in **another AI, agent, or external tool**. **Markdown** enhances it — readable, parseable structure; clear hierarchy of instructions; token economy (less noise); preserved context; and explicit constraints that **reduce hallucinations**.", zh: "**用途：**这个工作台和*提示架构师* 可帮助你创建、测试和完善用于**另一个 AI、代理或外部工具**的专业提示。**Markdown** 使其更强大——可读且可解析的结构；清晰的指令层级；节省 Token（噪音更少）；保留上下文；以及**减少幻觉**的明确约束。" },
+            "pg.aviso_conversa": { pt: "**Conversa contínua:** envie novas mensagens pelo grupo (todas as IAs) ou individualmente (apenas uma caixa). **Para comparar com outros modelos — mesmo no mesmo assunto —, copie sua solicitação e clique em \"Limpar conversa\"**: modelos, persona e formato ficam bloqueados durante o diálogo. Manter temas diferentes na mesma conversa aumenta o risco de alucinações e respostas fora de contexto.", en: "**Continuous conversation:** send new messages to the group (all AIs) or individually (a single box). **To compare with other models — even on the same subject — copy your request and click \"Clear conversation\"**: models, persona, and format stay locked during the dialog. Mixing unrelated topics in the same thread increases the risk of hallucinations and out-of-context answers.", zh: "**连续对话：**通过分组（所有 AI）或单独（单个框）发送新消息。**要与其它模型比较——即使主题相同——也请先复制你的请求，再点击「清除对话」**：对话期间模型、人格和格式保持锁定。在同一对话中混合不同主题会增加幻觉和答非所问的风险。" },
+            "pg.seletor_bloq": { pt: "Modelos, persona e formato ficam bloqueados durante o diálogo. Limpe a conversa para trocá-los.", en: "Models, persona, and format stay locked during the dialog. Clear the conversation to change them.", zh: "对话期间模型、人格和格式保持锁定。清除对话以更换它们。" },
             "pg.btn_grupo": { pt: "Responder no grupo", en: "Reply to group", zh: "回复分组" },
             "pg.placeholder_individual": { pt: "Fale só com esta IA (individual)...", en: "Talk only to this AI (individual)...", zh: "仅与这个 AI 对话（单独）..." },
             "pg.copiar": { pt: "Copiar", en: "Copy", zh: "复制" },
@@ -288,11 +288,175 @@
             // Confirmacao de acao destrutiva. Trocou o confirm() nativo porque a
             // janela do navegador nao aceita a paleta do site e nao traduz o texto.
             "pg.btn_fechar": { pt: "Fechar", en: "Close", zh: "关闭" },
-            "pg.hint_race_destino": { pt: "Para prompts de skill, persona ou agente: diga para qual agente é. Ex.: \"crie a skill de revisão de código para o agente CI do time de backend\". O RACE escreve o prompt para a IA externa executar; ele não escreve sobre si mesmo nem expõe as personas deste portal.", en: "For skill, persona or agent prompts: say which agent it is for. E.g. \"write the code-review skill for the team's backend CI agent\". The Prompt Architect writes the prompt for an external AI to run; it does not write about itself or expose this portal's personas.", zh: "为技能、人设或智能体写提示词时，请说明是给哪个智能体用的。例如：\"为团队后端 CI 智能体写代码审查技能\"。提示词架构师写的是供外部 AI 执行的提示词；它不会写自己，也不会暴露本门户的人设。" },
+            "pg.hint_race_destino": { pt: "Para prompts de skill, persona ou agente: diga para qual agente é. Ex.: \"crie a skill de revisão de código para o agente CI do time de backend\". O Arquiteto escreve o prompt para a IA externa executar; ele não escreve sobre si mesmo nem expõe as personas deste portal. O formato escolhido muda a estrutura da saída: RACE em texto natural; CO-STAR e CRISPE em blocos.", en: "For skill, persona or agent prompts: say which agent it is for. E.g. \"write the code-review skill for the team's backend CI agent\". The Prompt Architect writes the prompt for an external AI to run; it does not write about itself or expose this portal's personas. The chosen format changes the output structure: RACE as natural prose; CO-STAR and CRISPE as blocks.", zh: "为技能、人设或智能体写提示词时，请说明是给哪个智能体用的。例如：\"为团队后端 CI 智能体写代码审查技能\"。提示词架构师写的是供外部 AI 执行的提示词；它不会写自己，也不会暴露本门户的人设。所选格式会改变输出结构：RACE 为自然文本；CO-STAR 和 CRISPE 为模块。" },
             "pg.confirm_limpar_titulo": { pt: "Limpar a conversa?", en: "Clear the conversation?", zh: "清空对话？" },
             "pg.confirm_limpar_msg": { pt: "Isto apaga as respostas de todos os cards e não pode ser desfeito.", en: "This erases the answers from every card and cannot be undone.", zh: "这将删除所有卡片中的回答，且无法撤销。" },
             "pg.confirm_limpar_cancelar": { pt: "Cancelar", en: "Cancel", zh: "取消" },
-            "pg.confirm_limpar_ok": { pt: "Limpar conversa", en: "Clear conversation", zh: "清空对话" }
+            "pg.confirm_limpar_ok": { pt: "Limpar conversa", en: "Clear conversation", zh: "清空对话" },
+
+            // ---- Aba Frameworks e formatos do Arquiteto (v2.21) --------------
+            // Fontes verificaveis: ver a secao de fontes da propria aba. Os
+            // frameworks de pratica (CO-STAR, CRISPE) sao declarados como tal;
+            // as tecnicas da secao 2 vem de papers com autoria e veiculo.
+            "nav.frameworks": { pt: "Frameworks", en: "Frameworks", zh: "提示框架" },
+            "footer.frameworks": { pt: "Frameworks de Prompt", en: "Prompt Frameworks", zh: "提示框架" },
+            "fw.titulo": { pt: "Frameworks de Prompt", en: "Prompt Frameworks", zh: "提示框架" },
+            "fw.subtitulo": { pt: "Estruturas para organizar o pedido — não garantias de resultado.", en: "Structures for organizing a request — not guarantees of results.", zh: "组织请求的结构——不是结果保证。" },
+            "fw.aviso": { pt: "**Antes de escolher um formato:** framework nenhum substitui contexto, critério de sucesso e verificação. Um prompt bem estruturado sobre uma premissa falsa continua produzindo uma resposta falsa.", en: "**Before choosing a format:** no framework replaces context, success criteria, and verification. A well-structured prompt built on a false premise still produces a false answer.", zh: "**选择格式之前：**任何框架都不能替代上下文、成功标准和验证。建立在错误前提上的提示，结构再好也只会产生错误答案。" },
+            "fw.intro": { pt: "Esta aba separa duas coisas que costumam ser misturadas: **frameworks de composição**, que definem como o pedido é montado, e **técnicas acadêmicas**, que definem que tipo de raciocínio você pede à IA-alvo. O Playground gera prompts nos três formatos da primeira seção; as técnicas da segunda entram no texto que você leva para outra IA.", en: "This tab separates two things that are often mixed: **composition frameworks**, which define how the request is assembled, and **academic techniques**, which define the kind of reasoning you ask the target AI for. The Playground generates prompts in the three formats from the first section; the techniques from the second go into the text you take to another AI.", zh: "本页区分两件常被混在一起的事：**提示框架**定义请求如何组织；**学术技巧**定义你要求目标 AI 进行哪类推理。实验场可生成第一部分三种格式的提示；第二部分的技巧写进你交给另一个 AI 的文本。" },
+            "fw.composicao": { pt: "1. Frameworks de composição", en: "1. Composition frameworks", zh: "1. 提示框架" },
+            "fw.composicao_desc": { pt: "Escolha pelo critério que mais muda a resposta. Não empilhe formatos: um pedido com RACE e CO-STAR ao mesmo tempo vira um questionário.", en: "Choose by the criterion that most changes the answer. Do not stack formats: a request using RACE and CO-STAR at once becomes a questionnaire.", zh: "按最能改变回答的标准选择。不要叠加格式：同时使用 RACE 和 CO-STAR 的请求会变成问卷。" },
+            "fw.exemplo": { pt: "Exemplo de prompt", en: "Example prompt", zh: "示例提示" },
+            "fw.fonte_label": { pt: "Fonte:", en: "Source:", zh: "来源：" },
+            "fw.race.h3": { pt: "RACE — Papel, Ação, Contexto, Expectativa", en: "RACE — Role, Action, Context, Expectation", zh: "RACE — 角色、行动、上下文、期望" },
+            "fw.race.desc": { pt: "Quatro elementos: o papel concreto da IA-alvo, uma ação com entregável verificável, o contexto que muda o resultado e a expectativa (formato, extensão e critério de sucesso). É o formato padrão do Arquiteto deste portal; a saída sai como texto natural, sem rótulos.", en: "Four elements: the target AI's concrete role, an action with a verifiable deliverable, context that changes the outcome, and expectation (format, length, and success criteria). It is this portal's Architect default; the output reads as natural prose, without labels.", zh: "四个要素：目标 AI 的具体角色、带可验证交付物的行动、会改变结果的上下文，以及期望（格式、长度和成功标准）。它是本门户提示架构师的默认格式；输出为自然文本，不显示标签。" },
+            "fw.race.quando": { pt: "**Recomendado para:** delegar a agentes e tarefas com entregável claro — skill, plano, revisão, código. **Evite quando:** o estilo e o público são o ponto principal; nesse caso, CO-STAR dá mais controle.", en: "**Recommended for:** delegating to agents and tasks with a clear deliverable — skill, plan, review, code. **Avoid when:** style and audience are the point; CO-STAR gives more control there.", zh: "**推荐用于：**交给智能体、且有明确交付物的任务——技能、计划、评审、代码。**不适合：**当风格和受众是重点时；此时 CO-STAR 更可控。" },
+            "fw.race.ex": { pt: "Você é um revisor de código sênior. Revise o diff abaixo e aponte apenas riscos reais.\n\nContexto: serviço de pagamentos em Node.js; o diff altera o cálculo de frete.\n\nEntregue: lista de achados com arquivo:linha, severidade e correção sugerida.\n\nFormato: Markdown, no máximo 8 itens, sem elogios nem resumo executivo.", en: "You are a senior code reviewer. Review the diff below and flag only real risks.\n\nContext: a Node.js payments service; the diff changes shipping-fee calculation.\n\nDeliver: a list of findings with file:line, severity, and a suggested fix.\n\nFormat: Markdown, at most 8 items, no praise and no executive summary.", zh: "你是一名资深代码审查员。请审查下面的 diff，只指出真实风险。\n\n上下文：Node.js 支付服务；该 diff 修改运费计算。\n\n交付：按 文件:行号、严重程度、修复建议 列出发现。\n\n格式：Markdown，最多 8 条，不要赞美，也不要执行摘要。" },
+            "fw.race.fonte": { pt: "Framework de composição usado neste portal. Não é um paper acadêmico: é uma convenção de organização do pedido.", en: "Composition framework used by this portal. It is not an academic paper; it is a convention for organizing the request.", zh: "本门户使用的组合框架。它不是学术论文，而是一种组织请求的约定。" },
+            "fw.costar.h3": { pt: "CO-STAR — Contexto, Objetivo, Estilo, Tom, Público, Resposta", en: "CO-STAR — Context, Objective, Style, Tone, Audience, Response", zh: "CO-STAR — 上下文、目标、风格、语气、受众、回答" },
+            "fw.costar.desc": { pt: "Criado por Sheila Teo (GovTech Singapura) para a competição de prompt engineering com GPT-4 em 2023. Seis blocos, com atenção explícita a estilo, tom e público — útil quando a forma da resposta importa tanto quanto o conteúdo.", en: "Created by Sheila Teo (GovTech Singapore) for Singapore's 2023 GPT-4 prompt engineering competition. Six blocks, with explicit attention to style, tone, and audience — useful when the shape of the answer matters as much as the content.", zh: "由新加坡 GovTech 的 Sheila Teo 在 2023 年 GPT-4 提示工程竞赛中提出。六个模块，显式关注风格、语气和受众——当回答的呈现形式与内容同等重要时很有用。" },
+            "fw.costar.quando": { pt: "**Recomendado para:** conteúdo editorial, comunicação executiva, atendimento, tradução com tom definido e qualquer tarefa em que público e registro mudam a resposta. **Evite quando:** o pedido é técnico e o tom é irrelevante; os blocos de estilo e tom viram ruído.", en: "**Recommended for:** editorial content, executive communication, customer support, tone-sensitive translation, and any task where audience and register change the answer. **Avoid when:** the request is technical and tone is irrelevant; style and tone blocks become noise.", zh: "**推荐用于：**编辑内容、高管沟通、客户支持、语气敏感的翻译，以及任何受众和语体会改变回答的任务。**不适合：**技术性请求且语气无关时；风格和语气模块会变成噪音。" },
+            "fw.costar.ex": { pt: "Contexto: somos uma fintech que acabou de mudar a política de tarifas.\nObjetivo: comunicar a mudança sem perder a confiança dos clientes.\nEstilo: direto e transparente, sem juridiquês.\nTom: tranquilizador, mas sóbrio.\nPúblico: clientes pessoa física que usam a conta há mais de um ano.\nResposta: e-mail de até 180 palavras, com assunto e um próximo passo claro.", en: "Context: we are a fintech that has just changed its fee policy.\nObjective: communicate the change without losing customer trust.\nStyle: direct and transparent, no legalese.\nTone: reassuring but sober.\nAudience: retail customers who have used the account for over a year.\nResponse: an email of up to 180 words, with a subject line and one clear next step.", zh: "上下文：我们是一家刚调整收费政策的金融科技公司。\n目标：传达变更，同时不失去客户信任。\n风格：直接、透明，不使用法律术语。\n语气：安抚但克制。\n受众：使用账户一年以上的个人客户。\n回答：一封不超过 180 词的邮件，包含主题和明确的下一步。" },
+            "fw.crispe.h3": { pt: "CRISPE — Capacidade e Papel, Insight, Tarefa, Personalidade, Experimento", en: "CRISPE — Capacity and Role, Insight, Task, Personality, Experiment", zh: "CRISPE — 能力与角色、洞察、任务、个性、实验" },
+            "fw.crispe.desc": { pt: "Formato divulgado por Matt Nigh na lista aberta ChatGPT3-Free-Prompt-List (2023). Define capacidade e papel, traz um insight de contexto, declara a tarefa, ajusta personalidade e pede experimentos — útil para explorar variantes em vez de fechar um único pedido.", en: "A format shared by Matt Nigh in the open ChatGPT3-Free-Prompt-List (2023). It defines capacity and role, provides context insight, states the task, sets a personality, and asks for experiments — useful for exploring variants rather than settling on a single request.", zh: "由 Matt Nigh 在公开的 ChatGPT3-Free-Prompt-List（2023）中分享。它定义能力与角色、提供上下文洞察、声明任务、设定个性，并要求实验——适合探索变体，而不是一次敲定请求。" },
+            "fw.crispe.quando": { pt: "**Recomendado para:** brainstorming, design de prompts e tarefas ambíguas que se beneficiam de alternativas. **Evite quando:** você precisa de resposta determinística e curta; o bloco de experimento convida à variação.", en: "**Recommended for:** brainstorming, prompt design, and ambiguous tasks that benefit from alternatives. **Avoid when:** you need a deterministic, short answer; the experiment block invites variation.", zh: "**推荐用于：**头脑风暴、提示设计和需要多种方案的模糊任务。**不适合：**你需要确定、简短的答案时；实验模块会鼓励变化。" },
+            "fw.crispe.ex": { pt: "Capacidade e papel: estrategista de produto sênior, com experiência em SaaS B2B.\nInsight: o produto é bom, mas o onboarding perde usuários no terceiro passo.\nTarefa: proponha hipóteses para reduzir o abandono nesse ponto.\nPersonalidade: cético, direto e orientado a evidências.\nExperimento: gere 3 hipóteses, uma métrica para cada e o teste mais barato para validá-las.", en: "Capacity and role: a senior product strategist with B2B SaaS experience.\nInsight: the product is good, but onboarding loses users at the third step.\nTask: propose hypotheses to reduce drop-off at that point.\nPersonality: skeptical, direct, and evidence-driven.\nExperiment: generate 3 hypotheses, one metric for each, and the cheapest test to validate them.", zh: "能力与角色：资深产品策略师，具备 B2B SaaS 经验。\n洞察：产品不错，但新用户引导在第三步流失。\n任务：提出降低该环节流失的假设。\n个性：怀疑、直接、以证据为导向。\n实验：给出 3 个假设、每个假设的指标，以及验证它们的最低成本测试。" },
+            "fw.tecnicas": { pt: "2. Técnicas acadêmicas (camada opcional)", en: "2. Academic techniques (optional layer)", zh: "2. 学术技巧（可选层）" },
+            "fw.tecnicas_desc": { pt: "Elas não substituem o framework: entram como instrução dentro do prompt. Só funcionam se o modelo-alvo tiver capacidade para seguir os passos; pedir raciocínio passo a passo a um modelo pequeno pode piorar a resposta.", en: "They do not replace the framework: they enter the prompt as an instruction. They only work if the target model can follow the steps; asking a small model for step-by-step reasoning can make the answer worse.", zh: "它们不替代框架，而是作为提示内部的指令。只有当目标模型有能力执行这些步骤时才有效；对小型模型要求逐步推理，可能反而降低回答质量。" },
+            "fw.cot.desc": { pt: "Pedir que o modelo explicite etapas intermediárias antes da resposta final. Funciona melhor em tarefas de raciocínio com várias etapas; não é sinônimo de pensar mais em qualquer tarefa.", en: "Asking the model to make intermediate steps explicit before the final answer. It works best on multi-step reasoning tasks; it is not a synonym for thinking harder on any task.", zh: "要求模型在最终回答前显式写出中间步骤。它更适合多步推理任务，并不等于让任何任务都多想一会儿。" },
+            "fw.cot.quando": { pt: "**Use para:** aritmética, lógica e análises com etapas encadeadas. **Evite para:** recuperação factual simples, em que etapas extras só aumentam custo e latência.", en: "**Use for:** arithmetic, logic, and analyses with chained steps. **Avoid for:** simple factual retrieval, where extra steps only add cost and latency.", zh: "**用于：**算术、逻辑和需要串联步骤的分析。**避免用于：**简单的事实检索；额外步骤只会增加成本和延迟。" },
+            "fw.cot.ex": { pt: "Resolva passo a passo. Mostre cada etapa antes da resposta final e confira o resultado.", en: "Solve step by step. Show each step before the final answer and check the result.", zh: "请逐步求解。在最终回答前展示每一步，并复核结果。" },
+            "fw.react.desc": { pt: "Alterna raciocínio e ação: o modelo pensa, consulta uma ferramenta ou fonte, observa o resultado e repete. Depende de ferramentas reais no ambiente — pedir para usar a internet sem busca conectada é encenação.", en: "It alternates reasoning and action: the model thinks, consults a tool or source, observes the result, and repeats. It depends on real tools in the environment — asking it to use the internet without a connected search is theater.", zh: "交替进行推理与行动：模型思考、调用工具或来源、观察结果，然后重复。它依赖环境中真实可用的工具；没有连接搜索时要求使用互联网只是表演。" },
+            "fw.react.quando": { pt: "**Use para:** tarefas que exigem busca, cálculo externo ou consulta a APIs. **Evite quando:** não há ferramenta conectada disponível.", en: "**Use for:** tasks that require search, external computation, or API calls. **Avoid when:** no connected tool is available.", zh: "**用于：**需要搜索、外部计算或调用 API 的任务。**不适合：**没有可用工具连接时。" },
+            "fw.react.ex": { pt: "A cada etapa: (1) diga o que falta descobrir; (2) use a ferramenta disponível; (3) observe o resultado; (4) repita até concluir. Não invente observações.", en: "At each step: (1) state what remains to be discovered; (2) use the available tool; (3) observe the result; (4) repeat until done. Do not invent observations.", zh: "每一步：(1) 说明还需要查清什么；(2) 使用可用工具；(3) 观察结果；(4) 重复直到完成。不要编造观察结果。" },
+            "fw.selfcons.desc": { pt: "Gera vários caminhos de raciocínio independentes e escolhe a resposta mais frequente. É um método de amostragem, não uma frase mágica: exige múltiplas chamadas ou suporte do provedor.", en: "It generates several independent reasoning paths and picks the most frequent answer. It is a sampling method, not a magic sentence: it requires multiple calls or provider support.", zh: "生成多条独立的推理路径，并选择出现最多的结论。它是一种采样方法，不是一句魔法口令：需要多次调用或服务商支持。" },
+            "fw.selfcons.quando": { pt: "**Use para:** respostas com um único resultado correto e custo de erro alto. **Evite quando:** a tarefa é aberta ou criativa, ou quando várias amostras custam mais do que o erro evitado.", en: "**Use for:** answers with a single correct result and a high cost of error. **Avoid when:** the task is open or creative, or when multiple samples cost more than the error avoided.", zh: "**用于：**只有一个正确答案且错误代价高的任务。**不适合：**开放式或创意任务，或多次采样的成本高于避免的错误时。" },
+            "fw.selfcons.ex": { pt: "Produza três raciocínios independentes sobre o problema. Compare as conclusões e responda com a que aparecer na maioria.", en: "Produce three independent reasonings about the problem. Compare the conclusions and answer with the one that appears in the majority.", zh: "请针对问题生成三条独立的推理路径。比较结论，并回答出现次数最多的那个。" },
+            "fw.l2m.desc": { pt: "Decompõe o problema em subproblemas e os resolve em ordem crescente de dificuldade, reutilizando a resposta anterior. Útil quando a tarefa tem dependências internas.", en: "It decomposes the problem into subproblems and solves them in increasing order of difficulty, reusing the previous answer. Useful when the task has internal dependencies.", zh: "把问题拆成子问题，按难度从低到高解决，并复用上一步的结果。适合内部存在依赖关系的任务。" },
+            "fw.l2m.quando": { pt: "**Use para:** problemas decomponíveis, planejamento e matemática com etapas. **Evite quando:** a decomposição é artificial e só alonga a resposta.", en: "**Use for:** decomposable problems, planning, and multi-step math. **Avoid when:** the decomposition is artificial and only makes the answer longer.", zh: "**用于：**可分解的问题、规划和多步数学。**不适合：**拆分很牵强、只会拉长回答时。" },
+            "fw.l2m.ex": { pt: "Liste os subproblemas em ordem de dependência. Resolva o mais simples primeiro e use cada resultado no seguinte.", en: "List the subproblems in dependency order. Solve the simplest one first and use each result in the next.", zh: "按依赖顺序列出子问题。先解决最简单的，再把每个结果用于下一个。" },
+            "fw.como_escolher": { pt: "Como escolher sem decorar sigla", en: "How to choose without memorizing acronyms", zh: "如何选择（不必背缩写）" },
+            "fw.como_escolher_desc": { pt: "Se o entregável é claro e o tom não importa, use **RACE**. Se o público e o registro decidem a resposta, use **CO-STAR**. Se você quer explorar alternativas antes de fechar, use **CRISPE**. Se o problema exige raciocínio em etapas, acrescente uma técnica acadêmica — desde que o modelo-alvo tenha capacidade para segui-la. E sempre verifique o resultado: o formato organiza o pedido, não garante o acerto.", en: "If the deliverable is clear and tone does not matter, use **RACE**. If audience and register decide the answer, use **CO-STAR**. If you want to explore alternatives before settling, use **CRISPE**. If the problem requires step-by-step reasoning, add an academic technique — provided the target model can follow it. And always verify the result: the format organizes the request; it does not guarantee correctness.", zh: "交付物明确、语气不重要时，用 **RACE**。受众和语体决定回答时，用 **CO-STAR**。想在定稿前探索替代方案时，用 **CRISPE**。问题需要多步推理时，加入一种学术技巧——前提是目标模型有能力遵循。并且始终检查结果：格式只能组织请求，不能保证正确。" },
+            "fw.fontes": { pt: "Fontes e nota de rigor", en: "Sources and rigor note", zh: "来源与严谨性说明" },
+            "fw.fontes_desc": { pt: "**Leitura de base:** Schulhoff et al., *The Prompt Report: A Systematic Survey of Prompting Techniques* (arXiv:2406.06608, 2024). **Padrões reutilizáveis:** White et al., *A Prompt Pattern Catalog to Enhance Prompt Engineering with ChatGPT* (arXiv:2302.11382, 2023). **Nota de rigor:** CO-STAR e CRISPE são frameworks de prática, com autores identificáveis, mas sem revisão por pares. As técnicas da seção 2 vêm de papers com autoria e veículo verificáveis — Wei et al. (NeurIPS 2022), Yao et al. (ICLR 2023), Wang et al. (ICLR 2023) e Zhou et al. (ICLR 2023). Nenhuma dessas fontes promete que um prompt funcionará em qualquer modelo: os modelos mudam, e o mesmo texto pode falhar em outro.", en: "**Background reading:** Schulhoff et al., *The Prompt Report: A Systematic Survey of Prompting Techniques* (arXiv:2406.06608, 2024). **Reusable patterns:** White et al., *A Prompt Pattern Catalog to Enhance Prompt Engineering with ChatGPT* (arXiv:2302.11382, 2023). **Rigor note:** CO-STAR and CRISPE are practitioner frameworks with identifiable authors, but they are not peer-reviewed. The techniques in section 2 come from papers with verifiable authorship and venue — Wei et al. (NeurIPS 2022), Yao et al. (ICLR 2023), Wang et al. (ICLR 2023), and Zhou et al. (ICLR 2023). None of these sources promises that a prompt will work on any model: models change, and the same text can fail on another one.", zh: "**基础阅读：**Schulhoff 等，*The Prompt Report: A Systematic Survey of Prompting Techniques*（arXiv:2406.06608，2024）。**可复用模式：**White 等，*A Prompt Pattern Catalog to Enhance Prompt Engineering with ChatGPT*（arXiv:2302.11382，2023）。**严谨性说明：**CO-STAR 和 CRISPE 是实践框架，作者可识别，但未经同行评审。第 2 节的技巧来自作者和发表渠道可核实的论文——Wei 等（NeurIPS 2022）、Yao 等（ICLR 2023）、Wang 等（ICLR 2023）、Zhou 等（ICLR 2023）。这些来源都不承诺提示在任何模型上都有效：模型会变，同一段文本在另一个模型上可能失败。" },
+            "fw.cta": { pt: "**Teste agora:** abra o Playground, selecione **Arquiteto de Prompts** e escolha RACE, CO-STAR ou CRISPE no seletor de formato.", en: "**Try it now:** open the Playground, select **Prompt Architect**, and choose RACE, CO-STAR, or CRISPE in the format selector.", zh: "**立即试用：**打开实验场，选择**提示架构师**，再在格式选择器中选择 RACE、CO-STAR 或 CRISPE。" },
+            ﻿            "fw.estrutura": { pt: "0. Como o pedido é estruturado", en: "0. How the request is structured", zh: "0. 请求如何组织" },
+            "fw.estrutura_desc": { pt: "Antes de escolher técnica ou formato, defina o tipo de instrução. A IBM separa três: direta, aberta e específica de tarefa.", en: "Before choosing a technique or format, define the instruction type. IBM separates three: direct, open, and task-specific.", zh: "在选择技巧或格式之前，先确定指令类型。IBM 区分三种：直接、开放和任务特定。" },
+            "fw.instrucao_direta.h3": { pt: "Instrução direta", en: "Direct instruction", zh: "直接指令" },
+            "fw.instrucao_direta.desc": { pt: "Comando claro e específico. Ideal quando o usuário sabe exatamente o que quer.", en: "A clear, specific command. Ideal when the user knows exactly what they want.", zh: "清晰、具体的命令。适合用户明确知道自己要什么时。" },
+            "fw.instrucao_direta.ex": { pt: "Escreva um poema sobre a natureza.", en: "Write a poem about nature.", zh: "写一首关于自然的诗。" },
+            "fw.instrucao_aberta.h3": { pt: "Instrução aberta", en: "Open instruction", zh: "开放指令" },
+            "fw.instrucao_aberta.desc": { pt: "Menos restritiva; incentiva exploração e criatividade. Útil para brainstorming.", en: "Less restrictive; encourages exploration and creativity. Useful for brainstorming.", zh: "限制更少；鼓励探索和创意。适合头脑风暴。" },
+            "fw.instrucao_aberta.ex": { pt: "Fale sobre o universo.", en: "Tell me about the universe.", zh: "谈谈宇宙。" },
+            "fw.instrucao_tarefa.h3": { pt: "Instrução específica de tarefa", en: "Task-specific instruction", zh: "任务特定指令" },
+            "fw.instrucao_tarefa.desc": { pt: "Criada para tarefas precisas: tradução, sumarização, cálculo. Pode incluir contexto ou exemplos.", en: "Built for precise tasks: translation, summarization, calculation. May include context or examples.", zh: "针对精确任务：翻译、摘要、计算。可包含上下文或示例。" },
+            "fw.instrucao_tarefa.ex": { pt: "Traduza para o francês: 'Olá.'", en: "Translate to French: 'Hello.'", zh: "翻译成法语：'你好。'" },
+            "fw.ibm_fonte": { pt: "IBM Think — Técnicas de engenharia de prompts.", en: "IBM Think — Prompt engineering techniques.", zh: "IBM Think — 提示工程技巧。" },
+            "fw.infomoney_fonte": { pt: "InfoMoney — Guia de prompts.", en: "InfoMoney — Prompts guide.", zh: "InfoMoney — 提示指南。" },
+            "fw.zeroshot.desc": { pt: "Pede a tarefa sem exemplos ou orientação prévia. Depende do conhecimento pré-treinado do modelo.", en: "Asks for the task with no examples or prior guidance. Relies on the model's pre-trained knowledge.", zh: "不提供示例或先前指导，直接要求任务。依赖模型的预训练知识。" },
+            "fw.zeroshot.quando": { pt: "**Use para:** tarefas simples e claras. **Evite quando:** o formato ou o tom são incomuns.", en: "**Use for:** simple, clear tasks. **Avoid when:** the format or tone is unusual.", zh: "**用于：**简单、明确的任务。**避免用于：**格式或语气不常见时。" },
+            "fw.zeroshot.ex": { pt: "Explique a mudança climática, suas causas e efeitos em termos simples.", en: "Explain climate change, its causes, and effects in simple terms.", zh: "用简单的话解释气候变化、其原因和影响。" },
+            "fw.fewshot.desc": { pt: "Inclui um pequeno número de exemplos para demonstrar a tarefa e o formato esperado.", en: "Includes a small number of examples to demonstrate the task and expected format.", zh: "包含少量示例来演示任务和预期格式。" },
+            "fw.fewshot.quando": { pt: "**Use para:** tarefas com formato ou estilo específico. **Evite quando:** os exemplos são longos ou enviesados.", en: "**Use for:** tasks with a specific format or style. **Avoid when:** examples are long or biased.", zh: "**用于：**有特定格式或风格的任务。**避免用于：**示例过长或有偏差时。" },
+            "fw.fewshot.ex": { pt: "Tópico: Fotossíntese\nExplicação: plantas convertem luz, água e CO₂ em energia e oxigênio.\n\nTópico: Gravidade\nExplicação: força que puxa objetos, como a Terra nos puxa.\n\nAgora explique: Mudança Climática.", en: "Topic: Photosynthesis\nExplanation: plants convert light, water and CO2 into energy and oxygen.\n\nTopic: Gravity\nExplanation: force that pulls objects, like Earth pulling us.\n\nNow explain: Climate Change.", zh: "主题：光合作用\n解释：植物将光、水和二氧化碳转化为能量和氧气。\n\n主题：重力\n解释：拉动物体的力，如地球拉住我们。\n\n现在解释：气候变化。" },
+            "fw.tot.desc": { pt: "Explora vários ramos de raciocínio antes de chegar ao resultado final. Útil para problemas que exigem deliberação.", en: "Explores several reasoning branches before reaching a final result. Useful for problems requiring deliberation.", zh: "在得出最终结果前探索多条推理分支。适合需要深思熟虑的问题。" },
+            "fw.tot.quando": { pt: "**Use para:** decisões complexas, planejamento. **Evite quando:** a tarefa é direta e a exploração só aumenta custo.", en: "**Use for:** complex decisions, planning. **Avoid when:** the task is straightforward and exploration only adds cost.", zh: "**用于：**复杂决策、规划。**避免用于：**任务直接且探索只会增加成本时。" },
+            "fw.tot.ex": { pt: "Liste três formas de explicar mudança climática ao público geral. Para cada, descreva vantagens e desvantagens. Escolha a melhor e desenvolva.", en: "List three ways to explain climate change to a general audience. For each, describe advantages and disadvantages. Choose the best and elaborate.", zh: "列出三种向普通大众解释气候变化的方式。对每种，描述优缺点。选择最佳并展开。" },
+            "fw.reflexion.desc": { pt: "O modelo avalia sua saída anterior e a refina para maior precisão ou coerência.", en: "The model evaluates its previous output and refines it for greater accuracy or coherence.", zh: "模型评估其先前输出并改进以提高准确性或连贯性。" },
+            "fw.reflexion.quando": { pt: "**Use para:** revisão iterativa, melhoria de qualidade. **Evite quando:** o custo de múltiplas rodadas não se justifica.", en: "**Use for:** iterative review, quality improvement. **Avoid when:** the cost of multiple rounds is not justified.", zh: "**用于：**迭代评审、质量改进。**避免用于：**多轮成本不值得时。" },
+            "fw.reflexion.ex": { pt: "Aqui está minha primeira tentativa de explicar mudança climática: [saída]. Revise e melhore a clareza e a precisão.", en: "Here is my first attempt at explaining climate change: [output]. Review and improve clarity and accuracy.", zh: "这是我第一次尝试解释气候变化：[输出]。请评审并改进清晰度和准确性。" },
+            "fw.chaining.desc": { pt: "Vincula vários prompts em sequência, onde a saída de um alimenta o próximo. Ideal para processos multietapas.", en: "Links several prompts in sequence, where one's output feeds the next. Ideal for multi-step processes.", zh: "将多个提示串联，前一个的输出作为下一个的输入。适合多步流程。" },
+            "fw.chaining.quando": { pt: "**Use para:** tarefas com etapas dependentes. **Evite quando:** a cadeia pode ser colapsada em um único prompt.", en: "**Use for:** tasks with dependent steps. **Avoid when:** the chain can be collapsed into a single prompt.", zh: "**用于：**有依赖步骤的任务。**避免用于：**链可以合并为单个提示时。" },
+            "fw.chaining.ex": { pt: "Prompt 1: O que é mudança climática? Definição breve.\nPrompt 2: Quais as causas primárias?\nPrompt 3: Quais os efeitos no meio ambiente e na vida humana?", en: "Prompt 1: What is climate change? Brief definition.\nPrompt 2: What are the primary causes?\nPrompt 3: What are the effects on the environment and human life?", zh: "提示1：什么是气候变化？简要定义。\n提示2：主要原因是？\n提示3：对环境和人类生活的影响？" },
+            "fw.metaprompt.desc": { pt: "Pede ao modelo que gere ou refine seus próprios prompts para executar melhor a tarefa.", en: "Asks the model to generate or refine its own prompts to perform the task better.", zh: "要求模型生成或改进自己的提示以更好地执行任务。" },
+            "fw.metaprompt.quando": { pt: "**Use para:** melhorar a qualidade da saída por autodirecionamento. **Evite quando:** o modelo não tem capacidade de autocrítica.", en: "**Use for:** improving output quality through self-direction. **Avoid when:** the model lacks self-critique capability.", zh: "**用于：**通过自导向提高输出质量。**避免用于：**模型缺乏自我批评能力时。" },
+            "fw.metaprompt.ex": { pt: "Crie um prompt que o ajude a explicar mudança climática, suas causas e efeitos em termos simples.", en: "Create a prompt that will help you explain climate change, its causes, and effects in simple terms.", zh: "创建一个提示，帮助你用简单的话解释气候变化、其原因和影响。" },
+            "fw.genknowledge.desc": { pt: "Pede ao modelo que gere conhecimento prévio antes da tarefa principal, aprimorando respostas informadas.", en: "Asks the model to generate prior knowledge before the main task, improving informed responses.", zh: "要求模型在主要任务前生成先验知识，以改进知情回答。" },
+            "fw.genknowledge.quando": { pt: "**Use para:** tarefas que exigem contexto científico ou técnico. **Evite quando:** o conhecimento gerado pode ser impreciso.", en: "**Use for:** tasks requiring scientific or technical context. **Avoid when:** generated knowledge may be inaccurate.", zh: "**用于：**需要科学或技术背景的任务。**避免用于：**生成的知识可能不准确时。" },
+            "fw.genknowledge.ex": { pt: "Antes de explicar mudança climática, liste os princípios científicos-chave. Depois, use-os para explicar o conceito, causas e efeitos.", en: "Before explaining climate change, list the key scientific principles. Then use them to explain the concept, causes, and effects.", zh: "在解释气候变化之前，列出关键科学原理。然后用它们解释概念、原因和影响。" },
+            "fw.active.desc": { pt: "Ajusta dinamicamente o prompt com base em resultados intermediários, refinando a entrada.", en: "Dynamically adjusts the prompt based on intermediate results, refining the input.", zh: "根据中间结果动态调整提示，改进输入。" },
+            "fw.active.quando": { pt: "**Use para:** refinamento iterativo. **Evite quando:** o ciclo de ajuste não agrega valor.", en: "**Use for:** iterative refinement. **Avoid when:** the adjustment cycle adds no value.", zh: "**用于：**迭代改进。**避免用于：**调整循环无增值时。" },
+            "fw.active.ex": { pt: "Explique mudança climática em termos simples.\n\nAdicione mais detalhes sobre as causas, focando em atividades humanas.", en: "Explain climate change in simple terms.\n\nAdd more detail about the causes, focusing on human activities.", zh: "用简单的话解释气候变化。\n\n添加更多关于原因的细节，重点关注人类活动。" },
+            "fw.dsp.desc": { pt: "Usa pistas direcionais para levar o modelo a um tipo específico de resposta ou perspectiva.", en: "Uses directional cues to steer the model toward a specific response type or perspective.", zh: "使用方向性线索引导模型朝特定回答类型或视角。" },
+            "fw.dsp.quando": { pt: "**Use para:** controlar tom e perspectiva. **Evite quando:** a direção é vaga ou contraditória.", en: "**Use for:** controlling tone and perspective. **Avoid when:** the direction is vague or contradictory.", zh: "**用于：**控制语气和视角。**避免用于：**方向模糊或矛盾时。" },
+            "fw.dsp.ex": { pt: "Explique mudança climática do ponto de vista de um ambientalista, focando na necessidade de ação imediata.", en: "Explain climate change from an environmentalist's perspective, focusing on the need for immediate action.", zh: "从环保主义者视角解释气候变化，重点关注立即行动的必要性。" },
+            "fw.persona.desc": { pt: "Atribui um papel (professor, consultor, etc.) para orientar conteúdo e tom. Amplamente usado na prática.", en: "Assigns a role (teacher, consultant, etc.) to guide content and tone. Widely used in practice.", zh: "分配一个角色（教师、顾问等）来引导内容和语气。实践中广泛使用。" },
+            "fw.persona.quando": { pt: "**Use para:** quando o estilo e o público definem a resposta. **Evite quando:** o papel é genérico ou irrelevante.", en: "**Use for:** when style and audience define the answer. **Avoid when:** the role is generic or irrelevant.", zh: "**用于：**风格和受众决定回答时。**避免用于：**角色通用或无关时。" },
+            "fw.persona.ex": { pt: "Você é um especialista em finanças para casais. Em linguagem acessível, elabore um passo a passo para evitar conflitos financeiros no casamento.", en: "You are a finance expert for couples. In accessible language, create a step-by-step guide to avoid financial conflicts in marriage.", zh: "你是一位面向夫妻的理财专家。用通俗语言制定避免婚姻财务冲突的步骤指南。" },
+            "fw.formato.desc": { pt: "Especifica a forma de apresentação: tabela, lista, tópicos, JSON. Quanto mais específico o comando, mais direta a resposta.", en: "Specifies the presentation format: table, list, bullets, JSON. The more specific the command, the more direct the response.", zh: "指定呈现格式：表格、列表、要点、JSON。命令越具体，回答越直接。" },
+            "fw.formato.quando": { pt: "**Use para:** quando a forma de entrega importa tanto quanto o conteúdo. **Evite quando:** o formato restringe demais a resposta.", en: "**Use for:** when delivery format matters as much as content. **Avoid when:** the format over-constrains the response.", zh: "**用于：**交付形式与内容同等重要时。**避免用于：**格式过度约束回答时。" },
+            "fw.formato.ex": { pt: "Monte uma tabela comparando três carros elétricos com colunas de autonomia, custo-benefício, recarga e perfil ideal.", en: "Build a table comparing three electric cars with columns for range, cost-benefit, charging, and ideal profile.", zh: "制作一个比较三款电动汽车的表格，包含续航、性价比、充电和理想用户列。" },
+            "fw.infra_titulo": { pt: "Técnicas que exigem infraestrutura", en: "Techniques requiring infrastructure", zh: "需要基础设施的技巧" },
+            "fw.infra_desc": { pt: "Estas não se resolvem com texto sozinho: dependem de sistemas conectados. O prompt pode instruir a IA-alvo a usá-los, mas o ambiente precisa fornecê-los.", en: "These cannot be solved with text alone: they depend on connected systems. The prompt can instruct the target AI to use them, but the environment must provide them.", zh: "这些不能仅靠文本解决：它们依赖连接的系统。提示可以指示目标 AI 使用它们，但环境必须提供。" },
+            "fw.rag.desc": { pt: "Combina recuperação de informações externas com geração. O prompt instrui a IA-alvo a usar documentos fornecidos.", en: "Combines external information retrieval with generation. The prompt instructs the target AI to use provided documents.", zh: "结合外部信息检索与生成。提示指示目标 AI 使用提供的文档。" },
+            "fw.rag.quando": { pt: "**Requer:** base de documentos e mecanismo de busca. **Use para:** perguntas sobre dados específicos.", en: "**Requires:** document base and search mechanism. **Use for:** questions about specific data.", zh: "**需要：**文档库和搜索机制。**用于：**关于特定数据的问题。" },
+            "fw.rag.ex": { pt: "Usando os dados de temperatura da NASA, explique mudança climática em termos simples.", en: "Using NASA temperature data, explain climate change in simple terms.", zh: "使用 NASA 温度数据，用简单的话解释气候变化。" },
+            "fw.palm.desc": { pt: "Integra programação para aumentar raciocínio e cálculo. O prompt instrui a IA-alvo a gerar código.", en: "Integrates programming to boost reasoning and calculation. The prompt instructs the target AI to generate code.", zh: "集成编程以增强推理和计算。提示指示目标 AI 生成代码。" },
+            "fw.palm.quando": { pt: "**Requer:** execução de código. **Use para:** visualização, cálculo, análise de dados.", en: "**Requires:** code execution. **Use for:** visualization, calculation, data analysis.", zh: "**需要：**代码执行。**用于：**可视化、计算、数据分析。" },
+            "fw.palm.ex": { pt: "Escreva código Python para visualizar o aumento de temperaturas globais. Depois explique como isso se relaciona com mudança climática.", en: "Write Python code to visualize the rise in global temperatures. Then explain how this relates to climate change.", zh: "编写 Python 代码可视化全球温度上升。然后解释这与气候变化的关系。" },
+            "fw.multimodal.desc": { pt: "Integra raciocínio em várias modalidades: texto, imagens, áudio.", en: "Integrates reasoning across multiple modalities: text, images, audio.", zh: "集成多种模态的推理：文本、图像、音频。" },
+            "fw.multimodal.quando": { pt: "**Requer:** modelo multimodal. **Use para:** análise de imagens, gráficos, documentos visuais.", en: "**Requires:** multimodal model. **Use for:** image analysis, charts, visual documents.", zh: "**需要：**多模态模型。**用于：**图像分析、图表、视觉文档。" },
+            "fw.multimodal.ex": { pt: "Analise este infográfico sobre tendências de aquecimento global e explique mudança climática passo a passo.", en: "Analyze this infographic on global warming trends and explain climate change step by step.", zh: "分析这张关于全球变暖趋势的信息图，并逐步解释气候变化。" },
+            "fw.graph.desc": { pt: "Aproveita estruturas baseadas em gráficos para organizar e raciocinar sobre relações complexas.", en: "Leverages graph-based structures to organize and reason about complex relationships.", zh: "利用基于图的结构来组织和推理复杂关系。" },
+            "fw.graph.quando": { pt: "**Requer:** dados em grafo. **Use para:** redes de conhecimento, relações entre entidades.", en: "**Requires:** graph data. **Use for:** knowledge networks, entity relationships.", zh: "**需要：**图数据。**用于：**知识网络、实体关系。" },
+            "fw.graph.ex": { pt: "Usando o grafo de emissões de CO₂ ao longo do tempo, explique como isso se relaciona com mudança climática.", en: "Using the CO2 emissions graph over time, explain how this relates to climate change.", zh: "使用随时间变化的二氧化碳排放图，解释这与气候变化的关系。" },
+            "fw.erros": { pt: "Erros comuns ao criar prompts", en: "Common prompt-writing mistakes", zh: "创建提示的常见错误" },
+            "fw.erros_desc": { pt: "Cinco erros frequentes, com a correção. Adaptado do guia da InfoMoney.", en: "Five frequent mistakes, with the fix. Adapted from the InfoMoney guide.", zh: "五个常见错误及修正。改编自 InfoMoney 指南。" },
+            "fw.erro1.h3": { pt: "1. Solicitação vaga", en: "1. Vague request", zh: "1. 请求模糊" },
+            "fw.erro1.desc": { pt: "Prompt genérico gera resposta genérica. Adicione detalhes: público, extensão, contexto.", en: "A generic prompt yields a generic answer. Add details: audience, length, context.", zh: "泛泛的提示产生泛泛的回答。添加细节：受众、长度、上下文。" },
+            "fw.exemplo_ruim": { pt: "Exemplo fraco", en: "Weak example", zh: "弱示例" },
+            "fw.erro1.ruim": { pt: "Fale sobre viagens.", en: "Talk about travel.", zh: "谈谈旅行。" },
+            "fw.exemplo_bom": { pt: "Versão melhor", en: "Better version", zh: "更好版本" },
+            "fw.erro1.bom": { pt: "Liste cinco destinos na América do Sul para quem vai viajar em 2025 com orçamento de até R$ 5.000.", en: "List five South American destinations for travel in 2025 with a budget up to R$ 5,000.", zh: "列出五个南美目的地，适合2025年预算5000雷亚尔以内的旅行。" },
+            "fw.erro2.h3": { pt: "2. Muitas tarefas no mesmo pedido", en: "2. Too many tasks in one request", zh: "2. 一个请求中任务过多" },
+            "fw.erro2.desc": { pt: "Reunir várias demandas confunde a IA e aumenta respostas incompletas. Peça uma coisa por vez.", en: "Combining several demands confuses the AI and increases incomplete answers. Ask for one thing at a time.", zh: "合并多个需求会混淆 AI 并增加不完整回答。一次只问一件事。" },
+            "fw.erro2.ruim": { pt: "Explique a Selic, faça uma tabela do impacto e traduza para o inglês.", en: "Explain Selic, make a table of impact, and translate to English.", zh: "解释Selic，制作影响表格，并翻译成英语。" },
+            "fw.erro2.bom": { pt: "Explique o que é a taxa Selic em até 150 palavras para leigos.", en: "Explain what the Selic rate is in up to 150 words for laypeople.", zh: "用最多150词向外行解释Selic利率。" },
+            "fw.erro3.h3": { pt: "3. Sem tom ou público-alvo", en: "3. No tone or target audience", zh: "3. 没有语气或目标受众" },
+            "fw.erro3.desc": { pt: "O mesmo conteúdo pode vir técnico ou didático. Defina para quem e em qual registro.", en: "The same content can come out technical or didactic. Define for whom and in what register.", zh: "相同内容可以是技术性的或教学性的。定义受众和语气。" },
+            "fw.erro3.ruim": { pt: "Explique o que é fração.", en: "Explain what a fraction is.", zh: "解释什么是分数。" },
+            "fw.erro3.bom": { pt: "Explique o que é fração para alunos de 10 anos, usando exemplos visuais como pizza.", en: "Explain fractions to 10-year-olds using visual examples like pizza.", zh: "向10岁孩子解释分数，使用披萨等视觉示例。" },
+            "fw.erro4.h3": { pt: "4. Sem formato ou tamanho", en: "4. No format or length", zh: "4. 没有格式或长度" },
+            "fw.erro4.desc": { pt: "Sem parâmetros, a IA entrega algo diferente do esperado. Diga lista, tabela, tópicos ou texto corrido.", en: "Without parameters, the AI delivers something different from expected. Specify list, table, bullets, or prose.", zh: "没有参数，AI 会交付与预期不同的内容。指定列表、表格、要点或散文。" },
+            "fw.erro4.ruim": { pt: "Resuma o livro Dom Casmurro.", en: "Summarize the book Dom Casmurro.", zh: "概括《Dom Casmurro》一书。" },
+            "fw.erro4.bom": { pt: "Resuma Dom Casmurro em até 1000 palavras, com subtítulos, listas e linguagem narrativa.", en: "Summarize Dom Casmurro in up to 1000 words, with subtitles, lists, and narrative language.", zh: "用最多1000词概括《Dom Casmurro》，包含副标题、列表和叙述性语言。" },
+            "fw.erro5.h3": { pt: "5. Não refinar", en: "5. Not refining", zh: "5. 不改进" },
+            "fw.erro5.desc": { pt: "Ajuste o prompt a cada retorno em vez de refazer do zero. Mantenha o que funcionou e mude uma coisa por vez.", en: "Adjust the prompt on each return instead of starting over. Keep what worked and change one thing at a time.", zh: "每次返回时调整提示，而不是从头开始。保留有效部分，每次只改一件事。" },
+            "fw.erro5.ruim": { pt: "Refaça tudo de outro jeito.", en: "Redo everything differently.", zh: "全部重新做。" },
+            "fw.erro5.bom": { pt: "Mantenha a introdução, mas reescreva os exemplos em linguagem mais simples e resumida.", en: "Keep the introduction, but rewrite the examples in simpler, more concise language.", zh: "保留引言，但用更简单、更简洁的语言重写示例。" },
+            "fw.checklist": { pt: "Checklist antes de enviar", en: "Pre-send checklist", zh: "发送前清单" },
+            "fw.checklist_desc": { pt: "Cinco verificações rápidas. Adaptado do guia da InfoMoney.", en: "Five quick checks. Adapted from the InfoMoney guide.", zh: "五个快速检查。改编自 InfoMoney 指南。" },
+            "fw.check1": { pt: "O objetivo é verificável? (entregável claro, não vago)", en: "Is the goal verifiable? (clear deliverable, not vague)", zh: "目标可验证吗？（明确的交付物，不是模糊的）" },
+            "fw.check2": { pt: "Público e tom estão definidos?", en: "Are audience and tone defined?", zh: "受众和语气定义了吗？" },
+            "fw.check3": { pt: "Formato e tamanho estão especificados?", en: "Are format and length specified?", zh: "格式和长度指定了吗？" },
+            "fw.check4": { pt: "Exemplos são necessários? Se sim, estão incluídos?", en: "Are examples needed? If so, are they included?", zh: "需要示例吗？如果是，包含了吗？" },
+            "fw.check5": { pt: "Há critério de verificação ou plano de refinamento?", en: "Is there a verification criterion or refinement plan?", zh: "有验证标准或改进计划吗？" },
+
+            "pg.label_framework": { pt: "Formato do prompt (Arquiteto)", en: "Prompt format (Architect)", zh: "提示格式（架构师）" },
+            "pg.fw_race": { pt: "RACE — papel, ação, contexto, expectativa (texto natural)", en: "RACE — role, action, context, expectation (natural prose)", zh: "RACE — 角色、行动、上下文、期望（自然文本）" },
+            "pg.fw_costar": { pt: "CO-STAR — contexto, objetivo, estilo, tom, público, resposta (blocos)", en: "CO-STAR — context, objective, style, tone, audience, response (blocks)", zh: "CO-STAR — 上下文、目标、风格、语气、受众、回答（模块）" },
+            "pg.fw_crispe": { pt: "CRISPE — capacidade, insight, tarefa, personalidade, experimento (blocos)", en: "CRISPE — capacity, insight, task, personality, experiment (blocks)", zh: "CRISPE — 能力、洞察、任务、个性、实验（模块）" },
+            "pg.label_technique": { pt: "Técnica (opcional)", en: "Technique (optional)", zh: "技巧（可选）" },
+            "pg.tec_none": { pt: "Nenhuma", en: "None", zh: "无" },
+            "pg.tec_zero-shot": { pt: "Zero-shot", en: "Zero-shot", zh: "Zero-shot" },
+            "pg.tec_few-shot": { pt: "Few-shot", en: "Few-shot", zh: "Few-shot" },
+            "pg.tec_cot": { pt: "Chain-of-Thought", en: "Chain-of-Thought", zh: "Chain-of-Thought" },
+            "pg.tec_self-consistency": { pt: "Self-Consistency", en: "Self-Consistency", zh: "Self-Consistency" },
+            "pg.tec_least-to-most": { pt: "Least-to-Most", en: "Least-to-Most", zh: "Least-to-Most" },
+            "pg.tec_tot": { pt: "Tree of Thoughts", en: "Tree of Thoughts", zh: "Tree of Thoughts" },
+            "pg.tec_reflexion": { pt: "Reflexion", en: "Reflexion", zh: "Reflexion" },
+            "pg.tec_chaining": { pt: "Prompt chaining", en: "Prompt chaining", zh: "Prompt chaining" },
+            "pg.tec_metaprompt": { pt: "Meta-prompting", en: "Meta-prompting", zh: "Meta-prompting" },
+            "pg.tec_genknowledge": { pt: "Generated knowledge", en: "Generated knowledge", zh: "Generated knowledge" },
+            "pg.tec_active": { pt: "Prompt ativo", en: "Active prompting", zh: "Active prompting" },
+            "pg.tec_dsp": { pt: "DSP (estímulo direcional)", en: "DSP (directional stimulus)", zh: "DSP（方向性刺激）" },
+            "pg.tec_persona": { pt: "Papel e persona", en: "Role and persona", zh: "角色与人格" },
+            "pg.tec_formato": { pt: "Formato específico", en: "Specific format", zh: "特定格式" },
+            "pg.tec_rag": { pt: "RAG", en: "RAG", zh: "RAG" },
+            "pg.tec_react": { pt: "ReAct", en: "ReAct", zh: "ReAct" },
+            "pg.tec_palm": { pt: "PALM", en: "PALM", zh: "PALM" },
+            "pg.tec_multimodal": { pt: "CoT multimodal", en: "Multimodal CoT", zh: "多模态 CoT" },
+            "pg.tec_graph": { pt: "Graph prompting", en: "Graph prompting", zh: "Graph prompting" }
         };
 
         const SUPPORTED_LANGS = ['pt', 'en', 'zh'];
@@ -337,6 +501,24 @@
             }
         }
 
+        const SVG_NS = 'http://www.w3.org/2000/svg';
+        function iconNode(name, className) {
+            const svg = document.createElementNS(SVG_NS, 'svg');
+            svg.setAttribute('class', className || 'ui-icon');
+            svg.setAttribute('aria-hidden', 'true');
+            svg.setAttribute('focusable', 'false');
+            const use = document.createElementNS(SVG_NS, 'use');
+            use.setAttribute('href', '#icon-' + name);
+            svg.appendChild(use);
+            return svg;
+        }
+
+        function setIconText(el, iconName, text) {
+            el.textContent = '';
+            el.appendChild(iconNode(iconName));
+            el.appendChild(document.createTextNode(text));
+        }
+
         const SKILL_I18N = {
             'Código': 'pg.skill_codigo',
             'Geral': 'pg.skill_geral',
@@ -358,7 +540,7 @@
             document.querySelectorAll('.model-card-body.loading').forEach(el => { el.textContent = t('pg.aguardando'); });
             document.querySelectorAll('.evasive-warning span').forEach(el => {
                 const card = el.closest('.model-card');
-                el.textContent = '⚠ ' + t(warningKey(card && card.dataset.warn));
+                setIconText(el, 'alert', t(warningKey(card && card.dataset.warn)));
             });
             document.querySelectorAll('.btn-retry').forEach(btn => {
                 if (!btn.disabled) btn.textContent = t('pg.btn_repetir');
@@ -370,8 +552,7 @@
             });
             const bannerEl = document.getElementById('pg-banner');
             if (bannerEl && bannerEl.style.display !== 'none') {
-                const bannerText = bannerEl.querySelector('.pg-banner-text');
-                if (bannerText) renderI18nNode(bannerText);
+                bannerEl.querySelectorAll('[data-i18n]').forEach(renderI18nNode);
             }
         }
 
@@ -423,7 +604,7 @@
             function closeMenu() {
                 navControls.classList.remove('open');
                 overlay.classList.remove('open');
-                hamburger.textContent = '☰';
+                hamburger.replaceChildren(iconNode('menu'));
                 document.body.style.overflow = '';
             }
             function toggleMenu() {
@@ -432,7 +613,7 @@
                 else {
                     navControls.classList.add('open');
                     overlay.classList.add('open');
-                    hamburger.textContent = '✕';
+                    hamburger.replaceChildren(iconNode('close'));
                     document.body.style.overflow = 'hidden';
                 }
             }
@@ -443,7 +624,7 @@
             });
         }
 
-        const ALLOWED_ROUTES = ['home', 'markdown', 'prompt', 'tokens', 'token-counter', 'playground', 'sobre'];
+        const ALLOWED_ROUTES = ['home', 'markdown', 'prompt', 'frameworks', 'tokens', 'token-counter', 'playground', 'sobre'];
         const pages = document.querySelectorAll('.page');
         const links = document.querySelectorAll('.nav-link');
         const themeBtns = document.querySelectorAll('.theme-btn');
@@ -704,7 +885,6 @@
             { id: 'cohere/north-mini-code:free', label: 'Cohere North Mini (Code)', skill: 'Código' },
             { id: 'google/gemma-4-31b-it:free', label: 'Google Gemma 4 31B', skill: 'Geral', isDefault: true },
             { id: 'google/gemma-4-26b-a4b-it:free', label: 'Google Gemma 4 26B', skill: 'Geral' },
-            { id: 'inclusionai/ling-3.0-flash-sante:free', label: 'Ling 3.0 Flash Sante', skill: 'Saúde' },
             { id: 'liquid/lfm-2.5-2.6b:free', label: 'Liquid LFM 2.5 2.6B', skill: 'Geral' },
             { id: 'nvidia/nemotron-3.5-content-safety:free', label: 'NVIDIA Nemotron 3.5 Content Safety', skill: 'Segurança' },
             { id: 'poolside/laguna-s-2.1:free', label: 'Poolside Laguna S 2.1', skill: 'Código' },
@@ -714,7 +894,8 @@
             // que ele não tem. O aviso vive no card e no cabeçalho do resultado.
             { id: 'openrouter/free', label: 'OpenRouter Free (roteador)', isRouter: true, isRouterWarned: true },
             { id: 'thinkingmachines/inkling:free', label: 'Thinking Machines Inkling', skill: 'Geral' },
-            { id: 'thinkingmachines/inkling-small:free', label: 'Thinking Machines Inkling Small', skill: 'Geral' }
+            { id: 'thinkingmachines/inkling-small:free', label: 'Thinking Machines Inkling Small', skill: 'Geral' },
+            { id: 'recursive/flint-v1.0:free', label: 'Recursive Flint', skill: 'Código' },
         ];
 
         let PAID_MODELS = [];
@@ -741,8 +922,8 @@
             PAID_MODELS.forEach(m => {
                 const opt = document.createElement('option');
                 opt.value = m.id;
-                const flag = m.origin === 'cn' ? ' 🇨🇳' : ' 🇺🇸';
-                opt.textContent = m.label + flag + ' (' + m.context + ' ctx)';
+                const origin = m.origin === 'cn' ? 'CN' : 'US';
+                opt.textContent = m.label + ' (' + origin + ' · ' + m.context + ' ctx)';
                 selModel.appendChild(opt);
             });
         }
@@ -845,21 +1026,41 @@
             const errEl = document.getElementById('pg-error');
             const bannerEl = document.getElementById('pg-banner');
             const bannerCloseBtn = document.getElementById('pg-banner-close');
+            const bannerCopyBtn = document.getElementById('pg-banner-copy');
             const raceHintEl = document.getElementById('pg-race-hint');
+            const frameworkGroup = document.getElementById('pg-framework-group');
+            const selFramework = document.getElementById('pg-framework');
+            const techniqueGroup = document.getElementById('pg-technique-group');
+            const selTechnique = document.getElementById('pg-technique');
 
-            // O informativo sobre "para qual agente" so aparece no RACE. Nas
-            // personas de dialogo a frase nao faria sentido e so poluiria.
-            function syncRaceHint() {
-                if (!raceHintEl) return;
-                raceHintEl.hidden = selSystem.value !== 'prompt-engineer';
+            // Os controles do Arquiteto (formato e aviso) so aparecem quando a
+            // persona selecionada e a unica que escreve prompts. Nas personas
+            // de dialogo eles nao teriam efeito e so poluiriam a tela.
+            function syncArchitectFields() {
+                const isArchitect = selSystem.value === 'prompt-engineer';
+                if (frameworkGroup) frameworkGroup.hidden = !isArchitect;
+                if (techniqueGroup) techniqueGroup.hidden = !isArchitect;
+                if (raceHintEl) raceHintEl.hidden = !isArchitect;
             }
-            selSystem.addEventListener('change', syncRaceHint);
-            syncRaceHint();
+            selSystem.addEventListener('change', syncArchitectFields);
+            syncArchitectFields();
+
+            // A chave do formato so sai do cliente para a persona que a usa. O
+            // servidor valida contra a allowlist e resolve o TEXTO da diretiva:
+            // o navegador nunca envia instrucao livre. Fora do Arquiteto, a
+            // chave e null e o seletor permanece escondido.
+            function currentFrameworkKey(personaKey) {
+                return personaKey === 'prompt-engineer' ? (selFramework.value || 'race') : null;
+            }
+            function currentTechniqueKey(personaKey) {
+                return personaKey === 'prompt-engineer' ? (selTechnique ? selTechnique.value || null : null) : null;
+            }
 
             const MAX_MODELS = 3;
             let abortControllers = new Map();
             let loadingCount = 0;
             let conversations = Object.create(null);
+            let lastPrompt = '';
             const cards = new Map();
             let sessionPersonaKey = null;
 
@@ -939,13 +1140,15 @@
             function setDialogActiveUI(active) {
                 modelsContainer.querySelectorAll('input[type="checkbox"]').forEach(cb => { cb.disabled = active; });
                 selSystem.disabled = active;
+                if (selFramework) selFramework.disabled = active;
+            if (selTechnique) selTechnique.disabled = active;
                 if (active) {
                     sendBtn.dataset.dialogActive = '1';
                     sendBtn.textContent = t('pg.btn_grupo');
                     clearBtn.style.display = '';
                     if (bannerEl) {
                         bannerEl.style.display = 'flex';
-                        renderI18nNode(bannerEl.querySelector('.pg-banner-text'));
+                        bannerEl.querySelectorAll('[data-i18n]').forEach(renderI18nNode);
                     }
                 } else {
                     delete sendBtn.dataset.dialogActive;
@@ -958,6 +1161,30 @@
             if (bannerCloseBtn && bannerEl) {
                 bannerCloseBtn.addEventListener('click', () => {
                     bannerEl.style.display = 'none';
+                });
+            }
+            if (bannerCopyBtn) {
+                bannerCopyBtn.addEventListener('click', async () => {
+                    const txt = lastPrompt || '';
+                    try {
+                        if (navigator.clipboard && navigator.clipboard.writeText) {
+                            await navigator.clipboard.writeText(txt);
+                        } else {
+                            const ta = document.createElement('textarea');
+                            ta.value = txt;
+                            ta.style.position = 'fixed';
+                            ta.style.opacity = '0';
+                            document.body.appendChild(ta);
+                            ta.select();
+                            try { document.execCommand('copy'); } catch {}
+                            ta.remove();
+                        }
+                        const label = bannerCopyBtn.querySelector('[data-i18n]');
+                        if (label) { label.textContent = t('pg.copiado'); }
+                        setTimeout(() => {
+                            if (label) label.textContent = t('pg.copiar');
+                        }, 1600);
+                    } catch {}
                 });
             }
 
@@ -1127,11 +1354,13 @@
                 })();
             }
 
-            async function callChatAPI(model, persona, messages, signal) {
+            async function callChatAPI(model, persona, messages, signal, framework, technique) {
                 const res = await fetch(CHAT_ENDPOINT, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ model, persona, messages, stream: true, lang: currentLang }),
+                    // `framework` so existe no Arquiteto; e uma CHAVE validada no
+                    // servidor, nunca o texto da diretiva (OWASP LLM01).
+                    body: JSON.stringify({ model, persona, messages, stream: true, lang: currentLang, ...(framework ? { framework } : {}), ...(technique ? { technique } : {}) }),
                     signal
                 });
 if (!res.ok) {
@@ -1169,7 +1398,9 @@ if (!res.ok) {
                 const selected = checked.slice(0, MAX_MODELS);
 
                 const personaKey = selSystem.value || 'default';
+                const frameworkKey = currentFrameworkKey(personaKey);
                 clearError();
+                lastPrompt = text;
                 inputEl.value = '';
                 // O prompt da persona é montado no servidor (api/prompts.js). O
                 // cliente guarda só a chave, que valida o servidor.
@@ -1190,7 +1421,7 @@ if (!res.ok) {
 
                 await Promise.all(selected.map(modelId => {
                     const cardObj = cards.get(modelId);
-                    return streamInto(cardObj, modelId, conversations[modelId].slice(), personaKey);
+                    return streamInto(cardObj, modelId, conversations[modelId].slice(), personaKey, frameworkKey, currentTechniqueKey(personaKey));
                 }));
             }
 
@@ -1242,8 +1473,16 @@ if (!res.ok) {
                     // mais do que rendia.
                     const RACING_DIRECTIVE = new RegExp(
                         '(?:' +
-                        '\\b(voc[eê]\\s+(é|e|será)|atue\\s+como|aja\\s+como|assume\\s+o\\s+papel|sua\\s+(tarefa|missão|missao|papel|função|funcao)|seu\\s+papel|you\\s+are|act\\s+as|your\\s+(task|role|goal))\\b' +
-                        '|^\\s*(?:[-*>#]+\\s*)?\\*{0,2}(papel|a[çc][ãa]o|contexto|expectativa|entregue|entregável|entregavel|objetivo|tarefa|formato\\s+de\\s+sa[íi]da|restri[çc][ãa]o)\\*{0,2}\\s*:' +
+                        // Papel explicito (PT/EN/ES)
+                        '\\b(voc[eê]\\s+(é|e|será)|atue\\s+como|aja\\s+como|assume\\s+o\\s+papel|sua\\s+(tarefa|missão|missao|papel|função|funcao)|seu\\s+papel|you\\s+are|act\\s+as|your\\s+(task|role|goal)|eres|act[úu]a\\s+como|asume\\s+el\\s+papel)\\b' +
+                        // Rotulos de bloco (RACE, CO-STAR, CRISPE) em PT/EN
+                        '|^\\s*(?:[-*>#]+\\s*)?\\*{0,2}(papel|a[çc][ãa]o|contexto|expectativa|entregue|entregável|entregavel|objetivo|tarefa|formato|restri[çc][ãa]o|instru[çc][õo]es|regras|passos|sa[íi]da|p[úu]blico|estilo|tom|resposta|capacidade|insight|personalidade|experimento|exemplo|limite|crit[ée]rio|context|objective|style|tone|audience|response|capacity|task|personality|experiment|example|limit|criteria|role|action|expectation|deliverable|instructions|rules|steps|output)\\*{0,2}\\s*[:\\-]' +
+                        // Instrucoes imperativas no inicio da linha (PT/EN)
+                        '|^\\s*(?:[-*>#]+\\s*)?\\*{0,2}(analise|escreva|gere|crie|liste|explique|compare|resuma|traduza|classifique|extraia|monte|projete|revise|avalie|responda|retorne|produza|siga|use|considere|mantenha|reescreva|descreva|defina|identifique|apresente|organize|elabore|analyze|write|generate|create|list|explain|compare|summarize|translate|classify|extract|build|design|review|evaluate|respond|return|produce|follow|consider|keep|rewrite|describe|define|identify|present|organize|draft)\\b' +
+                        // Restricoes
+                        '|\\b(n[aã]o\\s+(inclua|escreva|adicione|use|mencione|repita)|evite|sem\\s+(sauda[çc][õo]es|explica[çc][õo]es|disclaimer)|no\\s+m[áa]ximo|at[ée]\\s+\\d+)\\b' +
+                        // Cerca de codigo (prompt embutido)
+                        '|```' +
                         ')',
                         'im'
                     );
@@ -1316,7 +1555,7 @@ if (!res.ok) {
                 head.appendChild(btn);
             }
 
-            async function streamInto(cardObj, modelId, history, personaKey) {
+            async function streamInto(cardObj, modelId, history, personaKey, frameworkKey, techniqueKey) {
                 const { card, metrics, thread } = cardObj;
                 const ac = new AbortController();
                 abortControllers.set(modelId, ac);
@@ -1329,7 +1568,7 @@ if (!res.ok) {
                     // Só user/assistant vai ao provedor: o system prompt é
                     // injetado pelo servidor a partir de `persona`.
                     const messages = history.slice();
-                    const { res, servedModel } = await callChatAPI(modelId, personaKey, messages, ac.signal);
+                    const { res, servedModel } = await callChatAPI(modelId, personaKey, messages, ac.signal, frameworkKey, techniqueKey);
                     await readSSE(res.body.getReader(), (delta) => {
                         // Corta o que estourar o teto no mesmo delta que
                         // estourou. Sem isto o texto passava do limite e a flag
@@ -1348,24 +1587,23 @@ if (!res.ok) {
                         }
                     }, ac.signal);
                     card.classList.remove('is-evasive', 'is-error');
-                    const warnVerbose = personaKey === 'prompt-engineer' && isPlainVerbose(fullText);
                     // Precedencia, do mais especifico ao mais generico:
                     //  truncado  corte do limite; repetir nao resolve
                     //  evasivo   a IA recusou ou devolveu nada
-                    //  fora      veio resposta, mas sem papel/tarefa para
-                    //            outra IA: respondeu a tarefa, pediu
-                    //            detalhes, ou fez outra coisa
-                    //  verbose   veio conteudo, porem em texto corrido
-                    // 'fora' vem antes de 'verbose' porque e mais
-                    // acionavel: os dois casos aparecem juntos numa resposta
-                    // sem Markdown, e so 'fora' diz o que fazer.
-                    const isRace = personaKey === 'prompt-engineer';
+                    //  fora      veio resposta, mas sem sinal de prompt:
+                    //            respondeu a tarefa, pediu detalhes, ou
+                    //            fez outra coisa. So no RACE: CO-STAR e
+                    //            CRISPE nao passam por este detector.
+                    const isArchitect = personaKey === 'prompt-engineer';
+                    const checkContract = isArchitect && (!frameworkKey || frameworkKey === 'race');
+                    const warnVerbose = isArchitect && frameworkKey && frameworkKey !== 'race'
+                        && isPlainVerbose(fullText);
                     // Truncamento tem precedência sobre os outros dois: é o
                     // único que o usuário não resolve tentando de novo, porque
                     // o mesmo limite estoura a mesma entrada.
                     const warnKind = truncated ? 'truncado'
                         : isEvasiveResponse(fullText) ? 'evasive'
-                        : isRace && isOffRaceContract(fullText) ? 'fora'
+                        : checkContract && isOffRaceContract(fullText) ? 'fora'
                         : warnVerbose ? 'verbose'
                         : null;
                     if (warnKind) {
@@ -1373,8 +1611,9 @@ if (!res.ok) {
                         const warn = document.createElement('div');
                         warn.className = 'evasive-warning';
                         const wText = document.createElement('span');
+                        wText.className = 'icon-label';
                         card.dataset.warn = warnKind;
-                        wText.textContent = '⚠ ' + t(warningKey(warnKind));
+                        setIconText(wText, 'alert', t(warningKey(warnKind)));
                         warn.appendChild(wText);
                         // Repetir não adianta quando o corte é o limite:
                         // a mesma entrada estoura o mesmo teto.
@@ -1391,7 +1630,7 @@ if (!res.ok) {
                                 while (hist.length && hist[hist.length - 1].role === 'assistant') hist.pop();
                                 turn.remove();
                                 card.classList.remove('is-evasive');
-                                await streamInto(cardObj, modelId, hist.slice(), personaKey);
+                                await streamInto(cardObj, modelId, hist.slice(), personaKey, frameworkKey, currentTechniqueKey(personaKey));
                             });
                             warn.appendChild(retryBtn);
                         }
@@ -1408,11 +1647,11 @@ if (!res.ok) {
                         const sub = document.createElement('div');
                         sub.className = 'substitute-warning';
                         const subText = document.createElement('span');
+                        subText.className = 'icon-label';
                         const subEntry = OPENROUTER_MODELS.find(m => m.id === servedModel);
-                        // textContent, nunca innerHTML: o id do header e dado
-                        // externo e o rotulo vem da lista local.
-                        subText.textContent = '⚠ ' + t('pg.warning_substituido')
-                            + ' ' + (subEntry ? subEntry.label : servedModel);
+                        // textContent no texto; o icone vem do sprite local.
+                        setIconText(subText, 'alert', t('pg.warning_substituido')
+                            + ' ' + (subEntry ? subEntry.label : servedModel));
                         sub.appendChild(subText);
                         card.appendChild(sub);
                     }
@@ -1421,7 +1660,7 @@ if (!res.ok) {
                     const dt = Date.now() - t0;
                     const estTokens = Math.ceil(fullText.length / 4);
                     const mTime = document.createElement('span');
-                    mTime.textContent = '⏱ ';
+                    mTime.appendChild(iconNode('clock'));
                     const tStrong = document.createElement('strong');
                     tStrong.textContent = (dt / 1000).toFixed(1) + 's';
                     mTime.appendChild(tStrong);
@@ -1442,7 +1681,8 @@ if (!res.ok) {
                 } catch (e) {
                     if (e && e.name === 'AbortError') return { modelId, success: false, aborted: true };
                     card.classList.add('is-error');
-                    turn._textEl.textContent = '⚠ ' + (e.message || t('pg.erro_desc'));
+                    turn._textEl.classList.add('icon-text');
+                    setIconText(turn._textEl, 'alert', e.message || t('pg.erro_desc'));
                     metrics.textContent = '';
                     const failSpan = document.createElement('span');
                     failSpan.textContent = t('pg.falha');
@@ -1460,6 +1700,7 @@ if (!res.ok) {
                 if (loadingCount > 0) return;
                 if (!sessionPersonaKey) return;
                 clearError();
+                lastPrompt = text;
                 const cardObj = cards.get(modelId) || ensureCard(modelId);
                 if (!cardObj) { showError(t('pg.erro_max')); return; }
                 if (!conversations[modelId]) conversations[modelId] = [];
@@ -1468,7 +1709,8 @@ if (!res.ok) {
                 input.style.height = '';
                 addTurn(cardObj, modelId, 'user');
                 setDialogActiveUI(true);
-                await streamInto(cardObj, modelId, conversations[modelId].slice(), selSystem.value || 'default');
+                const personaKey = selSystem.value || 'default';
+                await streamInto(cardObj, modelId, conversations[modelId].slice(), personaKey, currentFrameworkKey(personaKey), currentTechniqueKey(personaKey));
             }
 
             // A limpeza em si. O dialogo de confirmacao fica no clearChat, abaixo: aqui

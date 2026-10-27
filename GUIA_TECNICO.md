@@ -51,19 +51,20 @@ That is the trade this section describes. A `Content-Security-Policy` that permi
 
 `'unsafe-hashes'` would have kept the inline attributes and avoided touching them. It was rejected: the directive is not implemented uniformly across browsers, and where it is ignored an `onclick` is simply dropped, leaving the link inert with no error anywhere. A page that silently does nothing is a worse failure than a page that is two files.
 
-On the server side, the function is deliberately narrow: validate the model, enforce the persona, inject the system prompt, discard anything the client tried to smuggle in as a `system` message, apply the language directive, cap the body, count against the rate limit, and proxy.
+On the server side, the function is deliberately narrow: validate the model and the framework, enforce the persona, inject the system prompt, discard anything the client tried to smuggle in as a `system` message, apply the language directive, cap the body, count against the rate limit, and proxy.
 
 ## 4. Architecture
 
 ```
-Browser (site/index.html)
-  │  model id, persona, lang, user messages
-  │  never: API key, model choice, system prompt
+Browser (site/index.html + site/app.js)
+  │  model id, persona, framework, lang, user messages
+  │  never: API key, model choice, system prompt, framework directive
   ▼
 Pages Function (site/functions/api/chat.js)
-  ├─ validate model against ALLOWED_MODELS      → 400 if unknown
-  ├─ resolve persona, discard client `system`   → server owns instructions
-  ├─ attach language directive                   → client cannot override
+  ├─ validate model and framework against allowlists → 400 if unknown
+  ├─ resolve persona, discard client `system`        → server owns instructions
+  ├─ attach format directive (Architect only)        → framework key, not text
+  ├─ attach language directive                       → client cannot override
   ├─ anti-echo fingerprint of system messages   → truncate/mask the answer
   ├─ rate limit, body cap, token cap             → bound the cost
   └─ proxy to OpenRouter, ≤ 3 candidates on failure
@@ -127,7 +128,9 @@ A real report: asked for a skill or a persona for an agent, the Prompt Architect
 | the portal's own personas (general assistant, senior engineer, designer) and their system prompts | this project's IP | never revealed, not even paraphrased or "reconstructed" |
 | a persona, skill or agent the user is defining **for an external AI** | the deliverable | exactly what the stage exists to produce |
 
-The prompt now opens with that distinction instead of relying on the reader to infer it, and the composition guide no longer calls an invented capability a "magical persona" — describing a role and granting a capability the target lacks are different acts, and conflating them made a legitimate request look like an escalation. The Playground carries a short note on screen, shown only while RACE is selected, telling the user to name the agent: "create a code-review skill for the backend CI agent" resolves the ambiguity that "create a skill" leaves open. The restriction that actually matters is unchanged — the stage still never reveals its own configuration, and `npm run check:leak` still fails if any real prompt text appears in the public tree.
+The prompt now opens with that distinction instead of relying on the reader to infer it, and the composition guide no longer calls an invented capability a "magical persona" — describing a role and granting a capability the target lacks are different acts, and conflating them made a legitimate request look like an escalation. The Playground carries a short note on screen, shown only while the Prompt Architect is selected, telling the user to name the agent: "create a code-review skill for the backend CI agent" resolves the ambiguity that "create a skill" leaves open. The restriction that actually matters is unchanged — the stage still never reveals its own configuration, and `npm run check:leak` still fails if any real prompt text appears in the public tree.
+
+**The format is a key, not a paragraph.** The Architect can emit RACE, CO-STAR, or CRISPE. The browser sends `framework: 'costar'`, never the directive text; `ALLOWED_FRAMEWORKS` validates the key and `prompts.js` resolves the example directive. RACE reads as natural prose; CO-STAR and CRISPE show the framework's blocks in the generated prompt. This is the persona allowlist applied a second time: a free-text field here would be a direct injection channel into the system prompt. The public examples are deliberately divergent from the private project's directives, which is why the format page can teach the structures without publishing the real prompt.
 
 ## 8. Interdisciplinary view
 
@@ -140,6 +143,7 @@ A documentation page that omits the failure modes is a page that transfers the a
 - **Not a benchmark.** Free models are chosen for zero-cost availability, not performance leadership.
 - **No reasoning measurement.** No ground truth and no scoring; the Playground compares answers to a given prompt.
 - **Not an oracle.** The controls reduce injection, leakage and format hallucination; they do not eliminate error.
+- **Format is structure, not compliance.** A model may ignore the CO-STAR or CRISPE blocks; the output is still a prompt, not a guarantee that the target AI will follow it.
 - **Continuity is a client contract.** The function is stateless and cannot enforce that a conversation stays on one model.
 - **The demo has no automated end-to-end tests.** The function's boundaries are asserted by a static check over the source, not by a browser test.
 - **In-memory rate limiting is ephemeral.** It is lost on a cold start, so a deployment without the KV binding is rate-limited only until the isolate recycles.
@@ -148,8 +152,9 @@ A documentation page that omits the failure modes is a page that transfers the a
 
 | Path | Role |
 |---|---|
-| `site/index.html` | The entire portal: markup, styles, behaviour and the inline i18n dictionary |
-| `site/functions/api/chat.js` | The function: allowlist, personas, directives, rate limit, filters, proxy |
+| `site/index.html` | The portal: markup and styles |
+| `site/app.js` | Behaviour and the inline i18n dictionary |
+| `site/functions/api/chat.js` | The function: allowlists, personas, formats, directives, rate limit, filters, proxy |
 | `site/_headers` | Real HTTP security headers |
 | `site/assets/` | Icons and logos, light and dark variants |
 | `README.md` | English overview |

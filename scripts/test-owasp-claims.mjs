@@ -244,6 +244,26 @@ ok(/persona: 'optimizer'/.test(client) && /persona: 'estimator'/.test(client), '
 // por um literal proibido.
 const prodTag = ['CLARITAS', 'INPUT'].join('_');
 ok(/<INPUT>/.test(client) && !client.includes(prodTag), 'LLM01: delimitadores <INPUT> no simulador/estimador');
+// O formato do Arquiteto segue o mesmo padrao da persona: o cliente manda uma
+// CHAVE, o servidor valida e resolve o texto. No portfolio o texto e um
+// EXAMPLE_* deliberadamente diferente do prompt real.
+ok(/const ALLOWED_FRAMEWORKS = \[[^\]]*['"]race['"][^\]]*['"]costar['"][^\]]*['"]crispe['"]/.test(chat),
+    'LLM01: allowlist ALLOWED_FRAMEWORKS (race, costar, crispe) no servidor');
+ok(/const ALLOWED_TECHNIQUES = \[/.test(chat), 'LLM01: allowlist ALLOWED_TECHNIQUES no servidor');
+ok(/function isValidTechnique\(/.test(chat), 'LLM01: validador de técnica');
+ok(/jsonError\(400, ['"]T[ée]cnica n[ãa]o permitida\./.test(chat),
+    'LLM01: técnica fora da allowlist e rejeitada com 400');
+ok(/function resolveTechnique\(/.test(prompts) && /export \{[^}]*resolveTechnique/.test(prompts),
+    'LLM01: técnica resolvida server-side em prompts.js');
+ok(!/TECHNIQUE_DIRECTIVES/.test(client), 'LLM01: diretivas de técnica não vão ao cliente');
+ok(/function isValidFramework\(/.test(chat), 'LLM01: validador de formato');
+ok(/jsonError\(400, ['"]Formato n[ãa]o permitido\./.test(chat),
+    'LLM01: formato fora da allowlist e rejeitado com 400');
+ok(/function resolveFramework\(/.test(prompts) && /EXAMPLE_FRAMEWORK_DIRECTIVES/.test(prompts),
+    'LLM01: formato resolvido server-side com diretivas de exemplo');
+ok(/persona === ['"]prompt-engineer['"][\s\S]{0,80}resolveFramework/.test(chat),
+    'LLM01: formato so entra na persona Arquiteto');
+ok(!/FRAMEWORK_DIRECTIVES/.test(client), 'LLM01: diretivas de formato nao vao ao cliente');
 
 // LLM02 — Sensitive Information Disclosure
 ok(/env\.OPENROUTER_API_KEY/.test(chat), 'LLM02: chave lida de variavel de ambiente');

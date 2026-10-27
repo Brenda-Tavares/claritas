@@ -1,6 +1,6 @@
 {
   "name": "claritas-portfolio",
-  "version": "2.20",
+  "version": "2.22",
   "private": true,
   "description": "Public Claritas portfolio: zero-build static demo plus a Pages Function that owns the provider call.",
   "scripts": {

@@ -74,6 +74,35 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
 
+        /* Ícones de interface: SVG inline, traço herdado de currentColor.
+           O sprite fica oculto no topo do body; nenhum arquivo externo e
+           nenhum atributo style é necessário. */
+        .ui-icon {
+            width: 1em;
+            height: 1em;
+            display: inline-block;
+            flex: none;
+            vertical-align: -0.125em;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .ui-icon-sprite {
+            position: absolute;
+            width: 0;
+            height: 0;
+            overflow: hidden;
+        }
+        .icon-label {
+            display: inline-flex;
+            align-items: flex-start;
+            gap: 0.35rem;
+        }
+        .icon-label > .ui-icon { margin-top: 0.15em; }
+        .icon-text > .ui-icon { margin-right: 0.4em; }
+
         body {
             font-family: 'Inter', system-ui, sans-serif;
             background-color: var(--bg-main);
@@ -98,6 +127,11 @@
             padding: 0.25rem;
             line-height: 1;
             z-index: 110;
+        }
+
+        .hamburger .ui-icon {
+            width: 1.6rem;
+            height: 1.6rem;
         }
 
         .mobile-overlay {
@@ -140,14 +174,14 @@
             letter-spacing: -0.02em;
         }
 
-        .nav-controls { display: flex; align-items: center; gap: 2.5rem; }
-        .nav-links { display: flex; gap: 2rem; }
+        .nav-controls { display: flex; align-items: center; gap: 1.5rem; }
+        .nav-links { display: flex; gap: 1rem; }
 
         .nav-link {
             text-decoration: none;
             color: var(--text-muted);
             font-weight: 500;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             position: relative;
             transition: color 0.2s;
         }
@@ -201,6 +235,11 @@
             color: var(--accent);
         }
 
+        .theme-btn .ui-icon {
+            width: 1.15rem;
+            height: 1.15rem;
+        }
+
         .lang-toggle {
             display: flex;
             gap: 0.15rem;
@@ -241,7 +280,10 @@
             padding: 0 2.5rem;
         }
 
-        .page { display: none; }
+        /* O header é sticky (~113px). Sem esta margem, um link direto para
+           #frameworks/#prompt coloca o topo da página atrás do header e o h1
+           aparece cortado. A margem vale para todas as rotas de página. */
+        .page { display: none; scroll-margin-top: 130px; }
         .page.active { display: block; animation: fadeIn 0.6s ease; }
 
         @keyframes fadeIn { 
@@ -276,7 +318,10 @@
             margin-bottom: 2rem;
         }
 
-        .hero-badge::before { content: '◈'; font-size: 0.9rem; }
+        .hero-badge .ui-icon {
+            width: 0.9rem;
+            height: 0.9rem;
+        }
 
         .hero h1 { 
             font-family: 'Playfair Display', serif;
@@ -344,13 +389,17 @@
             gap: 1.2rem;
         }
 
-        .code-preview::before {
-            content: '● ● ●';
-            display: block;
-            color: #6B7280;
+        .code-window-dots {
+            display: flex;
+            gap: 0.45rem;
             margin-bottom: 1.5rem;
-            letter-spacing: 0.5rem;
-            font-size: 0.8rem;
+        }
+
+        .code-window-dots span {
+            width: 0.45rem;
+            height: 0.45rem;
+            border-radius: 50%;
+            background: #6B7280;
         }
 
         .code-line { opacity: 0.7; }
@@ -741,7 +790,8 @@
             user-select: none;
         }
         .md-dropdown summary::-webkit-details-marker { display: none; }
-        .dd-arrow { transition: transform 0.2s; font-size: 0.8rem; color: var(--text-muted); }
+        .dd-arrow { transition: transform 0.2s; color: var(--text-muted); display: inline-flex; }
+        .dd-arrow .ui-icon { width: 0.8rem; height: 0.8rem; }
         .md-dropdown[open] .dd-arrow { transform: rotate(180deg); }
         .dd-links {
             display: flex;
@@ -821,6 +871,46 @@
         }
 
         
+        /* Aba Frameworks (v2.21): os cards de tecnica ficam em duas colunas no
+           desktop e em uma no mobile. O exemplo usa o mesmo <pre> global; o
+           rotulo e proprio para nao competir com o titulo do card. */
+        .framework-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .framework-grid .reference-card { margin-bottom: 0; }
+        /* Exemplos longos não devem exigir rolagem horizontal no celular. */
+        #frameworks .reference-card pre {
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+        .framework-source {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+        .framework-example-label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin: 0.75rem 0 0.25rem;
+        }
+        .framework-grid pre { font-size: 0.78rem; }
+        .source-list {
+            margin: 0.5rem 0 0 1.25rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+        .source-list a { color: var(--accent); }
+        @media (max-width: 768px) {
+            .framework-grid { grid-template-columns: 1fr; }
+        }
+
         .site-footer {
             border-top: 1px solid var(--border);
             margin-top: 6rem;
@@ -910,6 +1000,13 @@
         .pg-persona-select {
             width: fit-content;
             max-width: 100%;
+        }
+        /* Mesmo motivo do aviso do RACE: .form-group declara display:flex, e
+           regra de autor vence o display:none que o navegador aplica a
+           [hidden]. Sem esta linha o seletor de formato apareceria tambem nas
+           personas de dialogo. */
+        #pg-framework-group[hidden] {
+            display: none;
         }
         .pg-alert-row {
             display: grid;
@@ -1250,10 +1347,18 @@
             color: var(--text-muted);
             cursor: pointer;
             transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
         .pg-help-close:hover {
             background: var(--accent-soft);
             color: var(--text-main);
+        }
+        .pg-help-close .ui-icon,
+        .pg-banner-close .ui-icon {
+            width: 1.1rem;
+            height: 1.1rem;
         }
         .pg-help-body .alert {
             margin: 0 0 1rem;
@@ -1376,8 +1481,30 @@
             padding: 0.25rem;
             line-height: 1;
             flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
         .pg-banner-close:hover { color: var(--text-main); }
+        .pg-banner-copy {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+        .pg-banner-copy:hover {
+            background: var(--accent-soft);
+            color: var(--text-main);
+            border-color: var(--accent);
+        }
         .pg-clear-btn {
             background: transparent;
             border: 1px solid var(--border);
@@ -1490,6 +1617,11 @@
         }
         .evasive-warning .btn-retry:hover { filter: brightness(0.92); }
         .evasive-warning .btn-retry:disabled { opacity: 0.5; cursor: default; }
+        .evasive-warning .ui-icon,
+        .substitute-warning .ui-icon {
+            width: 0.95rem;
+            height: 0.95rem;
+        }
         .model-card-header {
             display: flex;
             flex-direction: column;
@@ -1523,6 +1655,10 @@
         .model-card-metrics strong {
             color: var(--text-main);
             font-weight: 600;
+        }
+        .model-card-metrics .ui-icon {
+            width: 0.8rem;
+            height: 0.8rem;
         }
         .model-card-body {
             flex: 1;
@@ -1576,6 +1712,10 @@
             color: var(--text-main);
         }
         .pg-turn.assistant.is-streaming .pg-turn-text { opacity: 0.75; }
+        .pg-turn-text.icon-text > .ui-icon {
+            width: 0.95em;
+            height: 0.95em;
+        }
         .pg-turn-head {
             display: flex;
             align-items: center;
@@ -1718,10 +1858,15 @@
             font-weight: 500;
         }
 
-        @media (max-width: 768px) {
+        /* Oito links não cabem no header abaixo de ~1181px. Em vez de
+           espremer a fonte até perder legibilidade, o menu vira o painel
+           lateral já existente; o restante do layout mobile continua em 768px. */
+        @media (max-width: 1180px) {
             nav { position: relative; }
             .hamburger {
-                display: block;
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 position: absolute;
                 right: 0;
                 top: 50%;
@@ -1758,6 +1903,9 @@
             .nav-link:hover { background: var(--accent-soft); }
             .theme-toggle { margin-top: 1.5rem; align-self: flex-start; }
             .lang-toggle { margin-top: 0.75rem; align-self: flex-start; }
+        }
+
+        @media (max-width: 768px) {
             .hero { grid-template-columns: 1fr; padding: 3rem 0 2.5rem; }
             .hero h1 { font-size: 1.75rem; }
             header { padding: 1rem 1.25rem; }
@@ -1778,7 +1926,7 @@
             .playground-actions .btn-secondary { width: 100%; }
             .page-title { font-size: 1.5rem; }
             .page-subtitle { font-size: 0.95rem; }
-            .footer-content { flex-direction: column; gap: 2rem; }
+            .footer-content { grid-template-columns: 1fr; gap: 2rem; }
             .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
             .chat-msg { max-width: 100%; }
             .chat-controls { flex-direction: column; align-items: stretch; gap: 0.75rem; }
@@ -1848,18 +1996,53 @@
 </head>
 <body>
 
+    <svg class="ui-icon-sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+        <symbol id="icon-menu" viewBox="0 0 24 24">
+            <path d="M4 6h16M4 12h16M4 18h16"/>
+        </symbol>
+        <symbol id="icon-close" viewBox="0 0 24 24">
+            <path d="M6 6l12 12M18 6 6 18"/>
+        </symbol>
+        <symbol id="icon-sun" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </symbol>
+        <symbol id="icon-moon" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/>
+        </symbol>
+        <symbol id="icon-alert" viewBox="0 0 24 24">
+            <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/>
+            <path d="M12 9v4M12 17h.01"/>
+        </symbol>
+        <symbol id="icon-clock" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 7v5l3 2"/>
+        </symbol>
+        <symbol id="icon-chevron-down" viewBox="0 0 24 24">
+            <path d="m6 9 6 6 6-6"/>
+        </symbol>
+        <symbol id="icon-spark" viewBox="0 0 24 24">
+            <path d="m12 3 1.9 6.1L20 11l-6.1 1.9L12 19l-1.9-6.1L4 11l6.1-1.9L12 3Z"/>
+        </symbol>
+        <symbol id="icon-copy" viewBox="0 0 24 24">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+        </symbol>
+    </svg>
+
     <header>
         <nav>
             <a href="#home" class="brand-area">
                 <img src="assets/logo-light.png" alt="Claritas" class="brand-logo" id="header-logo">
                 <span class="brand-name">Claritas</span>
             </a>
-            <button class="hamburger" id="hamburger" data-i18n-aria="nav.menu" aria-label="Menu">☰</button>
+            <button class="hamburger" id="hamburger" data-i18n-aria="nav.menu" aria-label="Menu"><svg class="ui-icon" aria-hidden="true" focusable="false"><use href="#icon-menu"></use></svg></button>
             <div class="nav-controls">
                 <div class="nav-links">
                     <a href="#home" class="nav-link active" data-route="home" data-i18n="nav.inicio">Início</a>
                     <a href="#markdown" class="nav-link" data-route="markdown" data-i18n="nav.markdown">Markdown</a>
                     <a href="#prompt" class="nav-link" data-route="prompt" data-i18n="nav.engenharia">Engenharia</a>
+                    <a href="#frameworks" class="nav-link" data-route="frameworks" data-i18n="nav.frameworks">Frameworks</a>
                     <a href="#tokens" class="nav-link" data-route="tokens" data-i18n="nav.economia">Economia</a>
                     <a href="#token-counter" class="nav-link" data-route="token-counter" data-i18n="nav.contador">Contador</a>
                     <a href="#playground" class="nav-link" data-route="playground" data-i18n="nav.playground">Playground</a>
@@ -1871,8 +2054,8 @@
                     <button type="button" class="lang-btn" data-lang="zh" title="中文" data-i18n-title="lang.zh">ZH</button>
                 </div>
                 <div class="theme-toggle">
-                    <button class="theme-btn" data-theme="light" title="Modo Claro" data-i18n-title="nav.theme.light">☀</button>
-                    <button class="theme-btn" data-theme="dark" title="Modo Escuro" data-i18n-title="nav.theme.dark">☾</button>
+                    <button class="theme-btn" data-theme="light" title="Modo Claro" data-i18n-title="nav.theme.light" aria-label="Modo Claro" data-i18n-aria="nav.theme.light"><svg class="ui-icon" aria-hidden="true" focusable="false"><use href="#icon-sun"></use></svg></button>
+                    <button class="theme-btn" data-theme="dark" title="Modo Escuro" data-i18n-title="nav.theme.dark" aria-label="Modo Escuro" data-i18n-aria="nav.theme.dark"><svg class="ui-icon" aria-hidden="true" focusable="false"><use href="#icon-moon"></use></svg></button>
                 </div>
             </div>
         </nav>
@@ -1885,7 +2068,10 @@
         <section id="home" class="page active">
             <div class="hero">
                 <div class="hero-content">
-                    <span class="hero-badge" data-i18n="hero.badge">Acesso gratuito — IA como ferramenta</span>
+                    <span class="hero-badge">
+                        <svg class="ui-icon" aria-hidden="true" focusable="false"><use href="#icon-spark"></use></svg>
+                        <span data-i18n="hero.badge">Acesso gratuito — IA como ferramenta</span>
+                    </span>
                     <h1><span data-i18n="hero.tituloPrefix">Comunicação</span> <em data-i18n="hero.tituloDestaque">estruturada</em> <span data-i18n="hero.tituloSuffix">para Inteligência Artificial.</span></h1>
                     <p data-i18n="hero.descricao">Um guia prático sobre Engenharia de Prompt, Markdown e otimização de tokens. Conhecimento acessível a qualquer área — acadêmica, profissional ou pessoal — para usar a IA como parceira e ferramenta, com rigor, clareza e sem custo.</p>
                     <div class="hero-stats">
@@ -1905,6 +2091,7 @@
                 </div>
                 <div class="hero-visual">
                     <div class="code-preview">
+                        <div class="code-window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
                         <div class="code-line"># PROTOCOLO OPERACIONAL</div>
                         <div class="code-line highlight">1. RIGOR LÓGICO: Valide premissas</div>
                         <div class="code-line">2. TOLERÂNCIA ZERO: Sem alucinações</div>
@@ -1954,7 +2141,7 @@
             </div>
 
             <details class="md-dropdown">
-                <summary><span data-i18n="md.navegar">Navegar</span> <span class="dd-arrow">▾</span></summary>
+                <summary><span data-i18n="md.navegar">Navegar</span> <span class="dd-arrow" aria-hidden="true"><svg class="ui-icon" focusable="false"><use href="#icon-chevron-down"></use></svg></span></summary>
                 <div class="dd-links">
                     <a href="#md-titulos" data-goto="md-titulos" class="dd-link" data-i18n="md.ancora.titulos">Títulos</a>
                     <a href="#md-enfase" data-goto="md-enfase" class="dd-link" data-i18n="md.ancora.enfase">Ênfase</a>
@@ -2293,6 +2480,340 @@ MIT</code></pre>
         </section>
 
         
+        <section id="frameworks" class="page">
+            <div class="page-header">
+                <h1 class="page-title" data-i18n="fw.titulo">Frameworks de Prompt</h1>
+                <p class="page-subtitle" data-i18n="fw.subtitulo">Estruturas para organizar o pedido — não garantias de resultado.</p>
+            </div>
+
+            <div class="content-section">
+                <div class="alert" data-i18n="fw.aviso">
+                    <strong>Antes de escolher um formato:</strong> framework nenhum substitui contexto, critério de sucesso e verificação. Um prompt bem estruturado sobre uma premissa falsa continua produzindo uma resposta falsa.
+                </div>
+                <p class="content-text" data-i18n="fw.intro">Esta aba separa duas coisas que costumam ser misturadas: <strong>frameworks de composição</strong>, que definem como o pedido é montado, e <strong>técnicas acadêmicas</strong>, que definem que tipo de raciocínio você pede à IA-alvo. O Playground gera prompts nos três formatos da primeira seção; as técnicas da segunda entram no texto que você leva para outra IA.</p>
+
+                <h2 class="section-title" data-i18n="fw.estrutura">0. Como o pedido é estruturado</h2>
+                <p class="content-text" data-i18n="fw.estrutura_desc">Antes de escolher técnica ou formato, defina o tipo de instrução. A IBM separa três: direta, aberta e específica de tarefa. Cada uma pede um grau diferente de detalhe.</p>
+                <div class="framework-grid">
+                    <div class="reference-card">
+                        <h3 data-i18n="fw.instrucao_direta.h3">Instrução direta</h3>
+                        <p class="content-text" data-i18n="fw.instrucao_direta.desc">Comando claro e específico. Ideal quando o usuário sabe exatamente o que quer.</p>
+                        <p class="framework-example-label" data-i18n="fw.exemplo">Exemplo de prompt</p>
+                        <pre><code data-i18n-code="fw.instrucao_direta.ex">Escreva um poema sobre a natureza.</code></pre>
+                        <p class="framework-source"><span data-i18n="fw.fonte_label">Fonte:</span> <span data-i18n="fw.ibm_fonte">IBM Think — Técnicas de engenharia de prompts.</span></p>
+                    </div>
+                    <div class="reference-card">
+                        <h3 data-i18n="fw.instrucao_aberta.h3">Instrução aberta</h3>
+                        <p class="content-text" data-i18n="fw.instrucao_aberta.desc">Menos restritiva; incentiva exploração e criatividade. Útil para brainstorming.</p>
+                        <p class="framework-example-label" data-i18n="fw.exemplo">Exemplo de prompt</p>
+                        <pre><code data-i18n-code="fw.instrucao_aberta.ex">Fale sobre o universo.</code></pre>
+                        <p class="framework-source"><span data-i18n="fw.fonte_label">Fonte:</span> <span data-i18n="fw.ibm_fonte">IBM Think — Técnicas de engenharia de prompts.</span></p>
+                    </div>
+                    <div class="reference-card">
+                        <h3 data-i18n="fw.instrucao_tarefa.h3">Instrução específica de tarefa</h3>
+                        <p class="content-text" data-i18n="fw.instrucao_tarefa.desc">Criada para tarefas precisas: tradução, sumarização, cálculo. Pode incluir contexto ou exemplos.</p>
+                        <p class="framework-example-label" data-i18n="fw.exemplo">Exemplo de prompt</p>
+                        <pre><code data-i18n-code="fw.instrucao_tarefa.ex">Traduza para o francês: 'Olá.'</code></pre>
+                        <p class="framework-source"><span data-i18n="fw.fonte_label">Fonte:</span> <span data-i18n="fw.ibm_fonte">IBM Think — Técnicas de engenharia de prompts.</span></p>
+                    </div>
+                </div>
+
+                <h2 class="section-title" data-i18n="fw.composicao">1. Frameworks de composição</h2>
+                <p class="content-text" data-i18n="fw.composicao_desc">Escolha pelo critério que mais muda a resposta. Não empilhe formatos: um pedido com RACE e CO-STAR ao mesmo tempo vira um questionário.</p>
+
+                <div class="reference-card">
+                    <h3 data-i18n="fw.race.h3">RACE — Papel, Ação, Contexto, Expectativa</h3>
+                    <p class="content-text" data-i18n="fw.race.desc">Quatro elementos: o papel concreto da IA-alvo, uma ação com entregável verificável, o contexto que muda o resultado e a expectativa (formato, extensão e critério de sucesso). É o formato padrão do Arquiteto deste portal; a saída sai como texto natural, sem rótulos.</p>
+                    <p data-i18n="fw.race.quando"><strong>Recomendado para:</strong> delegar a agentes e tarefas com entregável claro — skill, plano, revisão, código. <strong>Evite quando:</strong> o estilo e o público são o ponto principal; nesse caso, CO-STAR dá mais controle.</p>
+                    <p class="framework-source"><span data-i18n="fw.fonte_label">Fonte:</span> <span data-i18n="fw.race.fonte">Framework de composição usado neste portal. Não é um paper acadêmico: é uma convenção de organização do pedido.</span></p>
+                    <p class="framework-example-label" data-i18n="fw.exemplo">Exemplo de prompt</p>
+                    <pre><code data-i18n-code="fw.race.ex">Você é um revisor de código sênior. Revise o diff abaixo e aponte apenas riscos reais.
+
+Contexto: serviço de pagamentos em Node.js; o diff altera o cálculo de frete.
+
+Entregue: lista de achados com arquivo:linha, severidade e correção sugerida.
+
+Formato: Markdown, no máximo 8 itens, sem elogios nem resumo executivo.</code></pre>
+                </div>
+
+                <div class="reference-card">
+                    <h3 data-i18n="fw.costar.h3">CO-STAR — Contexto, Objetivo, Estilo, Tom, Público, Resposta</h3>
+                    <p class="content-text" data-i18n="fw.costar.desc">Criado por Sheila Teo (GovTech Singapura) para a competição de prompt engineering com GPT-4 em 2023. Seis blocos, com atenção explícita a estilo, tom e público — útil quando a forma da resposta importa tanto quanto o conteúdo.</p>
+                    <p data-i18n="fw.costar.quando"><strong>Recomendado para:</strong> conteúdo editorial, comunicação executiva, atendimento, tradução com tom definido e qualquer tarefa em que público e registro mudam a resposta. <strong>Evite quando:</strong> o pedido é técnico e o tom é irrelevante; os blocos de estilo e tom viram ruído.</p>
+                    <p class="framework-source"><span data-i18n="fw.fonte_label">Fonte:</span> Sheila Teo, <em>How I Won Singapore's GPT-4 Prompt Engineering Competition</em>, Towards Data Science, 2023; GovTech Singapore.</p>
+                    <p class="framework-example-label" data-i18n="fw.exemplo">Exemplo de prompt</p>
+                    <pre><code data-i18n-code="fw.costar.ex">Contexto: somos uma fintech que acabou de mudar a política de tarifas.
+Objetivo: comunicar a mudança sem perder a confiança dos clientes.
+Estilo: direto e transparente, sem juridiquês.
+Tom: tranquilizador, mas sóbrio.
+Público: clientes pessoa física que usam a conta há mais de um ano.
+Resposta: e-mail de até 180 palavras, com assunto e um próximo passo claro.</code></pre>
+                </div>
+
+                <div class="reference-card">
+                    <h3 data-i18n="fw.crispe.h3">CRISPE — Capacidade e Papel, Insight, Tarefa, Personalidade, Experimento</h3>
+                    <p class="content-text" data-i18n="fw.crispe.desc">Formato divulgado por Matt Nigh na lista aberta ChatGPT3-Free-Prompt-List (2023). Define capacidade e papel, traz um insight de contexto, declara a tarefa, ajusta personalidade e pede experimentos — útil para explorar variantes em vez de fechar um único pedido.</p>
+                    <p data-i18n="fw.crispe.quando"><strong>Recomendado para:</strong> brainstorming, design de prompts e tarefas ambíguas que se beneficiam de alternativas. <strong>Evite quando:</strong> você precisa de resposta determinística e curta; o bloco de experimento convida à variação.</p>
+                    <p class="framework-source"><span data-i18n="fw.fonte_label">Fonte:</span> Matt Nigh, <em>ChatGPT3-Free-Prompt-List</em> (GitHub, 2023).</p>
+                    <p class="framework-example-label" data-i18n="fw.exemplo">Exemplo de prompt</p>
+                    <pre><code data-i18n-code="fw.crispe.ex">Capacidade e papel: estrategista de produto sênior, com experiência em SaaS B2B.
+Insight: o produto é bom, mas o onboarding perde usuários no terceiro passo.
+Tarefa: proponha hipóteses para reduzir o abandono nesse ponto.
+Personalidade: cético, direto e orientado a evidências.
+Experimento: gere 3 hipóteses, uma métrica para cada e o teste mais barato para validá-las.</code></pre>
+                </div>
+
+                <h2 class="section-title" data-i18n="fw.tecnicas">2. Técnicas acadêmicas (camada opcional)</h2>
+                <p class="content-text" data-i18n="fw.tecnicas_desc">Elas não substituem o framework: entram como instrução dentro do prompt. Só funcionam se o modelo-alvo tiver capacidade para seguir os passos; pedir raciocínio passo a passo a um modelo pequeno pode piorar a resposta.</p>
+
+                <div class="framework-grid">
+                    <div class="reference-card">
+                        <h3>Chain-of-Thought (CoT)</h3>
+                        <p class="content-text" data-i18n="fw.cot.desc">Pedir que o modelo explicite etapas intermediárias antes da resposta final. Funciona melhor em tarefas de raciocínio com várias etapas; não é sinônimo de pensar mais em qualquer tarefa.</p>
+                        <p data-i18n="fw.cot.quando"><strong>Use para:</strong> aritmética, lógica e análises com etapas encadeadas. <strong>Evite para:</strong> recuperação factual simples, em que etapas extras só aumentam custo e latência.</p>
+                        <p class="framework-example-label" data-i18n="fw.exemplo">Exemplo de prompt</p>
+                        <pre><code data-i18n-code="fw.cot.ex">Resolva passo a passo. Mostre cada etapa antes da resposta final e confira o resultado.</code></pre>
+                    </div>
+                    <div class="reference-card">
+                        <h3>ReAct</h3>
+                        <p class="content-text" data-i18n="fw.react.desc">Alterna raciocínio e ação: o modelo pensa, consulta uma ferramenta ou fonte, observa o resultado e repete. Depende de ferramentas reais no ambiente — pedir para usar a internet sem busca conectada é encenação.</p>
+                        <p data-i18n="fw.react.quando"><strong>Use para:</strong> tarefas que exigem busca, cálculo externo ou consulta a APIs. <strong>Evite quando:</strong> não há ferramenta conectada disponível.</p>
+                        <p class="framework-example-label" data-i18n="fw.exemplo">Exemplo de prompt</p>
+                        <pre><code data-i18n-code="fw.react.ex">A cada etapa: (1) diga o que falta descobrir; (2) use a ferramenta disponível; (3) observe o resultado; (4) repita até concluir. Não invente observações.</code></pre>
+                    </div>
+                    <div class="reference-card">
+                        <h3>Self-Consistency</h3>
+                        <p class="content-text" data-i18n="fw.selfcons.desc">Gera vários caminhos de raciocínio independentes e escolhe a resposta mais frequente. É um método de amostragem, não uma frase mágica: exige múltiplas chamadas ou suporte do provedor.</p>
+                        <p data-i18n="fw.selfcons.quando"><strong>Use para:</strong> respostas com um único resultado correto e custo de erro alto. <strong>Evite quando:</strong> a tarefa é aberta ou criativa, ou quando várias amostras custam mais do que o erro evitado.</p>
+                        <p class="framework-example-label" data-i18n="fw.exemplo">Exemplo de prompt</p>
+                        <pre><code data-i18n-code="fw.selfcons.ex">Produza três raciocínios independentes sobre o problema. Compare as conclusões e responda com a que aparecer na maioria.</code></pre>
+                    </div>
+                    <div class="reference-card">
+                        <h3>Least-to-Most</h3>
+                        <p class="content-text" data-i18n="fw.l2m.desc">Decompõe o problema em subproblemas e os resolve em ordem crescente de dificuldade, reutilizando a resposta anterior. Útil quando a tarefa tem dependências internas.</p>
+                        <p data-i18n="fw.l2m.quando"><strong>Use para:</strong> problemas decomponíveis, planejamento e matemática com etapas. <strong>Evite quando:</strong> a decomposição é artificial e só alonga a resposta.</p>
+                        <p class="framework-example-label" data-i18n="fw.exemplo">Exemplo de prompt</p>
+                        <pre><code data-i18n-code="fw.l2m.ex">Liste os subproblemas em ordem de dependência. Resolva o mais simples primeiro e use cada resultado no seguinte.</code></pre>
+                    </div>
+                    <div class="reference-card">
+                        <h3>Zero-shot</h3>
+                        <p class="content-text" data-i18n="fw.zeroshot.desc">Pede a tarefa sem exemplos ou orientação prévia. Depende do conhecimento pré-treinado do modelo.</p>
+                        <p data-i18n="fw.zeroshot.quando"><strong>Use para:</strong> tarefas simples e claras. <strong>Evite quando:</strong> o formato ou o tom são incomuns.</p>
+                        <p class="framework-example-label" data-i18n="fw.exemplo">Exemplo de prompt</p>
+                        <pre><code data-i18n-code="fw.zeroshot.ex">Explique a mudança climática, suas causas e efeitos em termos simples.</code></pre>
+                        <p class="framework-source"><span data-i18n="fw.fonte_label">Fonte:</span> <span data-i18n="fw.ibm_fonte">IBM Think — Técnicas de engenharia de prompts.</span></p>
+                    </div>
+                    <div class="reference-card">
+                        <h3>Few-shot</h3>
+                        <p class="content-text" data-i18n="fw.fewshot.desc">Inclui um pequeno número de exemplos para demonstrar a tarefa e o formato esperado.</p>
+                        <p data-i18n="fw.fewshot.quando"><strong>Use para:</strong> tarefas com formato ou estilo específico. <strong>Evite quando:</strong> os exemplos são longos ou enviesados.</p>
+                        <p class="framework-example-label" data-i18n="fw.exemplo">Exemplo de prompt</p>
+                        <pre><code data-i18n-code="fw.fewshot.ex">Tópico: Fotossíntese\nExplicação: plantas convertem luz, água e CO₂ em energia e oxigênio.\n\nTópico: Gravidade\nExplicação: força que puxa objetos, como a Terra nos puxa.\n\nAgora explique: Mudança Climática.</code></pre>
+                        <p class="framework-source"><span data-i18n="fw.fonte_label">Fonte:</span> <span data-i18n="fw.ibm_fonte">IBM Think — Técnicas de engenharia de prompts.</span></p>
+                    </div>
+                    <div class="reference-card">
+                        <h3>Tree of Thoughts (ToT)</h3>
+                        <p class="content-text" data-i18n="fw.tot.desc">Explora vários ramos de raciocínio antes de chegar ao resultado final. Útil para problemas que exigem deliberação.</p>
+                        <p data-i18n="fw.tot.quando"><strong>Use para:</strong> decisões complexas, planejamento. <strong>Evite quando:</strong> a tarefa é direta e a exploração só aumenta custo.</p>
+                        <p class="framework-example-label" data-i18n="fw.exemplo">Exemplo de prompt</p>
+                        <pre><code data-i18n-code="fw.tot.ex">Liste três formas de explicar mudança climática ao público geral. Para cada, descreva vantagens e desvantagens. Escolha a melhor e desenvolva.</code></pre>
+                        <p class="framework-source"><span data-i18n="fw.fonte_label">Fonte:</span> <span data-i18n="fw.ibm_fonte">IBM Think — Técnicas de engenharia de prompts.</span> <a href="https://arxiv.org/abs/2305.10601" target="_blank" rel="noopener noreferrer">arXiv:2305.10601</a></p>
+                    </div>
+                    <div class="reference-card">
+                        <h3>Reflexion</h3>
+                        <p class="content-text" data-i18n="fw.reflexion.desc">O modelo avalia sua saída anterior e a refina para maior precisão ou coerência.</p>
+                        <p data-i18n="fw.reflexion.quando"><strong>Use para:</strong> revisão iterativa, melhoria de qualidade. <strong>Evite quando:</strong> o custo de múltiplas rodadas não se justifica.</p>
+                        <p class="framework-example-label" data-i18n="fw.exemplo">Exemplo de prompt</p>
+                        <pre><code data-i18n-code="fw.reflexion.ex">Aqui está minha primeira tentativa de explicar mudança climática: [saída]. Revise e melhore a clareza e a precisão.</code></pre>
+                        <p class="framework-source"><span data-i18n="fw.fonte_label">Fonte:</span> <span data-i18n="fw.ibm_fonte">IBM Think — Técnicas de engenharia de prompts.</span> <a href="https://arxiv.org/abs/2303.11366" target="_blank" rel="noopener noreferrer">arXiv:2303.11366</a></p>
+                    </div>
+                    <div class="reference-card">
+                        <h3>Prompt chaining</h3>
+                        <p class="content-text" data-i18n="fw.chaining.desc">Vincula vários prompts em sequência, onde a saída de um alimenta o próximo. Ideal para processos multietapas.</p>
+                        <p data-i18n="fw.chaining.quando"><strong>Use para:</strong> tarefas com etapas dependentes. <strong>Evite quando:</strong> a cadeia pode ser colapsada em um único prompt.</p>
+                        <p class="framework-example-label" data-i18n="fw.exemplo">Exemplo de prompt</p>
+                        <pre><code data-i18n-code="fw.chaining.ex">Prompt 1: O que é mudança climática? Definição breve.\nPrompt 2: Quais as causas primárias?\nPrompt 3: Quais os efeitos no meio ambiente e na vida humana?</code></pre>
+                        <p class="framework-source"><span data-i18n="fw.fonte_label">Fonte:</span> <span data-i18n="fw.ibm_fonte">IBM Think — Técnicas de engenharia de prompts.</span></p>
+                    </div>
+                    <div class="reference-card">
+                        <h3>Meta-prompting</h3>
+                        <p class="content-text" data-i18n="fw.metaprompt.desc">Pede ao modelo que gere ou refine seus próprios prompts para executar melhor a tarefa.</p>
+                        <p data-i18n="fw.metaprompt.quando"><strong>Use para:</strong> melhorar a qualidade da saída por autodirecionamento. <strong>Evite quando:</strong> o modelo não tem capacidade de autocrítica.</p>
+                        <p class="framework-example-label" data-i18n="fw.exemplo">Exemplo de prompt</p>
+                        <pre><code data-i18n-code="fw.metaprompt.ex">Crie um prompt que o ajude a explicar mudança climática, suas causas e efeitos em termos simples.</code></pre>
+                        <p class="framework-source"><span data-i18n="fw.fonte_label">Fonte:</span> <span data-i18n="fw.ibm_fonte">IBM Think — Técnicas de engenharia de prompts.</span> <a href="https://arxiv.org/abs/2311.11482" target="_blank" rel="noopener noreferrer">arXiv:2311.11482</a></p>
+                    </div>
+                    <div class="reference-card">
+                        <h3>Generated knowledge</h3>
+                        <p class="content-text" data-i18n="fw.genknowledge.desc">Pede ao modelo que gere conhecimento prévio antes da tarefa principal, aprimorando respostas informadas.</p>
+                        <p data-i18n="fw.genknowledge.quando"><strong>Use para:</strong> tarefas que exigem contexto científico ou técnico. <strong>Evite quando:</strong> o conhecimento gerado pode ser impreciso.</p>
+                        <p class="framework-example-label" data-i18n="fw.exemplo">Exemplo de prompt</p>
+                        <pre><code data-i18n-code="fw.genknowledge.ex">Antes de explicar mudança climática, liste os princípios científicos-chave. Depois, use-os para explicar o conceito, causas e efeitos.</code></pre>
+                        <p class="framework-source"><span data-i18n="fw.fonte_label">Fonte:</span> <span data-i18n="fw.ibm_fonte">IBM Think — Técnicas de engenharia de prompts.</span> <a href="https://arxiv.org/abs/2110.08387" target="_blank" rel="noopener noreferrer">arXiv:2110.08387</a></p>
+                    </div>
+                    <div class="reference-card">
+                        <h3>Prompt ativo</h3>
+                        <p class="content-text" data-i18n="fw.active.desc">Ajusta dinamicamente o prompt com base em resultados intermediários, refinando a entrada.</p>
+                        <p data-i18n="fw.active.quando"><strong>Use para:</strong> refinamento iterativo. <strong>Evite quando:</strong> o ciclo de ajuste não agrega valor.</p>
+                        <p class="framework-example-label" data-i18n="fw.exemplo">Exemplo de prompt</p>
+                        <pre><code data-i18n-code="fw.active.ex">Explique mudança climática em termos simples.\n\nAdicione mais detalhes sobre as causas, focando em atividades humanas.</code></pre>
+                        <p class="framework-source"><span data-i18n="fw.fonte_label">Fonte:</span> <span data-i18n="fw.ibm_fonte">IBM Think — Técnicas de engenharia de prompts.</span> <a href="https://arxiv.org/abs/2302.12246" target="_blank" rel="noopener noreferrer">arXiv:2302.12246</a></p>
+                    </div>
+                    <div class="reference-card">
+                        <h3>Diretiva de estímulo (DSP)</h3>
+                        <p class="content-text" data-i18n="fw.dsp.desc">Usa pistas direcionais para levar o modelo a um tipo específico de resposta ou perspectiva.</p>
+                        <p data-i18n="fw.dsp.quando"><strong>Use para:</strong> controlar tom e perspectiva. <strong>Evite quando:</strong> a direção é vaga ou contraditória.</p>
+                        <p class="framework-example-label" data-i18n="fw.exemplo">Exemplo de prompt</p>
+                        <pre><code data-i18n-code="fw.dsp.ex">Explique mudança climática do ponto de vista de um ambientalista, focando na necessidade de ação imediata.</code></pre>
+                        <p class="framework-source"><span data-i18n="fw.fonte_label">Fonte:</span> <span data-i18n="fw.ibm_fonte">IBM Think — Técnicas de engenharia de prompts.</span> <a href="https://arxiv.org/abs/2302.12173" target="_blank" rel="noopener noreferrer">arXiv:2302.12173</a></p>
+                    </div>
+                    <div class="reference-card">
+                        <h3>Papel e persona</h3>
+                        <p class="content-text" data-i18n="fw.persona.desc">Atribui um papel (professor, consultor, etc.) para orientar conteúdo e tom. Amplamente usado na prática.</p>
+                        <p data-i18n="fw.persona.quando"><strong>Use para:</strong> quando o estilo e o público definem a resposta. <strong>Evite quando:</strong> o papel é genérico ou irrelevante.</p>
+                        <p class="framework-example-label" data-i18n="fw.exemplo">Exemplo de prompt</p>
+                        <pre><code data-i18n-code="fw.persona.ex">Você é um especialista em finanças para casais. Em linguagem acessível, elabore um passo a passo para evitar conflitos financeiros no casamento.</code></pre>
+                        <p class="framework-source"><span data-i18n="fw.fonte_label">Fonte:</span> <span data-i18n="fw.infomoney_fonte">InfoMoney — Guia de prompts.</span></p>
+                    </div>
+                    <div class="reference-card">
+                        <h3>Formato específico</h3>
+                        <p class="content-text" data-i18n="fw.formato.desc">Especifica a forma de apresentação: tabela, lista, tópicos, JSON. Quanto mais específico o comando, mais direta a resposta.</p>
+                        <p data-i18n="fw.formato.quando"><strong>Use para:</strong> quando a forma de entrega importa tanto quanto o conteúdo. <strong>Evite quando:</strong> o formato restringe demais a resposta.</p>
+                        <p class="framework-example-label" data-i18n="fw.exemplo">Exemplo de prompt</p>
+                        <pre><code data-i18n-code="fw.formato.ex">Monte uma tabela comparando três carros elétricos com colunas de autonomia, custo-benefício, recarga e perfil ideal.</code></pre>
+                        <p class="framework-source"><span data-i18n="fw.fonte_label">Fonte:</span> <span data-i18n="fw.infomoney_fonte">InfoMoney — Guia de prompts.</span></p>
+                    </div>
+                </div>
+
+                <h3 data-i18n="fw.infra_titulo">Técnicas que exigem infraestrutura</h3>
+                <p class="content-text" data-i18n="fw.infra_desc">Estas não se resolvem com texto sozinho: dependem de sistemas conectados. O prompt pode instruir a IA-alvo a usá-los, mas o ambiente precisa fornecê-los.</p>
+                <div class="framework-grid">
+                    <div class="reference-card">
+                        <h3>RAG</h3>
+                        <p class="content-text" data-i18n="fw.rag.desc">Combina recuperação de informações externas com geração. O prompt instrui a IA-alvo a usar documentos fornecidos.</p>
+                        <p data-i18n="fw.rag.quando"><strong>Requer:</strong> base de documentos e mecanismo de busca. <strong>Use para:</strong> perguntas sobre dados específicos.</p>
+                        <p class="framework-example-label" data-i18n="fw.exemplo">Exemplo de prompt</p>
+                        <pre><code data-i18n-code="fw.rag.ex">Usando os dados de temperatura da NASA, explique mudança climática em termos simples.</code></pre>
+                        <p class="framework-source"><span data-i18n="fw.fonte_label">Fonte:</span> <span data-i18n="fw.ibm_fonte">IBM Think — Técnicas de engenharia de prompts.</span> <a href="https://arxiv.org/abs/2005.11401" target="_blank" rel="noopener noreferrer">arXiv:2005.11401</a></p>
+                    </div>
+                    <div class="reference-card">
+                        <h3>ReAct</h3>
+                        <p class="content-text" data-i18n="fw.react.desc">Alterna raciocínio e ação: pensa, consulta ferramenta, observa, repete. Depende de ferramentas reais.</p>
+                        <p data-i18n="fw.react.quando"><strong>Requer:</strong> ferramentas conectadas (busca, API, calculadora). <strong>Use para:</strong> tarefas que exigem dados externos.</p>
+                        <p class="framework-example-label" data-i18n="fw.exemplo">Exemplo de prompt</p>
+                        <pre><code data-i18n-code="fw.react.ex">A cada etapa: (1) diga o que falta descobrir; (2) use a ferramenta; (3) observe; (4) repita. Não invente observações.</code></pre>
+                        <p class="framework-source"><span data-i18n="fw.fonte_label">Fonte:</span> <span data-i18n="fw.ibm_fonte">IBM Think — Técnicas de engenharia de prompts.</span> <a href="https://arxiv.org/abs/2210.03629" target="_blank" rel="noopener noreferrer">arXiv:2210.03629</a></p>
+                    </div>
+                    <div class="reference-card">
+                        <h3>PALM</h3>
+                        <p class="content-text" data-i18n="fw.palm.desc">Integra programação para aumentar raciocínio e cálculo. O prompt instrui a IA-alvo a gerar código.</p>
+                        <p data-i18n="fw.palm.quando"><strong>Requer:</strong> execução de código. <strong>Use para:</strong> visualização, cálculo, análise de dados.</p>
+                        <p class="framework-example-label" data-i18n="fw.exemplo">Exemplo de prompt</p>
+                        <pre><code data-i18n-code="fw.palm.ex">Escreva código Python para visualizar o aumento de temperaturas globais. Depois explique como isso se relaciona com mudança climática.</code></pre>
+                        <p class="framework-source"><span data-i18n="fw.fonte_label">Fonte:</span> <span data-i18n="fw.ibm_fonte">IBM Think — Técnicas de engenharia de prompts.</span> <a href="https://arxiv.org/abs/2211.10435" target="_blank" rel="noopener noreferrer">arXiv:2211.10435</a></p>
+                    </div>
+                    <div class="reference-card">
+                        <h3>CoT multimodal</h3>
+                        <p class="content-text" data-i18n="fw.multimodal.desc">Integra raciocínio em várias modalidades: texto, imagens, áudio.</p>
+                        <p data-i18n="fw.multimodal.quando"><strong>Requer:</strong> modelo multimodal. <strong>Use para:</strong> análise de imagens, gráficos, documentos visuais.</p>
+                        <p class="framework-example-label" data-i18n="fw.exemplo">Exemplo de prompt</p>
+                        <pre><code data-i18n-code="fw.multimodal.ex">Analise este infográfico sobre tendências de aquecimento global e explique mudança climática passo a passo.</code></pre>
+                        <p class="framework-source"><span data-i18n="fw.fonte_label">Fonte:</span> <span data-i18n="fw.ibm_fonte">IBM Think — Técnicas de engenharia de prompts.</span> <a href="https://arxiv.org/abs/2302.00923" target="_blank" rel="noopener noreferrer">arXiv:2302.00923</a></p>
+                    </div>
+                    <div class="reference-card">
+                        <h3>Graph prompting</h3>
+                        <p class="content-text" data-i18n="fw.graph.desc">Aproveita estruturas baseadas em gráficos para organizar e raciocinar sobre relações complexas.</p>
+                        <p data-i18n="fw.graph.quando"><strong>Requer:</strong> dados em grafo. <strong>Use para:</strong> redes de conhecimento, relações entre entidades.</p>
+                        <p class="framework-example-label" data-i18n="fw.exemplo">Exemplo de prompt</p>
+                        <pre><code data-i18n-code="fw.graph.ex">Usando o grafo de emissões de CO₂ ao longo do tempo, explique como isso se relaciona com mudança climática.</code></pre>
+                        <p class="framework-source"><span data-i18n="fw.fonte_label">Fonte:</span> <span data-i18n="fw.ibm_fonte">IBM Think — Técnicas de engenharia de prompts.</span></p>
+                    </div>
+                </div>
+
+                <h2 class="section-title" data-i18n="fw.erros">Erros comuns ao criar prompts</h2>
+                <p class="content-text" data-i18n="fw.erros_desc">Cinco erros frequentes, com a correção. Adaptado do guia da InfoMoney.</p>
+                <div class="framework-grid">
+                    <div class="reference-card">
+                        <h3 data-i18n="fw.erro1.h3">1. Solicitação vaga</h3>
+                        <p class="content-text" data-i18n="fw.erro1.desc">Prompt genérico gera resposta genérica. Adicione detalhes: público, extensão, contexto.</p>
+                        <p class="framework-example-label" data-i18n="fw.exemplo_ruim">Exemplo fraco</p>
+                        <pre><code data-i18n-code="fw.erro1.ruim">Fale sobre viagens.</code></pre>
+                        <p class="framework-example-label" data-i18n="fw.exemplo_bom">Versão melhor</p>
+                        <pre><code data-i18n-code="fw.erro1.bom">Liste cinco destinos na América do Sul para quem vai viajar em 2025 com orçamento de até R$ 5.000.</code></pre>
+                    </div>
+                    <div class="reference-card">
+                        <h3 data-i18n="fw.erro2.h3">2. Muitas tarefas no mesmo pedido</h3>
+                        <p class="content-text" data-i18n="fw.erro2.desc">Reunir várias demandas confunde a IA e aumenta respostas incompletas. Peça uma coisa por vez.</p>
+                        <p class="framework-example-label" data-i18n="fw.exemplo_ruim">Exemplo fraco</p>
+                        <pre><code data-i18n-code="fw.erro2.ruim">Explique a Selic, faça uma tabela do impacto e traduza para o inglês.</code></pre>
+                        <p class="framework-example-label" data-i18n="fw.exemplo_bom">Versão melhor</p>
+                        <pre><code data-i18n-code="fw.erro2.bom">Explique o que é a taxa Selic em até 150 palavras para leigos.</code></pre>
+                    </div>
+                    <div class="reference-card">
+                        <h3 data-i18n="fw.erro3.h3">3. Sem tom ou público-alvo</h3>
+                        <p class="content-text" data-i18n="fw.erro3.desc">O mesmo conteúdo pode vir técnico ou didático. Defina para quem e em qual registro.</p>
+                        <p class="framework-example-label" data-i18n="fw.exemplo_ruim">Exemplo fraco</p>
+                        <pre><code data-i18n-code="fw.erro3.ruim">Explique o que é fração.</code></pre>
+                        <p class="framework-example-label" data-i18n="fw.exemplo_bom">Versão melhor</p>
+                        <pre><code data-i18n-code="fw.erro3.bom">Explique o que é fração para alunos de 10 anos, usando exemplos visuais como pizza.</code></pre>
+                    </div>
+                    <div class="reference-card">
+                        <h3 data-i18n="fw.erro4.h3">4. Sem formato ou tamanho</h3>
+                        <p class="content-text" data-i18n="fw.erro4.desc">Sem parâmetros, a IA entrega algo diferente do esperado. Diga lista, tabela, tópicos ou texto corrido.</p>
+                        <p class="framework-example-label" data-i18n="fw.exemplo_ruim">Exemplo fraco</p>
+                        <pre><code data-i18n-code="fw.erro4.ruim">Resuma o livro Dom Casmurro.</code></pre>
+                        <p class="framework-example-label" data-i18n="fw.exemplo_bom">Versão melhor</p>
+                        <pre><code data-i18n-code="fw.erro4.bom">Resuma Dom Casmurro em até 1000 palavras, com subtítulos, listas e linguagem narrativa.</code></pre>
+                    </div>
+                    <div class="reference-card">
+                        <h3 data-i18n="fw.erro5.h3">5. Não refinar</h3>
+                        <p class="content-text" data-i18n="fw.erro5.desc">Ajuste o prompt a cada retorno em vez de refazer do zero. Mantenha o que funcionou e mude uma coisa por vez.</p>
+                        <p class="framework-example-label" data-i18n="fw.exemplo_ruim">Exemplo fraco</p>
+                        <pre><code data-i18n-code="fw.erro5.ruim">Refaça tudo de outro jeito.</code></pre>
+                        <p class="framework-example-label" data-i18n="fw.exemplo_bom">Versão melhor</p>
+                        <pre><code data-i18n-code="fw.erro5.bom">Mantenha a introdução, mas reescreva os exemplos em linguagem mais simples e resumida.</code></pre>
+                    </div>
+                </div>
+
+                <h2 class="section-title" data-i18n="fw.checklist">Checklist antes de enviar</h2>
+                <p class="content-text" data-i18n="fw.checklist_desc">Cinco verificações rápidas. Adaptado do guia da InfoMoney.</p>
+                <ul class="content-text">
+                    <li data-i18n="fw.check1">O objetivo é verificável? (entregável claro, não vago)</li>
+                    <li data-i18n="fw.check2">Público e tom estão definidos?</li>
+                    <li data-i18n="fw.check3">Formato e tamanho estão especificados?</li>
+                    <li data-i18n="fw.check4">Exemplos são necessários? Se sim, estão incluídos?</li>
+                    <li data-i18n="fw.check5">Há critério de verificação ou plano de refinamento?</li>
+                </ul>
+
+                <h2 class="section-title" data-i18n="fw.como_escolher">Como escolher sem decorar sigla</h2>
+                <p class="content-text" data-i18n="fw.como_escolher_desc">Se o entregável é claro e o tom não importa, use <strong>RACE</strong>. Se o público e o registro decidem a resposta, use <strong>CO-STAR</strong>. Se você quer explorar alternativas antes de fechar, use <strong>CRISPE</strong>. Se o problema exige raciocínio em etapas, acrescente uma técnica acadêmica — desde que o modelo-alvo tenha capacidade para segui-la. E sempre verifique o resultado: o formato organiza o pedido, não garante o acerto.</p>
+                <p class="content-text" data-i18n="fw.cta"><strong>Teste agora:</strong> abra o Playground, selecione <strong>Arquiteto de Prompts</strong> e escolha RACE, CO-STAR ou CRISPE no seletor de formato.</p>
+
+                <h2 class="section-title" data-i18n="fw.fontes">Fontes e nota de rigor</h2>
+                <p class="content-text" data-i18n="fw.fontes_desc"><strong>Leitura de base:</strong> Schulhoff et al., <em>The Prompt Report: A Systematic Survey of Prompting Techniques</em> (arXiv:2406.06608, 2024). <strong>Padrões reutilizáveis:</strong> White et al., <em>A Prompt Pattern Catalog to Enhance Prompt Engineering with ChatGPT</em> (arXiv:2302.11382, 2023). <strong>Nota de rigor:</strong> CO-STAR e CRISPE são frameworks de prática, com autores identificáveis, mas sem revisão por pares. As técnicas da seção 2 vêm de papers com autoria e veículo verificáveis — Wei et al. (NeurIPS 2022), Yao et al. (ICLR 2023), Wang et al. (ICLR 2023) e Zhou et al. (ICLR 2023). <strong>Fontes adicionais:</strong> IBM Think — Técnicas de engenharia de prompts (taxonomia das técnicas e exemplos); InfoMoney — Guia de prompts (erros comuns e checklist prática). Nenhuma dessas fontes promete que um prompt funcionará em qualquer modelo: os modelos mudam, e o mesmo texto pode falhar em outro.</p>
+                <ul class="source-list">
+                    <li><a href="https://www.ibm.com/br-pt/think/topics/prompt-engineering-techniques" target="_blank" rel="noopener noreferrer">IBM Think — Técnicas de engenharia de prompts (PT-BR)</a></li>
+                    <li><a href="https://www.ibm.com/think/topics/prompt-engineering-techniques" target="_blank" rel="noopener noreferrer">IBM Think — Prompt engineering techniques (EN)</a></li>
+                    <li><a href="https://www.infomoney.com.br/guias/prompts/" target="_blank" rel="noopener noreferrer">InfoMoney — Prompts: entenda o que são, como funcionam e exemplos</a></li>
+                    <li><a href="https://arxiv.org/abs/2406.06608" target="_blank" rel="noopener noreferrer">The Prompt Report (arXiv:2406.06608)</a></li>
+                    <li><a href="https://arxiv.org/abs/2302.11382" target="_blank" rel="noopener noreferrer">A Prompt Pattern Catalog (arXiv:2302.11382)</a></li>
+                    <li><a href="https://arxiv.org/abs/2201.11903" target="_blank" rel="noopener noreferrer">Chain-of-Thought Prompting (arXiv:2201.11903)</a></li>
+                    <li><a href="https://arxiv.org/abs/2210.03629" target="_blank" rel="noopener noreferrer">ReAct (arXiv:2210.03629)</a></li>
+                    <li><a href="https://arxiv.org/abs/2203.11171" target="_blank" rel="noopener noreferrer">Self-Consistency (arXiv:2203.11171)</a></li>
+                    <li><a href="https://arxiv.org/abs/2205.10625" target="_blank" rel="noopener noreferrer">Least-to-Most Prompting (arXiv:2205.10625)</a></li>
+                    <li><a href="https://arxiv.org/abs/2305.10601" target="_blank" rel="noopener noreferrer">Tree of Thoughts (arXiv:2305.10601)</a></li>
+                    <li><a href="https://arxiv.org/abs/2303.11366" target="_blank" rel="noopener noreferrer">Reflexion (arXiv:2303.11366)</a></li>
+                    <li><a href="https://arxiv.org/abs/2311.11482" target="_blank" rel="noopener noreferrer">Meta-prompting (arXiv:2311.11482)</a></li>
+                    <li><a href="https://arxiv.org/abs/2110.08387" target="_blank" rel="noopener noreferrer">Generated Knowledge (arXiv:2110.08387)</a></li>
+                    <li><a href="https://arxiv.org/abs/2302.12246" target="_blank" rel="noopener noreferrer">Active Prompting (arXiv:2302.12246)</a></li>
+                    <li><a href="https://arxiv.org/abs/2302.12173" target="_blank" rel="noopener noreferrer">Directional Stimulus Prompting (arXiv:2302.12173)</a></li>
+                    <li><a href="https://arxiv.org/abs/2005.11401" target="_blank" rel="noopener noreferrer">RAG (arXiv:2005.11401)</a></li>
+                    <li><a href="https://arxiv.org/abs/2211.10435" target="_blank" rel="noopener noreferrer">PALM (arXiv:2211.10435)</a></li>
+                    <li><a href="https://arxiv.org/abs/2302.00923" target="_blank" rel="noopener noreferrer">Multimodal CoT (arXiv:2302.00923)</a></li>
+                </ul>
+            </div>
+        </section></section>
+
         <section id="tokens" class="page">
             <div class="page-header">
                 <h1 class="page-title" data-i18n="tokens.titulo">Economia de Tokens</h1>
@@ -2424,12 +2945,50 @@ MIT</code></pre>
                             <option value="default" data-i18n="pg.opcao_padrao">Padrão — Assistente geral (diálogo)</option>
                             <option value="technical" data-i18n="pg.opcao_tecnico">Técnico — Engenheiro sênior (diálogo)</option>
                             <option value="creative" data-i18n="pg.opcao_criativo">Criativo — Designer (diálogo)</option>
-                            <option value="prompt-engineer" data-i18n="pg.opcao_arquiteto">Arquiteto de Prompts (RACE) — saída em Markdown</option>
+                            <option value="prompt-engineer" data-i18n="pg.opcao_arquiteto">Arquiteto de Prompts — saída em Markdown (formato selecionável)</option>
                         </select>
-                        <!-- O RACE é a única persona que escreve prompts. Sem
-                             dizer PARA QUEM, "crie uma skill" chega ambíguo. -->
-                        <p class="pg-prompt-hint pg-prompt-hint-race" id="pg-race-hint" data-i18n="pg.hint_race_destino" hidden>Para prompts de skill, persona ou agente: diga para qual agente é. Ex.: "crie a skill de revisão de código para o agente CI do time de backend". O RACE escreve o prompt para a IA externa executar; ele não escreve sobre si mesmo nem expõe as personas deste portal.</p>
                     </div>
+
+                    <div class="form-group" id="pg-framework-group" hidden>
+                        <label for="pg-framework" data-i18n="pg.label_framework">Formato do prompt (Arquiteto)</label>
+                        <select id="pg-framework" class="form-select pg-persona-select">
+                            <option value="race" data-i18n="pg.fw_race">RACE — papel, ação, contexto, expectativa (texto natural)</option>
+                            <option value="costar" data-i18n="pg.fw_costar">CO-STAR — contexto, objetivo, estilo, tom, público, resposta (blocos)</option>
+                            <option value="crispe" data-i18n="pg.fw_crispe">CRISPE — capacidade, insight, tarefa, personalidade, experimento (blocos)</option>
+                        </select>
+                        <!-- O aviso vale para os tres formatos. Sem dizer PARA
+                             QUEM, "crie uma skill" chega ambíguo ao Arquiteto. -->
+                        <p class="pg-prompt-hint pg-prompt-hint-race" id="pg-race-hint" data-i18n="pg.hint_race_destino" hidden>Para prompts de skill, persona ou agente: diga para qual agente é. Ex.: "crie a skill de revisão de código para o agente CI do time de backend". O Arquiteto escreve o prompt para a IA externa executar; ele não escreve sobre si mesmo nem expõe as personas deste portal.</p>
+                    </div>
+
+                    <div class="form-group" id="pg-technique-group" hidden>
+                        <label for="pg-technique" data-i18n="pg.label_technique">Tecnica (opcional)</label>
+                        <select id="pg-technique" class="form-select pg-persona-select">
+                            <option value="" data-i18n="pg.tec_none">Nenhuma</option>
+                            <option value="zero-shot" data-i18n="pg.tec_zero-shot">Zero-shot</option>
+                            <option value="few-shot" data-i18n="pg.tec_few-shot">Few-shot</option>
+                            <option value="cot" data-i18n="pg.tec_cot">Chain-of-Thought</option>
+                            <option value="self-consistency" data-i18n="pg.tec_self-consistency">Self-Consistency</option>
+                            <option value="least-to-most" data-i18n="pg.tec_least-to-most">Least-to-Most</option>
+                            <option value="tot" data-i18n="pg.tec_tot">Tree of Thoughts</option>
+                            <option value="reflexion" data-i18n="pg.tec_reflexion">Reflexion</option>
+                            <option value="chaining" data-i18n="pg.tec_chaining">Prompt chaining</option>
+                            <option value="metaprompt" data-i18n="pg.tec_metaprompt">Meta-prompting</option>
+                            <option value="genknowledge" data-i18n="pg.tec_genknowledge">Generated knowledge</option>
+                            <option value="active" data-i18n="pg.tec_active">Prompt ativo</option>
+                            <option value="dsp" data-i18n="pg.tec_dsp">DSP (estimulo direcional)</option>
+                            <option value="persona" data-i18n="pg.tec_persona">Papel e persona</option>
+                            <option value="formato" data-i18n="pg.tec_formato">Formato especifico</option>
+                            <option value="rag" data-i18n="pg.tec_rag">RAG</option>
+                            <option value="react" data-i18n="pg.tec_react">ReAct</option>
+                            <option value="palm" data-i18n="pg.tec_palm">PALM</option>
+                            <option value="multimodal" data-i18n="pg.tec_multimodal">CoT multimodal</option>
+                            <option value="graph" data-i18n="pg.tec_graph">Graph prompting</option>
+                        </select>
+                    </div>
+
+
+
 
 
                     <div class="form-group">
@@ -2448,7 +3007,8 @@ MIT</code></pre>
 
                 <div class="pg-banner" id="pg-banner" style="display: none;">
                     <span class="pg-banner-text" data-i18n="pg.aviso_conversa"></span>
-                    <button class="pg-banner-close" id="pg-banner-close" aria-label="Fechar aviso">&times;</button>
+                    <button type="button" class="pg-banner-copy" id="pg-banner-copy" aria-label="Copiar solicitação"><svg class="ui-icon" aria-hidden="true" focusable="false"><use href="#icon-copy"></use></svg><span data-i18n="pg.copiar">Copiar</span></button>
+                    <button class="pg-banner-close" id="pg-banner-close" aria-label="Fechar aviso"><svg class="ui-icon" aria-hidden="true" focusable="false"><use href="#icon-close"></use></svg></button>
                 </div>
 
                 <div id="pg-results" class="model-grid"></div>
@@ -2457,7 +3017,7 @@ MIT</code></pre>
                     <div class="pg-help-panel">
                         <div class="pg-help-head">
                             <h2 class="pg-help-title" id="pg-help-title" data-i18n="pg.como_funciona">Como funciona</h2>
-                            <button type="button" class="pg-help-close" id="pg-help-close" aria-label="Fechar">&times;</button>
+                            <button type="button" class="pg-help-close" id="pg-help-close" aria-label="Fechar"><svg class="ui-icon" aria-hidden="true" focusable="false"><use href="#icon-close"></use></svg></button>
                         </div>
                         <div class="pg-help-body">
                         <div class="alert" data-i18n="pg.alert_personas">
@@ -2476,7 +3036,7 @@ MIT</code></pre>
                     <div class="pg-help-panel pg-confirm-panel">
                         <div class="pg-help-head">
                             <h2 class="pg-help-title" id="pg-confirm-title" data-i18n="pg.confirm_limpar_titulo">Limpar a conversa?</h2>
-                            <button type="button" class="pg-help-close" id="pg-confirm-x" data-i18n-aria="pg.btn_fechar" aria-label="Fechar">&times;</button>
+                            <button type="button" class="pg-help-close" id="pg-confirm-x" data-i18n-aria="pg.btn_fechar" aria-label="Fechar"><svg class="ui-icon" aria-hidden="true" focusable="false"><use href="#icon-close"></use></svg></button>
                         </div>
                         <p class="pg-confirm-msg" id="pg-confirm-msg" data-i18n="pg.confirm_limpar_msg">Isto apaga as respostas de todos os cards e não pode ser desfeito.</p>
                         <div class="pg-confirm-actions">
@@ -2580,6 +3140,7 @@ MIT</code></pre>
                 <h4 class="footer-col-title" data-i18n="footer.col_portal">Portal</h4>
                 <a href="#home" class="footer-link" data-i18n="footer.inicio">Início</a>
                 <a href="#prompt" class="footer-link" data-i18n="footer.engenharia">Engenharia de Prompt</a>
+                <a href="#frameworks" class="footer-link" data-i18n="footer.frameworks">Frameworks de Prompt</a>
                 <a href="#tokens" class="footer-link" data-i18n="footer.economia">Economia de Tokens</a>
                 <a href="#token-counter" class="footer-link" data-i18n="footer.contador">Contador</a>
                 <a href="#playground" class="footer-link" data-i18n="footer.playground">Playground</a>
