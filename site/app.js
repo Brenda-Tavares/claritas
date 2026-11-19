@@ -36,9 +36,12 @@
             "hero.tituloDestaque": { pt: "estruturada", en: "structured", zh: "结构化" },
             "hero.tituloSuffix": { pt: "para Inteligência Artificial.", en: "for Artificial Intelligence.", zh: "面向人工智能。" },
             "hero.descricao": { pt: "Um guia prático sobre Engenharia de Prompt, Markdown e otimização de tokens. Conhecimento acessível a qualquer área — acadêmica, profissional ou pessoal — para usar a IA como parceira e ferramenta, com rigor, clareza e sem custo.", en: "A practical guide to Prompt Engineering, Markdown, and token optimization. Accessible knowledge for any field — academic, professional, or personal — to use AI as a partner and tool, with rigor, clarity, and no cost.", zh: "关于提示工程、Markdown 和 Token 优化的实用指南。面向所有领域——学术、职业或个人——让 AI 成为你的伙伴和工具，严谨、清晰、免费。" },
-            "hero.stats.reducao": { pt: "Redução de Tokens", en: "Token Reduction", zh: "Token 缩减" },
-            "hero.stats.escalabilidade": { pt: "Escalabilidade", en: "Scalability", zh: "可扩展性" },
-            "hero.stats.alucinacoes": { pt: "Alucinações", en: "Hallucinations", zh: "幻觉" },
+            "hero.stats.clareza_titulo": { pt: "CLAREZA", en: "CLARITY", zh: "清晰度" },
+            "hero.stats.clareza_sub": { pt: "de instruções", en: "of instructions", zh: "指令更清晰" },
+            "hero.stats.ambiguidades_titulo": { pt: "AMBIGUIDADES", en: "AMBIGUITIES", zh: "歧义" },
+            "hero.stats.ambiguidades_sub": { pt: "reduzidas", en: "reduced", zh: "减少" },
+            "hero.stats.alucinacoes_titulo": { pt: "ALUCINAÇÕES", en: "HALLUCINATIONS", zh: "幻觉" },
+            "hero.stats.alucinacoes_sub": { pt: "mitigadas", en: "mitigated", zh: "缓解" },
             "home.card1.titulo": { pt: "Markdown Universal", en: "Universal Markdown", zh: "通用 Markdown" },
             "home.card1.descricao": { pt: "O padrão global para documentação técnica, versionamento e estruturação de dados legíveis por humanos e máquinas.", en: "The global standard for technical documentation, versioning, and structuring data readable by humans and machines.", zh: "面向人类和机器的可读数据结构化、技术文档和版本控制的全球标准。" },
             "home.card2.titulo": { pt: "Espaço Latente", en: "Latent Space", zh: "潜在空间" },
@@ -159,7 +162,7 @@
             "sobre.metod_i2": { pt: "**Segurança por Design:** Prevenção de injeção de prompt e vazamento de dados.", en: "**Security by Design:** Prevention of prompt injection and data leakage.", zh: "**设计安全：**预防提示注入和数据泄露。" },
             "sobre.metod_i3": { pt: "**Eficiência Computacional:** Respeito aos limites de tokens e latência das APIs.", en: "**Computational Efficiency:** Respect for token limits and API latency.", zh: "**计算效率：**尊重 Token 限制和 API 延迟。" },
             "sobre.ref_titulo": { pt: "Referências e Créditos", en: "References and Credits", zh: "参考与致谢" },
-            "sobre.ref_p": { pt: "O Claritas é um projeto de curadoria e aplicação prática. Agradecemos e referenciamos as autoridades que tornam o ecossistema Markdown possível:", en: "Claritas is a curation and practical application project. We acknowledge and reference the authorities that make the Markdown ecosystem possible:", zh: "Claritas 是一个策划与实际应用项目。我们感谢并引用使 Markdown 生态系统成为可能的权威来源：" },
+            "sobre.ref_p": { pt: "O Claritas é um projeto de curadoria e aplicação prática. Agradecemos e referenciamos as autoridades que tornam o ecossistema Markdown possível. As fontes de engenharia de prompt — incluindo a IBM Think — estão detalhadas na aba Frameworks.", en: "Claritas is a curation and practical application project. We acknowledge and reference the authorities that make the Markdown ecosystem possible. The prompt-engineering sources — including IBM Think — are detailed in the Frameworks tab.", zh: "Claritas 是一个策划与实际应用项目。我们感谢并引用使 Markdown 生态系统成为可能的权威来源。提示工程来源——包括 IBM Think——详见提示框架页面。" },
             "sobre.ref_gruber": { pt: "Criador do Markdown em 2004. Sua filosofia de \"legibilidade acima de tudo\" é a base de toda documentação moderna.", en: "Creator of Markdown in 2004. His philosophy of \"readability above all\" is the foundation of all modern documentation.", zh: "2004 年 Markdown 创始人。他的\"可读性至上\"理念是所有现代文档的基础。" },
             "sobre.ref_mdg": { pt: "Referência completa e open-source mantida por Matt Cone. Utilizado como base teórica para a expansão dos conceitos de sintaxe.", en: "Complete open-source reference maintained by Matt Cone. Used as the theoretical basis for expanding syntax concepts.", zh: "由 Matt Cone 维护的完整开源参考。作为扩展语法概念的理论基础。" },
             "sobre.ref_commonmark": { pt: "A especificação forte e padronizada para o Markdown. Essencial para entender a base técnica que unifica os diferentes \"flavors\" da linguagem.", en: "The strong, standardized specification for Markdown. Essential for understanding the technical foundation that unifies the different \"flavors\" of the language.", zh: "Markdown 的强标准化规范。理解统一不同\"方言\"技术基础的必备参考。" },
@@ -288,7 +291,7 @@
             // Confirmacao de acao destrutiva. Trocou o confirm() nativo porque a
             // janela do navegador nao aceita a paleta do site e nao traduz o texto.
             "pg.btn_fechar": { pt: "Fechar", en: "Close", zh: "关闭" },
-            "pg.hint_race_destino": { pt: "Para prompts de skill, persona ou agente: diga para qual agente é. Ex.: \"crie a skill de revisão de código para o agente CI do time de backend\". O Arquiteto escreve o prompt para a IA externa executar; ele não escreve sobre si mesmo nem expõe as personas deste portal. O formato escolhido muda a estrutura da saída: RACE em texto natural; CO-STAR e CRISPE em blocos.", en: "For skill, persona or agent prompts: say which agent it is for. E.g. \"write the code-review skill for the team's backend CI agent\". The Prompt Architect writes the prompt for an external AI to run; it does not write about itself or expose this portal's personas. The chosen format changes the output structure: RACE as natural prose; CO-STAR and CRISPE as blocks.", zh: "为技能、人设或智能体写提示词时，请说明是给哪个智能体用的。例如：\"为团队后端 CI 智能体写代码审查技能\"。提示词架构师写的是供外部 AI 执行的提示词；它不会写自己，也不会暴露本门户的人设。所选格式会改变输出结构：RACE 为自然文本；CO-STAR 和 CRISPE 为模块。" },
+            "pg.hint_race_destino": { pt: "Para prompts de skill, persona ou agente: diga para qual agente é. Ex.: \"crie a skill de revisão de código para o agente CI do time de backend\". O Arquiteto escreve o prompt para a IA externa executar. O formato escolhido muda a estrutura da saída: RACE em texto natural; CO-STAR e CRISPE em blocos.", en: "For skill, persona or agent prompts: say which agent it is for. E.g. \"write the code-review skill for the team's backend CI agent\". The Prompt Architect writes the prompt for an external AI to run. The chosen format changes the output structure: RACE as natural prose; CO-STAR and CRISPE as blocks.", zh: "为技能、人设或智能体写提示词时，请说明是给哪个智能体用的。例如：\"为团队后端 CI 智能体写代码审查技能\"。提示词架构师写的是供外部 AI 执行的提示词。所选格式会改变输出结构：RACE 为自然文本；CO-STAR 和 CRISPE 为模块。" },
             "pg.confirm_limpar_titulo": { pt: "Limpar a conversa?", en: "Clear the conversation?", zh: "清空对话？" },
             "pg.confirm_limpar_msg": { pt: "Isto apaga as respostas de todos os cards e não pode ser desfeito.", en: "This erases the answers from every card and cannot be undone.", zh: "这将删除所有卡片中的回答，且无法撤销。" },
             "pg.confirm_limpar_cancelar": { pt: "Cancelar", en: "Cancel", zh: "取消" },
@@ -1026,7 +1029,6 @@
             const errEl = document.getElementById('pg-error');
             const bannerEl = document.getElementById('pg-banner');
             const bannerCloseBtn = document.getElementById('pg-banner-close');
-            const bannerCopyBtn = document.getElementById('pg-banner-copy');
             const raceHintEl = document.getElementById('pg-race-hint');
             const frameworkGroup = document.getElementById('pg-framework-group');
             const selFramework = document.getElementById('pg-framework');
@@ -1060,7 +1062,6 @@
             let abortControllers = new Map();
             let loadingCount = 0;
             let conversations = Object.create(null);
-            let lastPrompt = '';
             const cards = new Map();
             let sessionPersonaKey = null;
 
@@ -1163,31 +1164,6 @@
                     bannerEl.style.display = 'none';
                 });
             }
-            if (bannerCopyBtn) {
-                bannerCopyBtn.addEventListener('click', async () => {
-                    const txt = lastPrompt || '';
-                    try {
-                        if (navigator.clipboard && navigator.clipboard.writeText) {
-                            await navigator.clipboard.writeText(txt);
-                        } else {
-                            const ta = document.createElement('textarea');
-                            ta.value = txt;
-                            ta.style.position = 'fixed';
-                            ta.style.opacity = '0';
-                            document.body.appendChild(ta);
-                            ta.select();
-                            try { document.execCommand('copy'); } catch {}
-                            ta.remove();
-                        }
-                        const label = bannerCopyBtn.querySelector('[data-i18n]');
-                        if (label) { label.textContent = t('pg.copiado'); }
-                        setTimeout(() => {
-                            if (label) label.textContent = t('pg.copiar');
-                        }, 1600);
-                    } catch {}
-                });
-            }
-
             // ---- Modal "Como funciona" (regra 1: avisos fora da tela padrao) ----
             const helpModal = document.getElementById('pg-help-modal');
             const helpOpenBtn = document.getElementById('pg-help-open');
@@ -1400,7 +1376,6 @@ if (!res.ok) {
                 const personaKey = selSystem.value || 'default';
                 const frameworkKey = currentFrameworkKey(personaKey);
                 clearError();
-                lastPrompt = text;
                 inputEl.value = '';
                 // O prompt da persona é montado no servidor (api/prompts.js). O
                 // cliente guarda só a chave, que valida o servidor.
@@ -1700,7 +1675,6 @@ if (!res.ok) {
                 if (loadingCount > 0) return;
                 if (!sessionPersonaKey) return;
                 clearError();
-                lastPrompt = text;
                 const cardObj = cards.get(modelId) || ensureCard(modelId);
                 if (!cardObj) { showError(t('pg.erro_max')); return; }
                 if (!conversations[modelId]) conversations[modelId] = [];

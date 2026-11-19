@@ -3,7 +3,7 @@
 > Technical portal for Prompt Engineering and Markdown documentation.
 > **Portuguese** · [English](README.md) · [中文](README_ZH.md)
 
-**Version:** 2.22 · **Maintainer:** Brenda Tavares (ShipClaw) · **Last update:** 2026-10-27
+**Version:** 2.22.2 · **Maintainer:** Brenda Tavares (ShipClaw) · **Last update:** 2026-11-19
 
 Zero-build, zero-library, privacy-first. Every sensitive decision runs in a serverless function; the browser never holds a credential.
 
@@ -56,7 +56,7 @@ These are read from the source, not transcribed. A change in code that is not mi
 | Free models (server allowlist) | **11** |
 | Domain skills | **6** |
 | System prompts in the demo | **6** |
-| i18n keys (PT / EN / 中文) | **432** |
+| i18n keys (PT / EN / 中文) | **435** |
 
 ### The eleven allowlisted models
 
@@ -81,7 +81,7 @@ These are read from the source, not transcribed. A change in code that is not mi
 ## 5. Features
 
 - **SPA router** with a defensive route allowlist and a safe `#home` fallback
-- **Trilingual UI** — PT / EN / 中文, inline dictionary of 432 keys, persisted in `localStorage` under `claritas-lang`; the Markdown, Prompt Engineering, Frameworks and Raw Output pages are fully translated
+- **Trilingual UI** — PT / EN / 中文, inline dictionary of 435 keys, persisted in `localStorage` under `claritas-lang`; the Markdown, Prompt Engineering, Frameworks and Raw Output pages are fully translated
 - **AI answers in the interface language** — the client sends `lang`, the function attaches a fixed language directive it controls; the client cannot override it
 - **Prompt Playground** — 2–3 OpenRouter models side by side over SSE, continuous per-card conversation, a per-model directive appended to the final system message, a vocation badge per model, copy per answer, retry per card, and an accessible configuration dialog
 - **Prompt format selector (Architect)** — RACE, CO-STAR or CRISPE; the browser sends only the framework key, the function validates it against `ALLOWED_FRAMEWORKS` and resolves the example directive. RACE keeps natural prose; CO-STAR and CRISPE make their blocks explicit. An unknown value is a `400` before any prompt is assembled.

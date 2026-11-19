@@ -3,7 +3,7 @@
 > Portal técnico de Engenharia de Prompt e documentação Markdown.
 > **Português** · [English](README.md) · [中文](README_ZH.md)
 
-**Versão:** 2.22 · **Mantenedora:** Brenda Tavares (ShipClaw) · **Última atualização:** 2026-10-27
+**Versão:** 2.22.2 · **Mantenedora:** Brenda Tavares (ShipClaw) · **Última atualização:** 2026-11-19
 
 Zero-build, sem bibliotecas, com foco em privacidade. Toda decisão sensível roda numa função serverless; o navegador nunca guarda uma credencial.
 
@@ -56,7 +56,7 @@ Estas são lidas da fonte, não transcritas. Uma mudança no código que não se
 | Modelos free (allowlist do servidor) | **11** |
 | Skills de domínio | **6** |
 | System prompts na demo | **6** |
-| Chaves de i18n (PT / EN / 中文) | **432** |
+| Chaves de i18n (PT / EN / 中文) | **435** |
 
 ### Os onze modelos da allowlist
 
@@ -81,7 +81,7 @@ Estas são lidas da fonte, não transcritas. Uma mudança no código que não se
 ## 5. Funcionalidades
 
 - **Roteador SPA** com allowlist defensiva de rotas e fallback seguro para `#home`
-- **Interface trilíngue** — PT / EN / 中文, dicionário inline de 432 chaves, persistido em `localStorage` sob `claritas-lang`; as páginas Markdown, Engenharia de Prompt, Frameworks e Output Cru estão totalmente traduzidas
+- **Interface trilíngue** — PT / EN / 中文, dicionário inline de 435 chaves, persistido em `localStorage` sob `claritas-lang`; as páginas Markdown, Engenharia de Prompt, Frameworks e Output Cru estão totalmente traduzidas
 - **IA responde no idioma da interface** — o cliente envia `lang`, a função anexa uma diretiva de idioma fixa que ela controla; o cliente não pode sobrescrever
 - **Playground de Prompt** — 2–3 modelos do OpenRouter lado a lado via SSE, conversa contínua por card, diretiva por modelo anexada à última mensagem `system`, badge de vocação por modelo, cópia por resposta, tentar novamente por card e um diálogo de configuração acessível
 - **Seletor de formato do Arquiteto** — RACE, CO-STAR ou CRISPE; o navegador envia apenas a chave do framework, a função valida contra `ALLOWED_FRAMEWORKS` e resolve a diretiva de exemplo. RACE mantém prosa natural; CO-STAR e CRISPE mostram os blocos explicitamente. Um valor desconhecido gera `400` antes de qualquer montagem de prompt.

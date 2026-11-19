@@ -344,7 +344,8 @@
 
         .hero-stats {
             display: flex;
-            gap: 3rem;
+            justify-content: space-between;
+            gap: 2rem;
             padding-top: 2rem;
             border-top: 1px solid var(--border);
         }
@@ -357,6 +358,13 @@
             font-weight: 800;
             color: var(--accent);
             line-height: 1;
+        }
+
+        .stat-number--text {
+            font-size: 1.35rem;
+            line-height: 1.15;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
         }
 
         .stat-label {
@@ -1486,25 +1494,6 @@
             justify-content: center;
         }
         .pg-banner-close:hover { color: var(--text-main); }
-        .pg-banner-copy {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text-muted);
-            padding: 0.2rem 0.6rem;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.35rem;
-            flex-shrink: 0;
-            transition: all 0.2s;
-        }
-        .pg-banner-copy:hover {
-            background: var(--accent-soft);
-            color: var(--text-main);
-            border-color: var(--accent);
-        }
         .pg-clear-btn {
             background: transparent;
             border: 1px solid var(--border);
@@ -1942,6 +1931,12 @@
             .hero-stats { grid-template-columns: 1fr 1fr; }
         }
 
+        @media (max-width: 600px) {
+            .hero-stats { gap: 0.5rem; }
+            .stat-number--text { font-size: 0.9rem; }
+            .stat-label { font-size: 0.8rem; white-space: nowrap; }
+        }
+
         @media (max-width: 480px) {
             .hamburger { font-size: 1.5rem; }
             .nav-controls { width: min(280px, 86vw); }
@@ -1959,6 +1954,7 @@
             .form-group label { font-size: 0.85rem; }
             .form-select { width: 100%; }
             .stat-number { font-size: 2rem; }
+            .stat-number--text { font-size: 0.9rem; }
             .code-preview { padding: 1.25rem; font-size: 0.8rem; }
             .chat-input-area { padding: 1rem; }
             .chat-msg { padding: 0.9rem 1rem; }
@@ -1967,7 +1963,11 @@
             .playground-actions .btn-secondary,
             .api-form .btn-primary { min-height: 3rem; }
             .footer-content { padding: 2rem 0; }
-            .hero-stats { gap: 1.5rem; }
+        }
+
+        @media (max-width: 390px) {
+            .stat-number--text { font-size: 0.8rem; }
+            .stat-label { font-size: 0.7rem; }
         }
 
         @media (max-width: 360px) {
@@ -1977,7 +1977,6 @@
             .model-checkboxes label { font-size: 0.85rem; flex-wrap: wrap; }
             .theme-toggle { gap: 0.35rem; }
             .theme-btn { padding: 0.4rem 0.6rem; }
-            .hero-stats { gap: 1rem; }
         }
 
         @media (max-width: 1300px) {
@@ -2023,10 +2022,6 @@
         </symbol>
         <symbol id="icon-spark" viewBox="0 0 24 24">
             <path d="m12 3 1.9 6.1L20 11l-6.1 1.9L12 19l-1.9-6.1L4 11l6.1-1.9L12 3Z"/>
-        </symbol>
-        <symbol id="icon-copy" viewBox="0 0 24 24">
-            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
         </symbol>
     </svg>
 
@@ -2076,16 +2071,16 @@
                     <p data-i18n="hero.descricao">Um guia prático sobre Engenharia de Prompt, Markdown e otimização de tokens. Conhecimento acessível a qualquer área — acadêmica, profissional ou pessoal — para usar a IA como parceira e ferramenta, com rigor, clareza e sem custo.</p>
                     <div class="hero-stats">
                         <div class="stat-item">
-                            <span class="stat-number">40%</span>
-                            <span class="stat-label" data-i18n="hero.stats.reducao">Redução de Tokens</span>
+                            <span class="stat-number stat-number--text" data-i18n="hero.stats.clareza_titulo">CLAREZA</span>
+                            <span class="stat-label" data-i18n="hero.stats.clareza_sub">de instruções</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-number">∞</span>
-                            <span class="stat-label" data-i18n="hero.stats.escalabilidade">Escalabilidade</span>
+                            <span class="stat-number stat-number--text" data-i18n="hero.stats.ambiguidades_titulo">AMBIGUIDADES</span>
+                            <span class="stat-label" data-i18n="hero.stats.ambiguidades_sub">reduzidas</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-number">0</span>
-                            <span class="stat-label" data-i18n="hero.stats.alucinacoes">Alucinações</span>
+                            <span class="stat-number stat-number--text" data-i18n="hero.stats.alucinacoes_titulo">ALUCINAÇÕES</span>
+                            <span class="stat-label" data-i18n="hero.stats.alucinacoes_sub">mitigadas</span>
                         </div>
                     </div>
                 </div>
@@ -2958,7 +2953,7 @@ Experimento: gere 3 hipóteses, uma métrica para cada e o teste mais barato par
                         </select>
                         <!-- O aviso vale para os tres formatos. Sem dizer PARA
                              QUEM, "crie uma skill" chega ambíguo ao Arquiteto. -->
-                        <p class="pg-prompt-hint pg-prompt-hint-race" id="pg-race-hint" data-i18n="pg.hint_race_destino" hidden>Para prompts de skill, persona ou agente: diga para qual agente é. Ex.: "crie a skill de revisão de código para o agente CI do time de backend". O Arquiteto escreve o prompt para a IA externa executar; ele não escreve sobre si mesmo nem expõe as personas deste portal.</p>
+                        <p class="pg-prompt-hint pg-prompt-hint-race" id="pg-race-hint" data-i18n="pg.hint_race_destino" hidden>Para prompts de skill, persona ou agente: diga para qual agente é. Ex.: "crie a skill de revisão de código para o agente CI do time de backend". O Arquiteto escreve o prompt para a IA externa executar.</p>
                     </div>
 
                     <div class="form-group" id="pg-technique-group" hidden>
@@ -3007,7 +3002,6 @@ Experimento: gere 3 hipóteses, uma métrica para cada e o teste mais barato par
 
                 <div class="pg-banner" id="pg-banner" style="display: none;">
                     <span class="pg-banner-text" data-i18n="pg.aviso_conversa"></span>
-                    <button type="button" class="pg-banner-copy" id="pg-banner-copy" aria-label="Copiar solicitação"><svg class="ui-icon" aria-hidden="true" focusable="false"><use href="#icon-copy"></use></svg><span data-i18n="pg.copiar">Copiar</span></button>
                     <button class="pg-banner-close" id="pg-banner-close" aria-label="Fechar aviso"><svg class="ui-icon" aria-hidden="true" focusable="false"><use href="#icon-close"></use></svg></button>
                 </div>
 
