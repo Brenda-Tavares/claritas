@@ -3,7 +3,7 @@
 > Technical portal for Prompt Engineering and Markdown documentation.
 > **Portuguese** · [English](README.md) · [中文](README_ZH.md)
 
-**Version:** 2.22.2 · **Maintainer:** Brenda Tavares (ShipClaw) · **Last update:** 2026-11-19
+**Version:** 2.23.0 · **Maintainer:** Brenda Tavares (ShipClaw) · **Last update:** 2026-11-23
 
 Zero-build, zero-library, privacy-first. Every sensitive decision runs in a serverless function; the browser never holds a credential.
 
@@ -53,26 +53,23 @@ These are read from the source, not transcribed. A change in code that is not mi
 
 | Item | Count |
 |---|---|
-| Free models (server allowlist) | **11** |
+| Free models (server allowlist) | **8** |
 | Domain skills | **6** |
 | System prompts in the demo | **6** |
 | i18n keys (PT / EN / 中文) | **435** |
 
-### The eleven allowlisted models
+### The eight allowlisted models
 
 | Model id | Vocation |
 |---|---|
-| `cohere/north-mini-code:free` | Code |
-| `google/gemma-4-26b-a4b-it:free` | General |
 | `google/gemma-4-31b-it:free` | General |
-| `liquid/lfm-2.5-2.6b:free` | General |
-| `nvidia/nemotron-3.5-content-safety:free` | Safety |
-| `poolside/laguna-s-2.1:free` | Code |
-| `poolside/laguna-xs-2.1:free` | Code |
-| `openrouter/free` | *(router)* |
-| `thinkingmachines/inkling:free` | Visual |
-| `thinkingmachines/inkling-small:free` | Visual |
+| `google/gemma-4-26b-a4b-it:free` | General |
+| `inclusionai/ling-3.2-flash:free` | General |
+| `baidu/ernie-5.5-flash-preview:free` | General |
+| `liquid/lfm-3-1.7b:free` | General |
+| `particle-ai/particle-1:free` | Code |
 | `recursive/flint-v1.0:free` | Code |
+| `openrouter/free` | *(router)* |
 
 `openrouter/free` is **not a model** — it is OpenRouter's router, which picks one of the available free models on every request without saying which. It therefore has no domain skill, no model profile and no `MODEL_SKILL` entry: any of those would describe a model that has not been chosen yet, and the profile takes precedence over the skill directive. The client labels it as a router in both the model picker and the result card. The point of the mode is not having to choose; the cost is that **the answer may not be adequate** in some situations.
 
@@ -167,7 +164,7 @@ A server-side proxy wraps the provider call. The API key is an environment varia
 
 ```json
 {
-  "model": "cohere/north-mini-code:free",
+  "model": "google/gemma-4-31b-it:free",
   "persona": "prompt-engineer",
   "lang": "pt",
   "messages": [

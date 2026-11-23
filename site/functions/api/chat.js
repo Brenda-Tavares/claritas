@@ -24,17 +24,14 @@ const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
 
 // Modelos FREE do OpenRouter para Playground/Token Simulator
 const ALLOWED_MODELS = [
-  'cohere/north-mini-code:free',
-  'google/gemma-4-26b-a4b-it:free',
   'google/gemma-4-31b-it:free',
-  'liquid/lfm-2.5-2.6b:free',
-  'nvidia/nemotron-3.5-content-safety:free',
-  'poolside/laguna-s-2.1:free',
-  'poolside/laguna-xs-2.1:free',
-  'openrouter/free',
-  'thinkingmachines/inkling:free',
-  'thinkingmachines/inkling-small:free',
+  'google/gemma-4-26b-a4b-it:free',
+  'inclusionai/ling-3.2-flash:free',
+  'baidu/ernie-5.5-flash-preview:free',
+  'liquid/lfm-3-1.7b:free',
+  'particle-ai/particle-1:free',
   'recursive/flint-v1.0:free',
+  'openrouter/free',
 ];
 
 // Modelos PAGOS de mercado (apenas para a calculadora de tokens —

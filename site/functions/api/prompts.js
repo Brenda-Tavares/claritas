@@ -164,27 +164,22 @@ const SKILL_DIRECTIVES = {
 };
 
 const MODEL_DIRECTIVES = {
-    'cohere/north-mini-code:free': `[EXEMPLO — PERFIL Cohere North Mini code] Modelo compacto para código. Seja objetivo e prefira blocos com linguagem indicada.`,
-    'google/gemma-4-26b-a4b-it:free': `[EXEMPLO — PERFIL Gemma 4 26B instruction] Siga as instruções à risca e responda no idioma pedido. Se for ambíguo, faça uma pergunta.`,
     'google/gemma-4-31b-it:free': `[EXEMPLO — PERFIL Gemma 4 31B instruction] Siga as instruções exatamente e use Markdown estruturado.`,
-    'liquid/lfm-2.5-2.6b:free': `[EXEMPLO — PERFIL Liquid LFM 2.5 leve] Modelo leve: seja o mais conciso possível e reconheça seus limites.`,
-    'nvidia/nemotron-3.5-content-safety:free': `[EXEMPLO — PERFIL Nemotron 3.5 Content Safety] Alinhado a segurança de conteúdo: recuse de forma breve e redirecione para o tópico.`,
-    'poolside/laguna-s-2.1:free': `[EXEMPLO — PERFIL Poolside Laguna S 2.1 code] Engenheiro de código: entregue idiomático e aponte trade-offs. Nunca invente APIs.`,
-    'poolside/laguna-xs-2.1:free': `[EXEMPLO — PERFIL Poolside Laguna XS 2.1 code] Código compacto: respostas curtas e idiomáticas.`,
-    'thinkingmachines/inkling:free': `[EXEMPLO — PERFIL Inkling raciocínio] Pense passo a passo e entregue só a conclusão, em Markdown claro.`,
-    'thinkingmachines/inkling-small:free': `[EXEMPLO — PERFIL Inkling Small] Raciocínio compacto: respostas enxutas e honestas sobre incertezas.`
+    'google/gemma-4-26b-a4b-it:free': `[EXEMPLO — PERFIL Gemma 4 26B instruction] Siga as instruções à risca e responda no idioma pedido. Se for ambíguo, faça uma pergunta.`,
+    'inclusionai/ling-3.2-flash:free': `[EXEMPLO — PERFIL Ling 3.2 Flash multimodal] Contexto longo com texto e imagem: estruture em Markdown e não presuma conteúdo visual ausente.`,
+    'baidu/ernie-5.5-flash-preview:free': `[EXEMPLO — PERFIL ERNIE 5.5 Flash Preview] Modelo de propósito geral em prévia: siga as instruções e seja conservador quando não souber.`,
+    'liquid/lfm-3-1.7b:free': `[EXEMPLO — PERFIL Liquid LFM3 1.7B compacto] Modelo compacto para agentes: seja conciso e reconheça seus limites.`,
+    'particle-ai/particle-1:free': `[EXEMPLO — PERFIL Particle-1 código] Modelo para engenharia de software: entregue código idiomático e nunca invente APIs.`,
+    'recursive/flint-v1.0:free': `[EXEMPLO — PERFIL Recursive Flint código] Modelo MoE para agentes de código: entregue código idiomático e nunca invente APIs.`
 };
 
 const MODEL_SKILL = {
-    'cohere/north-mini-code:free': 'codigo',
-    'google/gemma-4-26b-a4b-it:free': 'geral',
     'google/gemma-4-31b-it:free': 'geral',
-    'liquid/lfm-2.5-2.6b:free': 'geral',
-    'nvidia/nemotron-3.5-content-safety:free': 'seguranca',
-    'poolside/laguna-s-2.1:free': 'codigo',
-    'poolside/laguna-xs-2.1:free': 'codigo',
-    'thinkingmachines/inkling:free': 'geral',
-    'thinkingmachines/inkling-small:free': 'geral',
+    'google/gemma-4-26b-a4b-it:free': 'geral',
+    'inclusionai/ling-3.2-flash:free': 'geral',
+    'baidu/ernie-5.5-flash-preview:free': 'geral',
+    'liquid/lfm-3-1.7b:free': 'geral',
+    'particle-ai/particle-1:free': 'codigo',
     'recursive/flint-v1.0:free': 'codigo'
 };
 

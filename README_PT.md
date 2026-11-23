@@ -3,7 +3,7 @@
 > Portal técnico de Engenharia de Prompt e documentação Markdown.
 > **Português** · [English](README.md) · [中文](README_ZH.md)
 
-**Versão:** 2.22.2 · **Mantenedora:** Brenda Tavares (ShipClaw) · **Última atualização:** 2026-11-19
+**Versão:** 2.23.0 · **Mantenedora:** Brenda Tavares (ShipClaw) · **Última atualização:** 2026-11-23
 
 Zero-build, sem bibliotecas, com foco em privacidade. Toda decisão sensível roda numa função serverless; o navegador nunca guarda uma credencial.
 
@@ -53,26 +53,23 @@ Estas são lidas da fonte, não transcritas. Uma mudança no código que não se
 
 | Item | Quantidade |
 |---|---|
-| Modelos free (allowlist do servidor) | **11** |
+| Modelos free (allowlist do servidor) | **8** |
 | Skills de domínio | **6** |
 | System prompts na demo | **6** |
 | Chaves de i18n (PT / EN / 中文) | **435** |
 
-### Os onze modelos da allowlist
+### Os oito modelos da allowlist
 
 | Id do modelo | Vocação |
 |---|---|
-| `cohere/north-mini-code:free` | Código |
-| `google/gemma-4-26b-a4b-it:free` | Geral |
 | `google/gemma-4-31b-it:free` | Geral |
-| `liquid/lfm-2.5-2.6b:free` | Geral |
-| `nvidia/nemotron-3.5-content-safety:free` | Segurança |
-| `poolside/laguna-s-2.1:free` | Código |
-| `poolside/laguna-xs-2.1:free` | Código |
+| `google/gemma-4-26b-a4b-it:free` | Geral |
+| `inclusionai/ling-3.2-flash:free` | Geral |
+| `baidu/ernie-5.5-flash-preview:free` | Geral |
+| `liquid/lfm-3-1.7b:free` | Geral |
+| `particle-ai/particle-1:free` | Código |
+| `recursive/flint-v1.0:free` | Código |
 | `openrouter/free` | *(roteador)* |
-| `thinkingmachines/inkling:free` | Visual |
-| `thinkingmachines/inkling-small:free` | Visual |
-| `recursive/flint-v1.0:free` | Code |
 
 `openrouter/free` **não é um modelo** — é o roteador do OpenRouter: escolhe um dos modelos gratuitos disponíveis a cada requisição e não diz qual. Por isso não tem skill, não tem perfil de modelo e não tem entrada em `MODEL_SKILL`: qualquer um dos três descreveria o modelo que ainda não foi escolhido, e o perfil tem precedência sobre a diretiva de skill. O cliente o rotula como roteador no seletor e no card de resultado. O valor do modo é não precisar escolher; o custo é que **a resposta pode não ser adequada** em algumas situações.
 
@@ -167,7 +164,7 @@ Um proxy server-side encapsula a chamada ao provedor. A chave de API é variáve
 
 ```json
 {
-  "model": "cohere/north-mini-code:free",
+  "model": "google/gemma-4-31b-it:free",
   "persona": "prompt-engineer",
   "lang": "pt",
   "messages": [

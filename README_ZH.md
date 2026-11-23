@@ -3,7 +3,7 @@
 > 提示工程与 Markdown 文档的技术门户。
 > **中文** · [English](README.md) · [Português](README_PT.md)
 
-**版本：** 2.22.2 · **维护者：** Brenda Tavares（ShipClaw）· **最后更新：** 2026-11-19
+**版本：** 2.23.0 · **维护者：** Brenda Tavares（ShipClaw）· **最后更新：** 2026-11-23
 
 零构建、零库、以隐私为先。所有敏感决策都在无服务器函数中执行；浏览器从不持有凭据。
 
@@ -53,26 +53,23 @@ Markdown 是技术文档的通用语法，提示工程是与语言模型沟通�
 
 | 项目 | 数量 |
 |---|---|
-| 免费模型（服务端允许列表） | **11** |
+| 免费模型（服务端允许列表） | **8** |
 | 领域技能 | **6** |
 | 演示中的 system prompt | **6** |
 | i18n 键（PT / EN / 中文） | **435** |
 
-### 允许列表中的十一个模型
+### 允许列表中的八个模型
 
 | 模型 id | 专长 |
 |---|---|
-| `cohere/north-mini-code:free` | 代码 |
-| `google/gemma-4-26b-a4b-it:free` | 通用 |
 | `google/gemma-4-31b-it:free` | 通用 |
-| `liquid/lfm-2.5-2.6b:free` | 通用 |
-| `nvidia/nemotron-3.5-content-safety:free` | 安全 |
-| `poolside/laguna-s-2.1:free` | 代码 |
-| `poolside/laguna-xs-2.1:free` | 代码 |
-| `openrouter/free` | *路由器* |
-| `thinkingmachines/inkling:free` | 视觉 |
-| `thinkingmachines/inkling-small:free` | 视觉 |
+| `google/gemma-4-26b-a4b-it:free` | 通用 |
+| `inclusionai/ling-3.2-flash:free` | 通用 |
+| `baidu/ernie-5.5-flash-preview:free` | 通用 |
+| `liquid/lfm-3-1.7b:free` | 通用 |
+| `particle-ai/particle-1:free` | 代码 |
 | `recursive/flint-v1.0:free` | 代码 |
+| `openrouter/free` | *路由器* |
 
 `openrouter/free` **不是模型**，而是 OpenRouter 的路由器：它在每次请求时从可用的免费模型中挑选一个，并且不会告诉你挑中的是哪一个。因此它没有 skill、没有模型档案，也没有 `MODEL_SKILL` 条目——这三者描述的都是"尚未被选中的那个模型"，而模型档案的优先级又高于 skill 指令。客户端在模型选择器和结果卡片上都把它标注为路由器。这个模式的价值在于不必挑选；代价是**回复在某些情况下可能并不合适**。
 
@@ -157,7 +154,7 @@ Markdown 是技术文档的通用语法，提示工程是与语言模型沟通�
 
 ```json
 {
-  "model": "cohere/north-mini-code:free",
+  "model": "google/gemma-4-31b-it:free",
   "persona": "prompt-engineer",
   "lang": "pt",
   "messages": [

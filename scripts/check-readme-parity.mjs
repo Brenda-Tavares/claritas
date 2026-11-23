@@ -70,8 +70,8 @@ const pkg = JSON.parse(read('package.json'));
 // ALLOWED_MODELS: bloco entre '[' e ']'
 // O id do roteador NAO termina em ':free' (e nao termina assim de proposito:
 // e um roteador, nao um modelo gratuito). Casar so com ':free' o deixaria
-// fora da contagem e o proprio checker passaria a documentar 10 enquanto o
-// codigo tem 11. Por isso o segundo ramo.
+// fora da contagem e o proprio checker passaria a documentar um modelo a
+// menos. Por isso o segundo ramo.
 const allowBlock = chat.split('const ALLOWED_MODELS = [')[1].split('];')[0];
 const allow = [...allowBlock.matchAll(/'([^']+:free|openrouter\/free)'/g)].map(m => m[1]);
 

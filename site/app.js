@@ -885,20 +885,17 @@
         updateSim();
 
         const OPENROUTER_MODELS = [
-            { id: 'cohere/north-mini-code:free', label: 'Cohere North Mini (Code)', skill: 'Código' },
             { id: 'google/gemma-4-31b-it:free', label: 'Google Gemma 4 31B', skill: 'Geral', isDefault: true },
             { id: 'google/gemma-4-26b-a4b-it:free', label: 'Google Gemma 4 26B', skill: 'Geral' },
-            { id: 'liquid/lfm-2.5-2.6b:free', label: 'Liquid LFM 2.5 2.6B', skill: 'Geral' },
-            { id: 'nvidia/nemotron-3.5-content-safety:free', label: 'NVIDIA Nemotron 3.5 Content Safety', skill: 'Segurança' },
-            { id: 'poolside/laguna-s-2.1:free', label: 'Poolside Laguna S 2.1', skill: 'Código' },
-            { id: 'poolside/laguna-xs-2.1:free', label: 'Poolside Laguna XS 2.1', skill: 'Código' },
+            { id: 'inclusionai/ling-3.2-flash:free', label: 'InclusionAI Ling 3.2 Flash', skill: 'Geral' },
+            { id: 'baidu/ernie-5.5-flash-preview:free', label: 'Baidu ERNIE 5.5 Flash Preview', skill: 'Geral' },
+            { id: 'liquid/lfm-3-1.7b:free', label: 'Liquid LFM 3 1.7B', skill: 'Geral' },
+            { id: 'particle-ai/particle-1:free', label: 'Particle-1', skill: 'Código' },
+            { id: 'recursive/flint-v1.0:free', label: 'Recursive Flint', skill: 'Código' },
             // Roteador, não modelo: o OpenRouter escolhe um free disponível por
             // pedido. Por isso não recebe skill — o badge declararia um domínio
             // que ele não tem. O aviso vive no card e no cabeçalho do resultado.
             { id: 'openrouter/free', label: 'OpenRouter Free (roteador)', isRouter: true, isRouterWarned: true },
-            { id: 'thinkingmachines/inkling:free', label: 'Thinking Machines Inkling', skill: 'Geral' },
-            { id: 'thinkingmachines/inkling-small:free', label: 'Thinking Machines Inkling Small', skill: 'Geral' },
-            { id: 'recursive/flint-v1.0:free', label: 'Recursive Flint', skill: 'Código' },
         ];
 
         let PAID_MODELS = [];
